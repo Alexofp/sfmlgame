@@ -69,22 +69,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SFML-2.4.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SFML-2.4.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SFML-2.4.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SFML-2.4.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

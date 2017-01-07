@@ -29,13 +29,8 @@ int main()
 	health.setPosition(SIZE_WINDOW, 0);
 	health.setString("HP: 0");
 
-
-
 	text.setPosition(sf::Vector2f(SIZE_WINDOW / 2, SIZE_WINDOW / 2));
 
-
-
-	//window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	sf::CircleShape shape(100.f);
 
@@ -44,7 +39,7 @@ int main()
 	box.setSize(sf::Vector2f(30,8));
 	box.setFillColor(sf::Color::Red);
 	box.setPosition(sf::Vector2f(100, POS));
-	box.setOrigin(box.getSize()/2.f);
+	box.setOrigin(box.getSize() / 2.f);
 
 	std::vector<sf::CircleShape> shapes;
 	bool lose = false;
@@ -106,8 +101,6 @@ int main()
 					}
 				}
 			}
-
-
 			window.draw(circle);
 		}
 		shapes.erase(
@@ -123,16 +116,12 @@ int main()
 		window.draw(box);
 
 		if (lose) {
-
-
 			text.setString("YOU LOSE!!!!!\nYOUR SCORE " + std::to_string(ct));
 			text.setOrigin(text.getGlobalBounds().width / 2.f, text.getGlobalBounds().height / 2.f);
 
 			window.draw(text);
-
 		}
-
-
+		
 		window.display();
 
 		if (lose)
@@ -142,7 +131,6 @@ int main()
 			lose = false;
 			ct = 0;
 		}
-		//std::cout << shapes.size() << std::endl;
 	}
 
 	return 0;

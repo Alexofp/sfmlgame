@@ -18,6 +18,7 @@ public:
 	static bool isOpen();
 	static Vec2i getMousePos();
 	static sf::RenderWindow& getInternalHandle();
+	static bool isFocused();
 
 private:
 	static GameWindow& get();

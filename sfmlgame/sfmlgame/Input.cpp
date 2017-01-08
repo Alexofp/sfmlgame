@@ -44,6 +44,10 @@ bool Input::getMouseUp(MouseButton b)
 
 bool Input::getKey(Key key)
 {
+	if (!GameWindow::isFocused())
+	{
+		return false;
+	}
 	return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)key);
 }
 

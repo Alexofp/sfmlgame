@@ -2,11 +2,14 @@
 #include "Input.h"
 #include "Log.h"
 
-Player::Player()
+Player::Player(int nid):Entity(nid)
 {
 	sprite.setSize(Vec2f(38,26));
 	sprite.setTexture("player");
 	speed = Vec2f(0, 0);
+	this->isRemote = false;
+	realType = Type::Player;
+	type = SyncType::Player;
 }
 
 
@@ -18,14 +21,17 @@ void Player::update(float dt)
 {
 	float acc = 300;
 	Vec2f newspeed;
-	if (Input::getKey(Input::A))
-		newspeed.x = -acc;
-	if (Input::getKey(Input::D))
-		newspeed.x = acc;
-	if (Input::getKey(Input::W))
-		newspeed.y = -acc;
-	if (Input::getKey(Input::S))
-		newspeed.y = acc;
+	if (!isRemote)
+	{
+		if (Input::getKey(Input::A))
+			newspeed.x = -acc;
+		if (Input::getKey(Input::D))
+			newspeed.x = acc;
+		if (Input::getKey(Input::W))
+			newspeed.y = -acc;
+		if (Input::getKey(Input::S))
+			newspeed.y = acc;
+	}
 
 	if (newspeed.len() > acc)
 	{
@@ -41,6 +47,7 @@ void Player::update(float dt)
 
 	if (speed.len() > 0.1)
 	{
+		//setAng(speed.getAngle());
 		sprite.setAng(speed.getAngle()+90);
 	}
 	
@@ -51,4 +58,23 @@ void Player::update(float dt)
 void Player::draw()
 {
 	sprite.draw();
+}
+
+void Player::setRemote(bool isRemote)
+{
+	this->isRemote = isRemote;
+}
+
+void Player::writeInformation(sf::Packet & packet)
+{
+	packet << getPos().x << getPos().y << sprite.getAng();
+}
+
+void Player::readInformation(sf::Packet & packet)
+{
+	float x,y,ang;
+	packet >> x >> y >> ang;
+
+	setPos(Vec2f(x, y));
+	sprite.setAng(ang);
 }

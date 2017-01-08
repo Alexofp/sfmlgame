@@ -93,5 +93,11 @@ sf::RenderWindow & GameWindow::getInternalHandle()
 	return window.window;
 }
 
+bool GameWindow::isFocused()
+{
+	GameWindow& window = get();
+	return window.window.hasFocus();
+}
+
 
 

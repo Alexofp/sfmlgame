@@ -23,6 +23,13 @@ void Client::connect(std::string address, int port)
 	client.socket.setBlocking(false);
 }
 
+void Client::disconnect()
+{
+	Client& client = get();
+	client.socket.disconnect();
+	client.clientid = -1;
+}
+
 void Client::onEvent(sf::Packet & packet)
 {
 	Client& client = get();
@@ -42,6 +49,29 @@ void Client::onEvent(sf::Packet & packet)
 		
 		client.clientid = id;
 		Log::debug("[client] My client id: " + std::to_string(id));
+	}else
+	if (type == Server::MESSAGE_TYPE::PING)
+	{
+		sf::Uint8 pingPassword;
+		packet >> pingPassword;
+
+		sf::Packet pingpacket;
+		pingpacket << (sf::Uint8)Server::MESSAGE_TYPE::PING << pingPassword;
+		send(pingpacket);
+	}else
+	if (type == Server::MESSAGE_TYPE::ENTITY_INFO)
+	{
+		if (client.onGameInfo)
+		{
+			client.onGameInfo(packet);
+		}
+	}
+	else
+	{
+		if (client.onPacket)
+		{
+			client.onPacket(type, packet);
+		}
 	}
 }
 
@@ -53,6 +83,30 @@ void Client::update(float dt)
 	{
 		onEvent(packet);
 	}
+}
+
+void Client::send(sf::Packet packet)
+{
+	Client& client = get();
+	client.socket.send(packet);
+}
+
+void Client::setOnGameInfo(std::function<void(sf::Packet&)> f)
+{
+	Client& client = get();
+	client.onGameInfo = f;
+}
+
+void Client::setOnPacket(std::function<bool(Server::MESSAGE_TYPE, sf::Packet&)> f)
+{
+	Client& client = get();
+	client.onPacket = f;
+}
+
+int Client::getClientId()
+{
+	Client& client = get();
+	return client.clientid;
 }
 
 Client & Client::get()

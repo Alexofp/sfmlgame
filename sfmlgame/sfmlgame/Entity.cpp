@@ -10,7 +10,7 @@ Entity::Entity(int nid)
 	realType = Type::Entity;
 	type = SyncType::Entity;
 
-	if (Server::isServer())
+	if (nid < 0)
 	{
 		this->nid = Server::getNewEntityId();
 	}

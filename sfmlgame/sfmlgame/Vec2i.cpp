@@ -23,3 +23,13 @@ sf::Vector2i Vec2i::toSFMLVec()
 	return sf::Vector2i(x,y);
 }
 
+int Vec2i::getX()
+{
+	return x;
+}
+
+int Vec2i::getY()
+{
+	return y;
+}
+

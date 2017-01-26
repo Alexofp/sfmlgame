@@ -10,6 +10,9 @@ public:
 
 	sf::Vector2i toSFMLVec();
 
+	int getX();
+	int getY();
+
 	int x, y;
 };
 

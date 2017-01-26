@@ -1,0 +1,4 @@
+window resources/gui/window.png
+titlebar resources/gui/titlebar.png
+editbox resources/gui/editbox.png
+button resources/gui/button.png

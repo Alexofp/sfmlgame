@@ -10,7 +10,7 @@ public:
 	virtual ~TextureManager();
 
 	static void load(std::string name, std::string path);
-	static const sf::Texture* get(std::string name);
+	static sf::Texture* get(std::string name);
 	static void loadFromFile(std::string path);
 protected:
 private:

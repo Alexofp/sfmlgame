@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <string>
 
 class Vec2f
 {
@@ -13,15 +14,25 @@ public:
 	void normalize();
 	Vec2f normalized();
 
+	float getX();
+	float getY();
+
 	static Vec2f fromAngle(float angle, float len);
 	float getAngle() const;
 
+	std::string toString();
+
 	static float dot(Vec2f v1, Vec2f v2);
+	static float cross(Vec2f v1, Vec2f v2);
+	static float distance(Vec2f v1, Vec2f v2);
+	static float distanceSquared(Vec2f v1, Vec2f v2);
 
 	static Vec2f add(Vec2f v1, Vec2f v2);
 	static Vec2f sub(Vec2f v1, Vec2f v2);
 	static Vec2f mul(Vec2f v1, Vec2f v2);
 	static Vec2f div(Vec2f v1, Vec2f v2);
+
+	static Vec2f mul(Vec2f v1, float m);
 
 	float x, y;
 };

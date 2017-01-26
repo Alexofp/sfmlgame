@@ -10,6 +10,7 @@ Player::Player(int nid):Entity(nid)
 	this->isRemote = false;
 	realType = Type::Player;
 	type = SyncType::Player;
+	Log::debug("new player entity");
 }
 
 
@@ -18,6 +19,11 @@ Player::~Player()
 }
 
 void Player::update(float dt)
+{
+
+}
+
+void Player::localUpdate(float dt)
 {
 	float acc = 300;
 	Vec2f newspeed;
@@ -39,18 +45,18 @@ void Player::update(float dt)
 		newspeed = Vec2f::mul(newspeed.normalized(), Vec2f(acc, acc));
 	}
 
-	speed = Vec2f::sub(speed, Vec2f::mul(speed, Vec2f(dt*5, dt*5)));
-	if(speed.len()<100)
-		speed = Vec2f::add(speed, Vec2f::mul(newspeed, Vec2f(dt,dt)));
+	speed = Vec2f::sub(speed, Vec2f::mul(speed, Vec2f(dt * 5, dt * 5)));
+	if (speed.len()<100)
+		speed = Vec2f::add(speed, Vec2f::mul(newspeed, Vec2f(dt, dt)));
 	setPos(Vec2f::add(getPos(), Vec2f::mul(speed, Vec2f(dt, dt))));
 
 
 	if (speed.len() > 0.1)
 	{
 		//setAng(speed.getAngle());
-		sprite.setAng(speed.getAngle()+90);
+		sprite.setAng(speed.getAngle() + 90);
 	}
-	
+
 
 	sprite.setPos(getPos());
 }

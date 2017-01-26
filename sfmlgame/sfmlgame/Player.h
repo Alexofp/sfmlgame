@@ -9,6 +9,7 @@ public:
 	~Player();
 
 	void update(float dt);
+	void localUpdate(float dt);
 	void draw();
 	void setRemote(bool isRemote);
 

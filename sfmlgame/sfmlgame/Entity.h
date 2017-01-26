@@ -21,6 +21,7 @@ public:
 	~Entity();
 
 	virtual void update(float dt) = 0;
+	virtual void localUpdate(float dt) = 0;
 	virtual void draw() = 0;
 
 	void setPos(Vec2f pos);

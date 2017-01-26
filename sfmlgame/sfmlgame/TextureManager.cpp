@@ -24,7 +24,7 @@ void TextureManager::load(std::string name, std::string path)
 	getInstance().data[name] = t;
 }
 
-const sf::Texture* TextureManager::get(std::string name)
+sf::Texture* TextureManager::get(std::string name)
 {
 	return &getInstance().data.at(name);
 }

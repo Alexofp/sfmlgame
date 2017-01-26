@@ -36,6 +36,23 @@ float Vec2f::dot(Vec2f v1, Vec2f v2)
 	return v1.x*v2.x + v1.y * v2.y;
 }
 
+float Vec2f::cross(Vec2f v1, Vec2f v2)
+{
+	return v1.x*v2.y - v1.y*v2.x;
+}
+
+float Vec2f::distance(Vec2f v1, Vec2f v2)
+{
+	Vec2f delta = Vec2f::sub(v2, v1);
+	return sqrt(delta.x*delta.x + delta.y*delta.y);
+}
+
+float Vec2f::distanceSquared(Vec2f v1, Vec2f v2)
+{
+	Vec2f delta = Vec2f::sub(v2, v1);
+	return (delta.x*delta.x + delta.y*delta.y);
+}
+
 void Vec2f::normalize()
 {
 	float l = len();
@@ -55,6 +72,16 @@ Vec2f Vec2f::normalized()
 	return Vec2f(x / l, y / l);
 }
 
+float Vec2f::getX()
+{
+	return x;
+}
+
+float Vec2f::getY()
+{
+	return y;
+}
+
 Vec2f Vec2f::fromAngle(float angle, float len)
 {
 	float rad = angle / 180.f * PI;
@@ -64,6 +91,11 @@ Vec2f Vec2f::fromAngle(float angle, float len)
 float Vec2f::getAngle() const
 {
 	return atan2(y, x) * 180.f / PI;
+}
+
+std::string Vec2f::toString()
+{
+	return "("+std::to_string(x)+", "+std::to_string(y)+")";
 }
 
 Vec2f Vec2f::add(Vec2f v1, Vec2f v2)
@@ -84,4 +116,9 @@ Vec2f Vec2f::mul(Vec2f v1, Vec2f v2)
 Vec2f Vec2f::div(Vec2f v1, Vec2f v2)
 {
 	return Vec2f(v1.x / v2.x, v1.y / v2.y);
+}
+
+Vec2f Vec2f::mul(Vec2f v1, float m)
+{
+	return Vec2f(v1.x*m, v1.y*m);
 }

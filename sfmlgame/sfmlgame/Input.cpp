@@ -5,6 +5,8 @@
 
 bool Input::pressedButtons[Input::KeyCount];
 bool Input::mousePressedButtons[Input::ButtonCount];
+Vec2f Input::delta;
+Vec2f Input::oldMousePos;
 
 Input::Input()
 {
@@ -25,6 +27,13 @@ void Input::update()
 	{
 		mousePressedButtons[i] = getMouse((MouseButton)i);
 	}
+
+	Vec2f newpos = getWorldMousePos();
+
+	delta = Vec2f::sub( newpos, oldMousePos );
+
+	oldMousePos = newpos;
+
 }
 
 bool Input::getMouse(MouseButton b)
@@ -64,4 +73,14 @@ bool Input::getKeyUp(Key key)
 Vec2i Input::getMousePos()
 {
 	return GameWindow::getMousePos();
+}
+
+Vec2f Input::getWorldMousePos()
+{
+	return Vec2f(GameWindow::getInternalHandle().mapPixelToCoords(GameWindow::getMousePos().toSFMLVec()));
+}
+
+Vec2f Input::getWorldMouseDelta()
+{
+	return delta;
 }

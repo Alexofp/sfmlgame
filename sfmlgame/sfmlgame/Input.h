@@ -1,5 +1,6 @@
 #pragma once
 #include "Vec2i.h"
+#include "Vec2f.h"
 
 class Input
 {
@@ -133,9 +134,14 @@ public:
 	static bool getMouseDown(MouseButton b);
 	static bool getMouseUp(MouseButton b);
 	static Vec2i getMousePos();
+	static Vec2f getWorldMousePos();
+	static Vec2f getWorldMouseDelta();
 
 	private:
 		static bool pressedButtons[KeyCount];
 		static bool mousePressedButtons[ButtonCount];
+
+		static Vec2f oldMousePos;
+		static Vec2f delta;
 };
 

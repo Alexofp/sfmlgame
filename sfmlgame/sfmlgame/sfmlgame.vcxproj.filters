@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Заголовочные файлы\animation">
+      <UniqueIdentifier>{2f8f8735-2af1-4c62-b55d-a682d5c88f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\animation">
+      <UniqueIdentifier>{1cf197ad-29b1-4f2a-96aa-03be60fda23f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\gui">
+      <UniqueIdentifier>{d8e1a01e-fe97-4c52-8de6-a26f18e9ca7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\gui">
+      <UniqueIdentifier>{3ff0ce0e-cf10-4e07-b937-01044617ff56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\system">
+      <UniqueIdentifier>{a40dae5f-b078-4ae7-9498-7537f46cb31d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\system">
+      <UniqueIdentifier>{8604acef-861d-4b95-bf9a-2411e6034714}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="oldmain.cpp">
@@ -21,25 +39,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="GameWindow.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Vec2i.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Log.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Vec2f.cpp">
@@ -51,9 +54,6 @@
     <ClCompile Include="SimpleSprite.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
@@ -63,27 +63,87 @@
     <ClCompile Include="Client.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationEditor.cpp">
+      <Filter>Файлы исходного кода\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyFrameTimeline.cpp">
+      <Filter>Файлы исходного кода\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Файлы исходного кода\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Файлы исходного кода\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Файлы исходного кода\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="EditBox.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiWindow.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHandler.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="NinePatchImage.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Файлы исходного кода\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueprintBackground.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWindow.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Файлы исходного кода\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWindow.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Vec2i.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Vec2f.h">
@@ -95,9 +155,6 @@
     <ClInclude Include="SimpleSprite.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
@@ -106,6 +163,84 @@
     </ClInclude>
     <ClInclude Include="Client.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationEditor.h">
+      <Filter>Заголовочные файлы\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyFrameTimeline.h">
+      <Filter>Заголовочные файлы\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Заголовочные файлы\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Заголовочные файлы\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Заголовочные файлы\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="EditBox.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHandler.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiWindow.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="NinePatchImage.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Заголовочные файлы\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueprintBackground.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Заголовочные файлы\system</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWindow.h">
+      <Filter>Заголовочные файлы\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Заголовочные файлы\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Заголовочные файлы\system</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Заголовочные файлы\system</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Заголовочные файлы\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Заголовочные файлы\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

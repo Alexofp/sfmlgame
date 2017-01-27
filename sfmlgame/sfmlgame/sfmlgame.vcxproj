@@ -69,21 +69,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\SFML-2.4.1\include;\gui;$(IncludePath)</IncludePath>
+    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
     <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\SFML-2.4.1\include;\gui;$(IncludePath)</IncludePath>
+    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
     <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\SFML-2.4.1\include;\gui;$(IncludePath)</IncludePath>
+    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
     <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Users\Alex\Source\Repos\sfmlgame\sfmlgame\SFML-2.4.1\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\SFML-2.4.1\include;\gui;$(IncludePath)</IncludePath>
+    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
     <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -135,77 +133,77 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="AnimationEditor.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="BlueprintBackground.cpp" />
-    <ClCompile Include="Bone.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="EditBox.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameServer.cpp" />
-    <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="Gui.cpp" />
-    <ClCompile Include="GuiHandler.cpp" />
-    <ClCompile Include="GuiWindow.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="KeyFrameTimeline.cpp" />
-    <ClCompile Include="List.cpp" />
-    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="animation\Animation.cpp" />
+    <ClCompile Include="animation\AnimationEditor.cpp" />
+    <ClCompile Include="system\Application.cpp" />
+    <ClCompile Include="util\BlueprintBackground.cpp" />
+    <ClCompile Include="animation\Bone.cpp" />
+    <ClCompile Include="gui\Button.cpp" />
+    <ClCompile Include="game\Client.cpp" />
+    <ClCompile Include="gui\EditBox.cpp" />
+    <ClCompile Include="game\Entity.cpp" />
+    <ClCompile Include="game\Game.cpp" />
+    <ClCompile Include="game\GameServer.cpp" />
+    <ClCompile Include="system\GameWindow.cpp" />
+    <ClCompile Include="gui\Gui.cpp" />
+    <ClCompile Include="gui\GuiHandler.cpp" />
+    <ClCompile Include="gui\GuiWindow.cpp" />
+    <ClCompile Include="system\Input.cpp" />
+    <ClCompile Include="animation\KeyFrameTimeline.cpp" />
+    <ClCompile Include="gui\List.cpp" />
+    <ClCompile Include="system\Log.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NinePatchImage.cpp" />
+    <ClCompile Include="gui\NinePatchImage.cpp" />
     <ClCompile Include="oldmain.cpp" />
-    <ClCompile Include="Panel.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="SimpleSprite.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
-    <ClCompile Include="Slider.cpp" />
-    <ClCompile Include="State.cpp" />
-    <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="Util.cpp" />
-    <ClCompile Include="Vec2f.cpp" />
-    <ClCompile Include="Vec2i.cpp" />
-    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="gui\Panel.cpp" />
+    <ClCompile Include="game\Player.cpp" />
+    <ClCompile Include="game\Server.cpp" />
+    <ClCompile Include="util\SimpleSprite.cpp" />
+    <ClCompile Include="animation\Skeleton.cpp" />
+    <ClCompile Include="gui\Slider.cpp" />
+    <ClCompile Include="system\State.cpp" />
+    <ClCompile Include="util\Terrain.cpp" />
+    <ClCompile Include="system\TextureManager.cpp" />
+    <ClCompile Include="util\Util.cpp" />
+    <ClCompile Include="util\Vec2f.cpp" />
+    <ClCompile Include="util\Vec2i.cpp" />
+    <ClCompile Include="gui\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="AnimationEditor.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="BlueprintBackground.h" />
-    <ClInclude Include="Bone.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="EditBox.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameServer.h" />
-    <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="Gui.h" />
-    <ClInclude Include="GuiHandler.h" />
-    <ClInclude Include="GuiWindow.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="json.hpp" />
-    <ClInclude Include="KeyFrameTimeline.h" />
-    <ClInclude Include="List.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="NinePatchImage.h" />
-    <ClInclude Include="Panel.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Server.h" />
-    <ClInclude Include="SimpleSprite.h" />
-    <ClInclude Include="Skeleton.h" />
-    <ClInclude Include="Slider.h" />
-    <ClInclude Include="State.h" />
-    <ClInclude Include="Terrain.h" />
-    <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="Util.h" />
-    <ClInclude Include="Vec2f.h" />
-    <ClInclude Include="Vec2i.h" />
-    <ClInclude Include="Widget.h" />
+    <ClInclude Include="animation\Animation.h" />
+    <ClInclude Include="animation\AnimationEditor.h" />
+    <ClInclude Include="system\Application.h" />
+    <ClInclude Include="util\BlueprintBackground.h" />
+    <ClInclude Include="animation\Bone.h" />
+    <ClInclude Include="gui\Button.h" />
+    <ClInclude Include="game\Client.h" />
+    <ClInclude Include="gui\EditBox.h" />
+    <ClInclude Include="game\Entity.h" />
+    <ClInclude Include="game\Game.h" />
+    <ClInclude Include="game\GameServer.h" />
+    <ClInclude Include="system\GameWindow.h" />
+    <ClInclude Include="gui\Gui.h" />
+    <ClInclude Include="gui\GuiHandler.h" />
+    <ClInclude Include="gui\GuiWindow.h" />
+    <ClInclude Include="system\Input.h" />
+    <ClInclude Include="util\json.hpp" />
+    <ClInclude Include="animation\KeyFrameTimeline.h" />
+    <ClInclude Include="gui\List.h" />
+    <ClInclude Include="system\Log.h" />
+    <ClInclude Include="gui\NinePatchImage.h" />
+    <ClInclude Include="gui\Panel.h" />
+    <ClInclude Include="game\Player.h" />
+    <ClInclude Include="game\Server.h" />
+    <ClInclude Include="util\SimpleSprite.h" />
+    <ClInclude Include="animation\Skeleton.h" />
+    <ClInclude Include="gui\Slider.h" />
+    <ClInclude Include="system\State.h" />
+    <ClInclude Include="util\Terrain.h" />
+    <ClInclude Include="system\TextureManager.h" />
+    <ClInclude Include="util\Util.h" />
+    <ClInclude Include="util\Vec2f.h" />
+    <ClInclude Include="util\Vec2i.h" />
+    <ClInclude Include="gui\Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

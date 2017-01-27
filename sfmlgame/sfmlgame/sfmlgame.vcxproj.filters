@@ -1,246 +1,235 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Файлы исходного кода">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Заголовочные файлы">
+    <Filter Include="code">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Заголовочные файлы\animation">
+    <Filter Include="code\animation">
       <UniqueIdentifier>{2f8f8735-2af1-4c62-b55d-a682d5c88f30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы исходного кода\animation">
-      <UniqueIdentifier>{1cf197ad-29b1-4f2a-96aa-03be60fda23f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Заголовочные файлы\gui">
+    <Filter Include="code\gui">
       <UniqueIdentifier>{d8e1a01e-fe97-4c52-8de6-a26f18e9ca7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы исходного кода\gui">
-      <UniqueIdentifier>{3ff0ce0e-cf10-4e07-b937-01044617ff56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Заголовочные файлы\system">
+    <Filter Include="code\system">
       <UniqueIdentifier>{a40dae5f-b078-4ae7-9498-7537f46cb31d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы исходного кода\system">
-      <UniqueIdentifier>{8604acef-861d-4b95-bf9a-2411e6034714}</UniqueIdentifier>
+    <Filter Include="code\game">
+      <UniqueIdentifier>{4c37c827-b60f-459d-898f-ebbcd9decde0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\util">
+      <UniqueIdentifier>{097800f4-fcbc-47c6-ba91-262d98b1da33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="oldmain.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>code</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>code</Filter>
     </ClCompile>
-    <ClCompile Include="Vec2i.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\Button.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\EditBox.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Vec2f.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\Gui.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\GuiHandler.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleSprite.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\GuiWindow.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\List.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\NinePatchImage.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\Panel.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\Slider.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="GameServer.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="gui\Widget.cpp">
+      <Filter>code\gui</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationEditor.cpp">
-      <Filter>Файлы исходного кода\animation</Filter>
+    <ClCompile Include="animation\Animation.cpp">
+      <Filter>code\animation</Filter>
     </ClCompile>
-    <ClCompile Include="KeyFrameTimeline.cpp">
-      <Filter>Файлы исходного кода\animation</Filter>
+    <ClCompile Include="animation\AnimationEditor.cpp">
+      <Filter>code\animation</Filter>
     </ClCompile>
-    <ClCompile Include="Bone.cpp">
-      <Filter>Файлы исходного кода\animation</Filter>
+    <ClCompile Include="animation\Bone.cpp">
+      <Filter>code\animation</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Файлы исходного кода\animation</Filter>
+    <ClCompile Include="animation\KeyFrameTimeline.cpp">
+      <Filter>code\animation</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Файлы исходного кода\animation</Filter>
+    <ClCompile Include="animation\Skeleton.cpp">
+      <Filter>code\animation</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="system\Application.cpp">
+      <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="EditBox.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="system\Input.cpp">
+      <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="Gui.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="system\Log.cpp">
+      <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="GuiWindow.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="system\State.cpp">
+      <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="GuiHandler.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="system\TextureManager.cpp">
+      <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="List.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="system\GameWindow.cpp">
+      <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="NinePatchImage.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="util\BlueprintBackground.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="Panel.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="util\SimpleSprite.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="Slider.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="util\Terrain.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="Widget.cpp">
-      <Filter>Файлы исходного кода\gui</Filter>
+    <ClCompile Include="util\Util.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="BlueprintBackground.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="util\Vec2i.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="util\Vec2f.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="GameWindow.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="game\Client.cpp">
+      <Filter>code\game</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="game\Entity.cpp">
+      <Filter>code\game</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="game\Game.cpp">
+      <Filter>code\game</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="game\GameServer.cpp">
+      <Filter>code\game</Filter>
     </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="game\Server.cpp">
+      <Filter>code\game</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Файлы исходного кода\system</Filter>
+    <ClCompile Include="game\Player.cpp">
+      <Filter>code\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vec2i.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\Button.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\EditBox.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Vec2f.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\Gui.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\GuiHandler.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleSprite.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\GuiWindow.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\List.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\NinePatchImage.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\Panel.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\Slider.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="GameServer.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="gui\Widget.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationEditor.h">
-      <Filter>Заголовочные файлы\animation</Filter>
+    <ClInclude Include="animation\Animation.h">
+      <Filter>code\animation</Filter>
     </ClInclude>
-    <ClInclude Include="KeyFrameTimeline.h">
-      <Filter>Заголовочные файлы\animation</Filter>
+    <ClInclude Include="animation\AnimationEditor.h">
+      <Filter>code\animation</Filter>
     </ClInclude>
-    <ClInclude Include="Bone.h">
-      <Filter>Заголовочные файлы\animation</Filter>
+    <ClInclude Include="animation\Bone.h">
+      <Filter>code\animation</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Заголовочные файлы\animation</Filter>
+    <ClInclude Include="animation\KeyFrameTimeline.h">
+      <Filter>code\animation</Filter>
     </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="animation\Skeleton.h">
+      <Filter>code\animation</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Заголовочные файлы\animation</Filter>
+    <ClInclude Include="system\Application.h">
+      <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="system\Input.h">
+      <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="EditBox.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="system\Log.h">
+      <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="Gui.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="system\State.h">
+      <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="GuiHandler.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="system\TextureManager.h">
+      <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="GuiWindow.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="system\GameWindow.h">
+      <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="util\BlueprintBackground.h">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="NinePatchImage.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="util\json.hpp">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="Panel.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="util\SimpleSprite.h">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="Slider.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="util\Terrain.h">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="Widget.h">
-      <Filter>Заголовочные файлы\gui</Filter>
+    <ClInclude Include="util\Util.h">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="BlueprintBackground.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="util\Vec2f.h">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="util\Vec2i.h">
+      <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="GameWindow.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="game\Client.h">
+      <Filter>code\game</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="game\Entity.h">
+      <Filter>code\game</Filter>
     </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="game\Game.h">
+      <Filter>code\game</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="game\GameServer.h">
+      <Filter>code\game</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="game\Player.h">
+      <Filter>code\game</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>Заголовочные файлы\system</Filter>
+    <ClInclude Include="game\Server.h">
+      <Filter>code\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

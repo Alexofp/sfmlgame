@@ -613,6 +613,8 @@ void AnimationEditor::onLoadButton(Button * sender, MouseDownEvent event)
 {
 	anim.loadFromFile("resources/lastanim.json");
 
+	((EditBox*)gui.findById("lengthedit"))->setText(Util::strToWStr(floatToStr(anim.getLength())));
+
 	updateKeyframelist();
 }
 

@@ -127,6 +127,12 @@
     <ClCompile Include="game\Player.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
+    <ClCompile Include="gui\SimpleGuiWindow.cpp">
+      <Filter>code\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\TextLine.cpp">
+      <Filter>code\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -230,6 +236,12 @@
     </ClInclude>
     <ClInclude Include="game\Server.h">
       <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\SimpleGuiWindow.h">
+      <Filter>code\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\TextLine.h">
+      <Filter>code\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

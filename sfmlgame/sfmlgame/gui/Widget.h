@@ -81,8 +81,11 @@ public:
 
 
 	Vec2i getRealPos();
+	void destroy();
+	bool isDestroyed();
 protected:
 	bool shouldUpdate;
+	bool shouldDestroy;
 private:
 	GuiHandler* handler;
 	std::string id;

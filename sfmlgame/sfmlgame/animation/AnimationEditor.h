@@ -6,6 +6,7 @@
 #include "BlueprintBackground.h"
 #include "List.h"
 #include "Button.h"
+#include "SimpleGuiWindow.h"
 
 class AnimationEditor :
 	public State

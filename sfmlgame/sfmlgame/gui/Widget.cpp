@@ -7,6 +7,7 @@ Widget::Widget()
 	//ctor
 	shouldUpdate = false;
 	visible = true;
+	shouldDestroy = false;
 }
 
 Widget::~Widget()
@@ -44,6 +45,16 @@ void Widget::setHandler(GuiHandler* h)
 Vec2i Widget::getRealPos()
 {
 	return Vec2i(GameWindow::getInternalHandle().mapCoordsToPixel(getPos().toSFMLVec(), handler->getView()));
+}
+
+void Widget::destroy()
+{
+	shouldDestroy = true;
+}
+
+bool Widget::isDestroyed()
+{
+	return shouldDestroy;
 }
 
 void Widget::show()

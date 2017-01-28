@@ -76,3 +76,8 @@ std::wstring Util::strToWStr(std::string str)
 {
 	return std::wstring(str.begin(), str.end());
 }
+
+std::string Util::wStrToStr(std::wstring str)
+{
+	return std::string(str.begin(), str.end());
+}

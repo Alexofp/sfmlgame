@@ -22,6 +22,7 @@ public:
 	static void drawLine(Vec2f pos1, Vec2f pos2, sf::Color color = sf::Color::White);
 	static float lineDistanceToPoint(Vec2f pos1, Vec2f pos2, Vec2f point);
 	static std::wstring strToWStr(std::string str);
+	static std::string wStrToStr(std::wstring str);
 protected:
 private:
 };

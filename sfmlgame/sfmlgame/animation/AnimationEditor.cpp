@@ -207,6 +207,17 @@ AnimationEditor::AnimationEditor()
 		gui.add(button1, "removeall");
 	}
 
+	/*SimpleGuiWindow* window = new SimpleGuiWindow({SimpleWidget::TextLine(L"Test test test test test"), SimpleWidget::TextLine(L"Test test test test test\nblabla") ,SimpleWidget::EditBox("test", L"zxcvbn",L"asd"),SimpleWidget::TextLine(L"Test test test test test"),SimpleWidget::EditBox("t2est", L"abc"),SimpleWidget::TextLine(L"Test test test test test") });
+	//window->setSize(Vec2f(200.f, 200.f));
+	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
+		std::wstring str = results["test"].editBox.text;
+
+		Log::debug( std::string(str.begin(), str.end()));
+
+		return false;
+	});
+	gui.add(window);*/
+
 	mouseState = MouseState::Nothing;
 	resizeGui();
 }
@@ -606,16 +617,30 @@ void AnimationEditor::onRemoveAllButton(Button * sender, MouseDownEvent event)
 
 void AnimationEditor::onSaveButton(Button * sender, MouseDownEvent event)
 {
-	anim.saveToFile("resources/lastanim.json");
+	SimpleGuiWindow* window = new SimpleGuiWindow({
+		SimpleWidget::TextLine(L"Select save location"),
+		SimpleWidget::EditBox("save",L"path", L"resources/lastanim.json") });
+
+	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
+		anim.saveToFile(Util::wStrToStr(results["save"].editBox.text));
+		return true;
+	});
+	gui.add(window);
 }
 
 void AnimationEditor::onLoadButton(Button * sender, MouseDownEvent event)
 {
-	anim.loadFromFile("resources/lastanim.json");
+	SimpleGuiWindow* window = new SimpleGuiWindow({
+		SimpleWidget::TextLine(L"Select file location"),
+		SimpleWidget::EditBox("load",L"path", L"resources/lastanim.json") });
 
-	((EditBox*)gui.findById("lengthedit"))->setText(Util::strToWStr(floatToStr(anim.getLength())));
-
-	updateKeyframelist();
+	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
+		anim.loadFromFile(Util::wStrToStr(results["load"].editBox.text));
+		((EditBox*)gui.findById("lengthedit"))->setText(Util::strToWStr(floatToStr(anim.getLength())));
+		updateKeyframelist();
+		return true;
+	});
+	gui.add(window);
 }
 
 void AnimationEditor::updateKeyframelist()

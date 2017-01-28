@@ -135,7 +135,9 @@
   <ItemGroup>
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
+    <ClCompile Include="gui\SimpleGuiWindow.cpp" />
     <ClCompile Include="system\Application.cpp" />
+    <ClCompile Include="gui\TextLine.cpp" />
     <ClCompile Include="util\BlueprintBackground.cpp" />
     <ClCompile Include="animation\Bone.cpp" />
     <ClCompile Include="gui\Button.cpp" />
@@ -172,7 +174,9 @@
   <ItemGroup>
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />
+    <ClInclude Include="gui\SimpleGuiWindow.h" />
     <ClInclude Include="system\Application.h" />
+    <ClInclude Include="gui\TextLine.h" />
     <ClInclude Include="util\BlueprintBackground.h" />
     <ClInclude Include="animation\Bone.h" />
     <ClInclude Include="gui\Button.h" />

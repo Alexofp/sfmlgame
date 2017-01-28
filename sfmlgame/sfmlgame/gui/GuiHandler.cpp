@@ -22,6 +22,9 @@ void GuiHandler::draw()
 		if (widget->isVisible())
 			widget->draw();
 	}
+	childs.erase(
+		std::remove_if(childs.begin(), childs.end(), [&](auto &a) {return a->isDestroyed(); }), childs.end());
+
 	GameWindow::getInternalHandle().setView(old);
 }
 

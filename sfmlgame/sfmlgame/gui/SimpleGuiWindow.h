@@ -11,7 +11,8 @@ struct SimpleWidget
 	enum class Type
 	{
 		EditBox,
-		TextLine
+		TextLine,
+		ListBox
 	};
 
 	SimpleWidget(std::string id, Type type)
@@ -38,9 +39,19 @@ struct SimpleWidget
 		return wid;
 	}
 
+	static SimpleWidget ListBox(std::string id, std::vector<std::pair<std::string, std::string> > items, std::string selectedId = "")
+	{
+		SimpleWidget wid(id, Type::ListBox);
+
+		wid.listbox.items = items;
+		wid.listbox.selectedId = selectedId;
+		return wid;
+	}
+
 	Type type;
 	std::string id;
 
+	//how to union
 	struct EditBox
 	{
 		std::wstring text;
@@ -51,6 +62,11 @@ struct SimpleWidget
 		std::wstring text;
 		bool centered;
 	} textLine;
+	struct ListBox
+	{
+		std::vector<std::pair<std::string, std::string> > items;
+		std::string selectedId;
+	} listbox;
 };
 
 class SimpleGuiWindow :
@@ -71,6 +87,10 @@ public:
 		{
 			std::wstring text;
 		}editBox;
+		struct ListBox
+		{
+			std::string id;
+		}listBox;
 	};
 
 	SimpleGuiWindow(std::vector<SimpleWidget> widgets, Style style = Style::OkCancel);

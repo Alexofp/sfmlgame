@@ -2,6 +2,7 @@
 #include "EditBox.h"
 #include "Util.h"
 #include "TextLine.h"
+#include "List.h"
 
 SimpleGuiWindow::SimpleGuiWindow(std::vector<SimpleWidget> widgets, Style style)
 {
@@ -87,6 +88,28 @@ void SimpleGuiWindow::init(GuiHandler * handler)
 
 			windowHeight += text->getBestSize().y+1.f;
 		}
+		if (widget.type == SimpleWidget::Type::ListBox)
+		{
+			List* listbox = new List();
+			float listHeight = 100.f;
+			windowHeight += listHeight / 2.f;
+			
+			for (auto& pair : widget.listbox.items)
+			{
+				listbox->addItem(pair.first, pair.second);
+			}
+			
+			listbox->setSize(Vec2f(windowWidth-10.f, listHeight));
+			listbox->setPos(Vec2f(windowWidth / 2.f, windowHeight));
+
+			window->add(listbox);
+			listbox->setSelected(widget.listbox.selectedId);
+
+			widgetMap[widget.id].push_back(listbox);
+
+			windowHeight += listHeight / 2.f;
+			windowHeight += 10.f;
+		}
 	}
 	windowHeight += 36.f;
 
@@ -132,6 +155,17 @@ void SimpleGuiWindow::getResults()
 			Result result;
 			result.type = widget.type;
 			result.editBox.text = ((EditBox*)widgetMap.at(widget.id)[0])->getText();
+			results[widget.id] = result;
+		}
+		if (widget.type == SimpleWidget::Type::ListBox)
+		{
+			Result result;
+			result.type = widget.type;
+			ListItem* selected = ((List*)widgetMap.at(widget.id)[0])->getSelected();
+			if(selected == nullptr)
+				result.listBox.id = "";
+			else
+				result.listBox.id = selected->id;
 			results[widget.id] = result;
 		}
 	}

@@ -112,3 +112,37 @@ std::unordered_map<std::string, Bone*>& Skeleton::getBones()
 {
 	return bones;
 }
+
+void Skeleton::clear()
+{
+	root.removeChilds();
+	bones.clear();
+
+	bones["superroot"] = &root;
+}
+
+void Skeleton::playerSkeleton()
+{
+	clear();
+
+	addBone(new Bone("root", 0.f, 0.f, 0.f, 100.f));
+}
+
+void Skeleton::sideSkeleton()
+{
+	clear();
+
+	addBone(new Bone("root", 0.f, 0.f, 0.f, 100.f));
+	addBone("root", new Bone("larm", 10.f, 10.f, 80.f, 50.f));
+	addBone("root", new Bone("rarm", 10.f, -10.f, -40.f, 50.f));
+	addBone("root", new Bone("head", -10.f, 0.f, -90.f, 30.f));
+
+	addBone("larm", new Bone("llarm", 60.f, 0.f, -80.f, 40.f));
+	addBone("rarm", new Bone("rrarm", 60.f, 0.f, 00.f, 40.f));
+
+	addBone("root", new Bone("lleg", 100.f, 10.f, 40.f, 50.f));
+	addBone("root", new Bone("rleg", 100.f, -10.f, -40.f, 50.f));
+
+	addBone("lleg", new Bone("llleg", 60.f, 0.f, -10.f, 50.f));
+	addBone("rleg", new Bone("rrleg", 60.f, 0.f, 10.f, 50.f));
+}

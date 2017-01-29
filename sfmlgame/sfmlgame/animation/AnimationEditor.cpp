@@ -14,49 +14,25 @@
 
 AnimationEditor::AnimationEditor()
 {
-	/*KeyFrameTimeline t;
-	t.addKeyFrame(0.f, 10.f);
-	t.addKeyFrame(0.5f, 0.f);
-	t.addKeyFrame(1.0f, 10.f);
-
-	for (int i = 0; i < 120; i++)
-	{
-		Log::debug(std::to_string(t.getValue()));
-		t.advance(0.01f);
-	}
-	Log::debug(std::to_string(t.getValue()));*/
-
 	isPlaying = false;
 	skelet.setPos(Vec2f(0.f, 0.f));
 	skelet.setAng(0.f);
-	//skelet.setScale(0.5f);
+	skelet.setScale(1.f);
+	skelet.sideSkeleton();
 
-	skelet.addBone(new Bone("root", 0.f, 0.f, 0.f, 100.f));
-	skelet.addBone("root", new Bone("larm", 10.f, 10.f, 80.f, 50.f));
-	skelet.addBone("root", new Bone("rarm", 10.f, -10.f, -40.f, 50.f));
-	skelet.addBone("root", new Bone("head", -10.f, 0.f, -90.f, 30.f));
-
-	skelet.addBone("larm", new Bone("llarm", 60.f, 0.f, -80.f, 40.f));
-	skelet.addBone("rarm", new Bone("rrarm", 60.f, 0.f, 00.f, 40.f));
-
-	skelet.addBone("root", new Bone("lleg", 100.f, 10.f, 40.f, 50.f));
-	skelet.addBone("root", new Bone("rleg", 100.f, -10.f, -40.f, 50.f));
-
-	skelet.addBone("lleg", new Bone("llleg", 60.f, 0.f, -10.f, 50.f));
-	skelet.addBone("rleg", new Bone("rrleg", 60.f, 0.f, 10.f, 50.f));
-
-
-	//anim.loadFromFile("resources/anim.json");
-
-	anim.apply(&skelet, 0.f);
-	//anim.loadFromFile("resources/anim2.json");
-	//anim.saveToFile("resources/anim2.json");
-
-	//Animation a;
-	//a.loadFromFile("resources/anim2.json");
 	{
 		Button* button1 = new Button();
 		button1->setPos(Vec2f(80.f, 30.f));
+		button1->setSize(Vec2f(100.f, 30.f));
+		button1->setTextSize(14);
+		button1->setTexture("button");
+		button1->setText(L"New");
+		button1->OnClick(std::bind(&AnimationEditor::onNewButton, this, std::placeholders::_1, std::placeholders::_2));
+		gui.add(button1);
+	}
+	{
+		Button* button1 = new Button();
+		button1->setPos(Vec2f(200.f, 30.f));
 		button1->setSize(Vec2f(100.f, 30.f));
 		button1->setTextSize(14);
 		button1->setTexture("button");
@@ -66,7 +42,7 @@ AnimationEditor::AnimationEditor()
 	}
 	{
 		Button* button1 = new Button();
-		button1->setPos(Vec2f(200.f, 30.f));
+		button1->setPos(Vec2f(320.f, 30.f));
 		button1->setSize(Vec2f(100.f, 30.f));
 		button1->setTextSize(14);
 		button1->setTexture("button");
@@ -77,23 +53,13 @@ AnimationEditor::AnimationEditor()
 	{
 		List* list2 = new List();
 		list2->setSize(Vec2f(200.f, 200.f));
-		for (auto& bonePair : skelet.getBones())
-		{
-			if (bonePair.first == "superroot")
-				continue;
-			list2->addItem(bonePair.first, bonePair.first);
-		}
 		list2->OnListSelect(std::bind(&AnimationEditor::onBoneSelected, this, std::placeholders::_1, std::placeholders::_2));
 		gui.add(list2, "bonelist");
+		updateBoneList();
 	}
 	{
 		List* list2 = new List();
 		list2->setSize(Vec2f(200.f, 200.f));
-		/*for (auto& bonePair : skelet.getBones())
-		{
-			list2->addItem(bonePair.first, bonePair.first);
-		}*/
-		//list2->OnListSelect(std::bind(&AnimationEditor::onBoneSelected, this, std::placeholders::_1, std::placeholders::_2));
 		gui.add(list2, "keyframelist");
 	}
 	{
@@ -207,17 +173,6 @@ AnimationEditor::AnimationEditor()
 		gui.add(button1, "removeall");
 	}
 
-	/*SimpleGuiWindow* window = new SimpleGuiWindow({SimpleWidget::TextLine(L"Test test test test test"), SimpleWidget::TextLine(L"Test test test test test\nblabla") ,SimpleWidget::EditBox("test", L"zxcvbn",L"asd"),SimpleWidget::TextLine(L"Test test test test test"),SimpleWidget::EditBox("t2est", L"abc"),SimpleWidget::TextLine(L"Test test test test test") });
-	//window->setSize(Vec2f(200.f, 200.f));
-	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
-		std::wstring str = results["test"].editBox.text;
-
-		Log::debug( std::string(str.begin(), str.end()));
-
-		return false;
-	});
-	gui.add(window);*/
-
 	mouseState = MouseState::Nothing;
 	resizeGui();
 }
@@ -256,12 +211,6 @@ void AnimationEditor::update(float dt)
 		cameraPos.y += dt*cameraSpeed;
 	GameWindow::setCameraCenter(cameraPos);
 
-	static float time = 0.f;
-	time += dt/100;
-
-	//skelet.setScale(sin(time));
-	//skelet.setAng(sin(time) * 180);
-	//anim.apply(&skelet, (time - (int)time) ) ;
 	if (isPlaying)
 	{
 		Slider* slider = ((Slider*)gui.findById("animslider"));
@@ -285,14 +234,6 @@ void AnimationEditor::update(float dt)
 	{
 		Vec2f mousePos = Input::getWorldMousePos();
 
-		if (Input::getMouseDown(Input::MouseLeft))
-		{
-			Vec2f relativePos = selectedBone->getRelativePos(skelet.getTransform(), mousePos);
-
-			//Log::debug(std::to_string(relativePos.x) + " " + std::to_string(relativePos.y));
-			//Log::debug(selectedBone->getPosRelativeToParent((selectedBone->getRoot()->getRelativePos(skelet.getTransform(), Input::getWorldMousePos()))).toString());
-		}
-
 		if (Input::getKeyDown(Input::G))
 			mouseState = MouseState::GrabbingBone;
 		if (Input::getKeyDown(Input::R))
@@ -305,14 +246,12 @@ void AnimationEditor::update(float dt)
 			BoneState state = selectedBone->getAnimationState();
 			state.pos = selectedBone->getPosRelativeToParent((selectedBone->getParent()->getRelativePos(skelet.getTransform(), Input::getWorldMousePos())));
 			selectedBone->setAnimationState(state);
-			//mouseState = MouseState::Nothing;
 		}
 		if (mouseState == MouseState::RotatingBone)
 		{
 			BoneState state = selectedBone->getAnimationState();
 			state.angle += Input::getWorldMouseDelta().x;
 			selectedBone->setAnimationState(state);
-			//mouseState = MouseState::Nothing;
 		}
 		if (mouseState != MouseState::Nothing)
 		{
@@ -326,8 +265,6 @@ void AnimationEditor::update(float dt)
 	{
 		mouseState = MouseState::Nothing;
 	}
-
-
 }
 
 void AnimationEditor::draw()
@@ -346,24 +283,6 @@ void AnimationEditor::draw()
 		c.setOrigin(1.f, 1.f);
 		c.setPosition(l.first.toSFMLVec());
 		GameWindow::getInternalHandle().draw(c);
-	}
-
-	//Log::debug(Input::getWorldMouseDelta().toString());
-
-	if (selectedBone != nullptr)
-	{
-		Vec2f mousePos = Input::getWorldMousePos();
-
-		Vec2f relativePos = selectedBone->getRelativePos(skelet.getTransform(), mousePos);
-		Vec2f goodPos = selectedBone->getTransformedPos(skelet.getTransform()).first;
-
-
-
-		sf::RectangleShape box;
-		box.setPosition( skelet.transformPoint(selectedBone->getRelativePos(relativePos)).toSFMLVec() );// goodPos.toSFMLVec());
-		box.setSize(sf::Vector2f(0.5f, 0.5f));
-		box.setOrigin(box.getSize()/2.f);
-		GameWindow::getInternalHandle().draw(box);
 	}
 
 	gui.draw();
@@ -615,11 +534,53 @@ void AnimationEditor::onRemoveAllButton(Button * sender, MouseDownEvent event)
 	}
 }
 
+void AnimationEditor::onNewButton(Button * sender, MouseDownEvent event)
+{
+	SimpleGuiWindow* window = new SimpleGuiWindow({
+		SimpleWidget::TextLine(L"Are you sure?")
+	}, SimpleGuiWindow::Style::OkCancel);
+	window->setSize(Vec2f(200.f, 0.f));
+
+	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
+		
+		SimpleGuiWindow* window = new SimpleGuiWindow({
+			SimpleWidget::TextLine(L"Select skeleton type"),
+			SimpleWidget::ListBox("type", {{"Player skeleton", "player"}, {"Test skeleton", "test"}}, "player")
+		}, SimpleGuiWindow::Style::OkCancel);
+
+		window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
+			std::string type = results["type"].listBox.id;
+
+			anim.clear();
+			selectedBone = nullptr;
+			if (type == "player")
+			{
+				skelet.playerSkeleton();
+			}
+			if (type == "test")
+			{
+				skelet.sideSkeleton();
+			}
+			updateBoneList();
+			updateKeyframelist();
+
+			return true;
+		});
+
+		gui.add(window);
+
+		return true;
+	});
+	gui.add(window);
+
+}
+
 void AnimationEditor::onSaveButton(Button * sender, MouseDownEvent event)
 {
 	SimpleGuiWindow* window = new SimpleGuiWindow({
 		SimpleWidget::TextLine(L"Select save location"),
-		SimpleWidget::EditBox("save",L"path", L"resources/lastanim.json") });
+		SimpleWidget::EditBox("save",L"path", L"resources/lastanim.json") 
+	}, SimpleGuiWindow::Style::OkCancel);
 
 	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
 		anim.saveToFile(Util::wStrToStr(results["save"].editBox.text));
@@ -632,7 +593,8 @@ void AnimationEditor::onLoadButton(Button * sender, MouseDownEvent event)
 {
 	SimpleGuiWindow* window = new SimpleGuiWindow({
 		SimpleWidget::TextLine(L"Select file location"),
-		SimpleWidget::EditBox("load",L"path", L"resources/lastanim.json") });
+		SimpleWidget::EditBox("load",L"path", L"resources/lastanim.json") 
+	}, SimpleGuiWindow::Style::OkCancel);
 
 	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
 		anim.loadFromFile(Util::wStrToStr(results["load"].editBox.text));
@@ -692,6 +654,19 @@ void AnimationEditor::updateAnimation()
 	float value = ((Slider*)gui.findById("animslider"))->getValue();
 
 	anim.apply(&skelet, value);
+}
+
+void AnimationEditor::updateBoneList()
+{
+	List* bonelist = ((List*)gui.findById("bonelist"));
+	bonelist->clearItems();
+
+	for (auto& bonePair : skelet.getBones())
+	{
+		if (bonePair.first == "superroot")
+			continue;
+		bonelist->addItem(bonePair.first, bonePair.first);
+	}
 }
 
 std::string AnimationEditor::floatToStr(float f)

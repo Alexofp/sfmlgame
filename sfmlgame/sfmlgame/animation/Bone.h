@@ -35,6 +35,7 @@ public:
 	Vec2f getRelativePos(sf::Transform transform, Vec2f pos);
 	Vec2f getRelativePos(Vec2f pos);
 	Vec2f getPosRelativeToParent(Vec2f pos);
+	void removeChilds();
 
 private:
 	Bone* root;

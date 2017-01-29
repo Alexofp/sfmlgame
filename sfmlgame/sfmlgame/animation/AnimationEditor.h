@@ -40,16 +40,18 @@ public:
 	void onRemoveButton(Button* sender, MouseDownEvent event);
 	void onRemoveAllButton(Button* sender, MouseDownEvent event);
 
+	void onNewButton(Button* sender, MouseDownEvent event);
 	void onSaveButton(Button* sender, MouseDownEvent event);
 	void onLoadButton(Button* sender, MouseDownEvent event);
 
 	void updateKeyframelist();
 	void updateAnimation();
+	void updateBoneList();
 
 	std::string floatToStr(float f);
 	float strToFloat(std::string f, bool trim = true);
 	float getCurrentTimePos();
-private:
+public:
 	Skeleton skelet;
 	Animation anim;
 	Bone* selectedBone;

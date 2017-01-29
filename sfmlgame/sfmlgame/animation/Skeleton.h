@@ -28,6 +28,10 @@ public:
 
 	void draw();
 	std::unordered_map<std::string, Bone*>& getBones();
+
+	void clear();
+	void playerSkeleton();
+	void sideSkeleton();
 private:
 	std::unordered_map<std::string, Bone*> bones;
 	Bone root;

@@ -189,3 +189,8 @@ Vec2f Bone::getPosRelativeToParent(Vec2f pos)
 
 	return Vec2f::sub(pos, Vec2f(x,y));
 }
+
+void Bone::removeChilds()
+{
+	childs.clear();
+}

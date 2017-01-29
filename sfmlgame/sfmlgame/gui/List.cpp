@@ -21,6 +21,7 @@ List::List() :Widget()
 	selectedBox.setFillColor(sf::Color(100, 100, 100));
 
 	showSlider = false;
+	selectedIndex = -1;
 }
 
 List::~List()
@@ -236,6 +237,7 @@ void List::removeItem(std::string id)
 void List::clearItems()
 {
 	items.clear();
+	selectedIndex = -1;
 	shouldUpdate = true;
 }
 
@@ -255,6 +257,12 @@ ListItem* List::getSelected()
 
 void List::setSelected(std::string id)
 {
+	if (shouldUpdate)
+	{
+		shouldUpdate = false;
+		redraw();
+	}
+
 	int i = 0;
 	for (auto& text : itemsText)
 	{

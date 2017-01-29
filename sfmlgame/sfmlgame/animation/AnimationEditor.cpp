@@ -19,6 +19,7 @@ AnimationEditor::AnimationEditor()
 	skelet.setAng(0.f);
 	skelet.setScale(1.f);
 	skelet.sideSkeleton();
+	skelet.playAnimation(&anim);
 
 	{
 		Button* button1 = new Button();
@@ -48,6 +49,16 @@ AnimationEditor::AnimationEditor()
 		button1->setTexture("button");
 		button1->setText(L"Load");
 		button1->OnClick(std::bind(&AnimationEditor::onLoadButton, this, std::placeholders::_1, std::placeholders::_2));
+		gui.add(button1);
+	}
+	{
+		Button* button1 = new Button();
+		button1->setPos(Vec2f(440.f, 30.f));
+		button1->setSize(Vec2f(100.f, 30.f));
+		button1->setTextSize(14);
+		button1->setTexture("button");
+		button1->setText(L"Skin");
+		button1->OnClick(std::bind(&AnimationEditor::onSkinButton, this, std::placeholders::_1, std::placeholders::_2));
 		gui.add(button1);
 	}
 	{
@@ -216,13 +227,11 @@ void AnimationEditor::update(float dt)
 		Slider* slider = ((Slider*)gui.findById("animslider"));
 
 		float prog = slider->getValue();
+		skelet.setProgress(prog);
 
-		prog += dt/anim.getLength();
-		while (prog > 1.f)
-			prog -= 1.f;
-		
-		anim.apply(&skelet, prog);
+		skelet.update(dt);
 
+		prog = skelet.getProgress();
 		slider->setValue(prog);
 		std::string text = floatToStr(prog);
 
@@ -600,6 +609,22 @@ void AnimationEditor::onLoadButton(Button * sender, MouseDownEvent event)
 		anim.loadFromFile(Util::wStrToStr(results["load"].editBox.text));
 		((EditBox*)gui.findById("lengthedit"))->setText(Util::strToWStr(floatToStr(anim.getLength())));
 		updateKeyframelist();
+		return true;
+	});
+	gui.add(window);
+}
+
+void AnimationEditor::onSkinButton(Button * sender, MouseDownEvent event)
+{
+	SimpleGuiWindow* window = new SimpleGuiWindow({
+		SimpleWidget::TextLine(L"Select skin file location"),
+		SimpleWidget::EditBox("load",L"path", L"resources/skin.json")
+	}, SimpleGuiWindow::Style::OkCancel);
+
+	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
+		Skin skin;
+		skin.loadFromFile(Util::wStrToStr(results["load"].editBox.text));
+		skelet.setSkin(skin);
 		return true;
 	});
 	gui.add(window);

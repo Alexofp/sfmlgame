@@ -1,0 +1,6 @@
+dude_head resources/somedude/lowreshead.png
+dude_arm resources/somedude/lowresarm.png
+dude_hand resources/somedude/lowreshand.png
+dude_leg resources/somedude/lowresleg.png
+dude_boot resources/somedude/lowresboot.png
+dude_body resources/somedude/lowresbody.png

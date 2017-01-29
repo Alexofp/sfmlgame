@@ -133,9 +133,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animation\AnimatedSkeleton.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
     <ClCompile Include="gui\SimpleGuiWindow.cpp" />
+    <ClCompile Include="animation\Skin.cpp" />
     <ClCompile Include="system\Application.cpp" />
     <ClCompile Include="gui\TextLine.cpp" />
     <ClCompile Include="util\BlueprintBackground.cpp" />
@@ -172,9 +174,11 @@
     <ClCompile Include="gui\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animation\AnimatedSkeleton.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />
     <ClInclude Include="gui\SimpleGuiWindow.h" />
+    <ClInclude Include="animation\Skin.h" />
     <ClInclude Include="system\Application.h" />
     <ClInclude Include="gui\TextLine.h" />
     <ClInclude Include="util\BlueprintBackground.h" />

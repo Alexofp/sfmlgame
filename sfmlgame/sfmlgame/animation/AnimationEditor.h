@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "Skeleton.h"
+#include "AnimatedSkeleton.h"
 #include "Animation.h"
 #include "Gui.h"
 #include "BlueprintBackground.h"
@@ -43,6 +44,7 @@ public:
 	void onNewButton(Button* sender, MouseDownEvent event);
 	void onSaveButton(Button* sender, MouseDownEvent event);
 	void onLoadButton(Button* sender, MouseDownEvent event);
+	void onSkinButton(Button* sender, MouseDownEvent event);
 
 	void updateKeyframelist();
 	void updateAnimation();
@@ -52,7 +54,8 @@ public:
 	float strToFloat(std::string f, bool trim = true);
 	float getCurrentTimePos();
 public:
-	Skeleton skelet;
+	AnimatedSkeleton skelet;
+	Skin skin;
 	Animation anim;
 	Bone* selectedBone;
 

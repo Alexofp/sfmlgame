@@ -26,6 +26,7 @@ void Application::pushState(State * state)
 int Application::run()
 {
 	TextureManager::loadFromFile("resources/gui/textures.txt");
+	TextureManager::loadFromFile("resources/somedude/textures.txt");
 	TextureManager::load("player", "resources/player.png");
 	TextureManager::load("blueprint", "resources/blueprint.png");
 

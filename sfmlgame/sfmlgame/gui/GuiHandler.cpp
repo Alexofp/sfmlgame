@@ -36,7 +36,12 @@ void GuiHandler::handleEvent(WidgetEvent& event)
 		guiView.setSize(event.resized.size.toSFMLVec());
 	}
 
-	for (std::vector<std::unique_ptr<Widget> >::reverse_iterator it = childs.rbegin(); it != childs.rend(); it++)
+	std::vector<Widget*> childsCopy;
+	for (auto& w : childs)
+	{
+		childsCopy.push_back(w.get());
+	}
+	for (std::vector<Widget*>::reverse_iterator it = childsCopy.rbegin(); it != childsCopy.rend(); it++)
 	{
 		if (event.type == WidgetEventType::MouseDown)
 		{

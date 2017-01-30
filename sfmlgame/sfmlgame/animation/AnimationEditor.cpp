@@ -18,7 +18,13 @@ AnimationEditor::AnimationEditor()
 	skelet.setPos(Vec2f(0.f, 0.f));
 	skelet.setAng(0.f);
 	skelet.setScale(1.f);
-	skelet.sideSkeleton();
+	//skelet.sideSkeleton();
+	skelet.playerSkeleton();
+
+	Skin skin;
+	skin.loadFromFile("resources/skin.json");
+	skelet.setSkin(skin);
+
 	skelet.playAnimation(&anim);
 
 	{

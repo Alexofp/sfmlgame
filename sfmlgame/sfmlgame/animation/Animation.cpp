@@ -7,6 +7,7 @@ using json = nlohmann::json;
 Animation::Animation()
 {
 	length = 1.f;
+	looped = true;
 
 	/*info["root"].angle.addKeyFrame(0.f, 0.f);
 	info["root"].angle.addKeyFrame(0.999999f, 720.f);
@@ -159,6 +160,16 @@ void Animation::setLength(float length)
 float Animation::getLength()
 {
 	return length;
+}
+
+void Animation::setLooped(bool loop)
+{
+	looped = loop;
+}
+
+bool Animation::getLooped()
+{
+	return looped;
 }
 
 Animation::BoneInformation & Animation::getBoneInfo(std::string bone)

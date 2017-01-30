@@ -11,6 +11,17 @@ Player::Player(int nid):Entity(nid)
 	realType = Type::Player;
 	type = SyncType::Player;
 	Log::debug("new player entity");
+
+	walkAnim.loadFromFile("resources/player/walkanim.json");
+	hitAnim.loadFromFile("resources/player/hitanim.json");
+	hitAnim.setLooped(false);
+	skeleton.playerSkeleton();
+	skeleton.playAnimation(&walkAnim);
+
+	Skin skin;
+	skin.loadFromFile("resources/skin.json");
+
+	skeleton.setSkin(skin);
 }
 
 
@@ -37,6 +48,9 @@ void Player::localUpdate(float dt)
 			newspeed.y = -acc;
 		if (Input::getKey(Input::S))
 			newspeed.y = acc;
+
+		if (Input::getMouseDown(Input::MouseLeft))
+			skeleton.playAnimation(&hitAnim);
 	}
 
 	if (newspeed.len() > acc)
@@ -55,15 +69,19 @@ void Player::localUpdate(float dt)
 	{
 		//setAng(speed.getAngle());
 		sprite.setAng(speed.getAngle() + 90);
+
+		skeleton.setAng(speed.getAngle());
 	}
 
-
+	skeleton.update(dt);
 	sprite.setPos(getPos());
+	skeleton.setPos(getPos());
 }
 
 void Player::draw()
 {
-	sprite.draw();
+	skeleton.draw();
+	//sprite.draw();
 }
 
 void Player::setRemote(bool isRemote)
@@ -73,7 +91,7 @@ void Player::setRemote(bool isRemote)
 
 void Player::writeInformation(sf::Packet & packet)
 {
-	packet << getPos().x << getPos().y << sprite.getAng();
+	packet << getPos().x << getPos().y << skeleton.getAng();
 }
 
 void Player::readInformation(sf::Packet & packet)
@@ -83,4 +101,5 @@ void Player::readInformation(sf::Packet & packet)
 
 	setPos(Vec2f(x, y));
 	sprite.setAng(ang);
+	skeleton.setAng(ang);
 }

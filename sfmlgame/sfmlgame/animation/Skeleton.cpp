@@ -125,7 +125,17 @@ void Skeleton::playerSkeleton()
 {
 	clear();
 
-	addBone(new Bone("root", 0.f, 0.f, 0.f, 100.f));
+	addBone(new Bone("root", 0.f, 0.f, 0.f, 20.f));
+	addBone("root", new Bone("head", 0.f, 0.f, 0.f, 21.f));
+
+	addBone("root", new Bone("larm", 4.f, -36.f, -30.f, 20.f));
+	addBone("root", new Bone("rarm", 4.f, 36.f, 30.f, 20.f));
+
+	addBone("larm", new Bone("lforearm", 28.1f, 5.5f, 30.f, 20.f));
+	addBone("rarm", new Bone("rforearm", 28.1f, -5.5f, -30.f, 20.f));
+
+	addBone("lforearm", new Bone("lhand", 31.5f, 1.5f, 9.f, 20.f));
+	addBone("rforearm", new Bone("rhand", 31.5f, -1.5f, -9.f, 20.f));
 }
 
 void Skeleton::sideSkeleton()

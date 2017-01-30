@@ -26,6 +26,8 @@ public:
 	void removeKeyframes(float pos);
 	void setLength(float length);
 	float getLength();
+	void setLooped(bool loop);
+	bool getLooped();
 	BoneInformation& getBoneInfo(std::string bone);
 	bool hasBoneInfo(std::string bone);
 	KeyFrameTimeline& getXposTimeline(std::string bone);
@@ -35,5 +37,6 @@ public:
 private:
 	std::unordered_map<std::string, BoneInformation> info;
 	float length;
+	bool looped;
 };
 

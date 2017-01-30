@@ -11,6 +11,7 @@ public:
 	~AnimatedSkeleton();
 
 	void playAnimation(Animation* anim);
+	Animation* getAnimation();
 	void setSkin(Skin skin);
 
 	void update(float dt);

@@ -19,6 +19,11 @@ void AnimatedSkeleton::playAnimation(Animation * anim)
 	progress = 0.f;
 }
 
+Animation * AnimatedSkeleton::getAnimation()
+{
+	return animation;
+}
+
 void AnimatedSkeleton::setSkin(Skin skin)
 {
 	this->skin = skin;
@@ -29,8 +34,17 @@ void AnimatedSkeleton::update(float dt)
 	if (animation != nullptr)
 	{
 		progress += dt / animation->getLength();
-		while (progress > 1.f)
-			progress -= 1.f;
+		if (animation->getLooped())
+		{
+			while (progress > 1.f)
+				progress -= 1.f;
+		}
+		else
+		{
+			if (progress > 1.f)
+				progress = 1.f;
+		}
+
 		animation->apply(this, progress);
 	}
 }

@@ -1,0 +1,6 @@
+player_head resources/player/hat.png
+player_body resources/player/body.png
+player_backpack resources/player/backpack.png
+player_arm resources/player/arm.png
+player_forearm resources/player/forearm.png
+player_hand resources/player/hand.png

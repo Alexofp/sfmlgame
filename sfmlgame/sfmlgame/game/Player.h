@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 #include "SimpleSprite.h"
+#include "AnimatedSkeleton.h"
+#include "Skin.h"
+#include "Animation.h"
 
 class Player: public Entity
 {
@@ -17,7 +20,11 @@ public:
 	virtual void readInformation(sf::Packet& packet);
 private:
 	SimpleSprite sprite;
+	AnimatedSkeleton skeleton;
+	Animation walkAnim;
+	Animation hitAnim;
 	Vec2f speed;
 	bool isRemote;
+	bool attacking;
 };
 

@@ -27,6 +27,7 @@ int Application::run()
 {
 	TextureManager::loadFromFile("resources/gui/textures.txt");
 	TextureManager::loadFromFile("resources/somedude/textures.txt");
+	TextureManager::loadFromFile("resources/player/player.txt");
 	TextureManager::load("player", "resources/player.png");
 	TextureManager::load("blueprint", "resources/blueprint.png");
 
@@ -36,18 +37,28 @@ int Application::run()
 	
 
 	sf::Clock clock;
-
-	bool isServer;
-	//std::cout << "Server?" << std::endl;
-	//std::cin >> isServer;
-	isServer = false;
-
 	std::unique_ptr<GameServer> server(nullptr);
-	if (isServer)
-		server.reset(new GameServer());
 
-	//pushState(new Game());
-	pushState(new AnimationEditor());
+	bool isGame;
+	std::cout << "Game?" << std::endl;
+	std::cin >> isGame;
+
+	bool isServer = false;
+	if (isGame)
+	{
+		std::cout << "Server?" << std::endl;
+		std::cin >> isServer;
+		//isServer = true;
+
+		if (isServer)
+			server.reset(new GameServer());
+
+		pushState(new Game());
+	}
+	else
+	{
+		pushState(new AnimationEditor());
+	}
 
 	while (states.size()>0 && GameWindow::isOpen())
 	{

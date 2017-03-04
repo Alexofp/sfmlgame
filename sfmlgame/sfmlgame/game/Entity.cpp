@@ -8,7 +8,6 @@ Entity::Entity(int nid)
 	size = Vec2f();
 	angle = 0.f;
 	realType = Type::Entity;
-	type = SyncType::Entity;
 
 	if (nid < 0)
 	{
@@ -55,14 +54,20 @@ float Entity::getAng()
 	return angle;
 }
 
-void Entity::writeInformation(sf::Packet & packet)
+MultiplayerMessage Entity::writeInformation()
 {
-	packet << pos.x << pos.y << size.x << size.y << angle;
+	MultiplayerMessage message(MessageType::NoMessage);
+	return message;
 }
 
-void Entity::readInformation(sf::Packet & packet)
+void Entity::readInformation(MultiplayerMessage& message)
 {
-	packet >> pos.x >> pos.y >> size.x >> size.y >> angle;
+	//packet >> pos.x >> pos.y >> size.x >> size.y >> angle;
+}
+
+MultiplayerMessage Entity::spawnMessage()
+{
+	return MultiplayerMessage(MessageType::NoMessage);
 }
 
 int Entity::getNid()
@@ -70,12 +75,13 @@ int Entity::getNid()
 	return nid;
 }
 
-Entity::SyncType Entity::getSyncType()
-{
-	return type;
-}
-
 Entity::Type Entity::getType()
 {
 	return realType;
+}
+
+void Entity::add(GameWorld * world)
+{
+	this->world = world;
+	init();
 }

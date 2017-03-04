@@ -3,6 +3,7 @@
 #include "Client.h"
 #include "Server.h"
 #include "Log.h"
+#include "DynamicProp.h"
 
 Game::Game():State()
 {
@@ -21,43 +22,28 @@ void Game::update(float dt)
 	//Server::update(dt);
 	Client::update(dt);
 
-	for (auto& entity : entities)
-	{
-		entity->localUpdate(dt);
-	}
+	world.localUpdate(dt);
+	world.physicsUpdate(dt);
 }
 
 void Game::draw()
 {
 	terrain.draw();
-	for (auto& entity : entities)
-	{
-		entity->draw();
-	}
+	world.draw();
 }
 
 void Game::handleEvent(sf::Event event)
 {
 }
 
-Entity* Game::findEntity(int nid)
-{
-	for (auto& entity: entities)
-	{
-		if (entity->getNid() == nid)
-			return entity.get();
-	}
-
-	return nullptr;
-}
-
 sf::Packet Game::getClientInfo()
 {
 	sf::Packet packet;
-	if (Client::getClientId() != -1)
+	if (Client::getClientId() != -1 && players.find(Client::getClientId())!=players.end())
 	{
-		packet << (sf::Uint8)Server::MESSAGE_TYPE::PLAYER_UPDATE;
-		players[Client::getClientId()]->writeInformation(packet);
+		packet << (sf::Uint8)Server::MESSAGE_TYPE::MESSAGE;
+		auto message = players[Client::getClientId()].entity->writeInformation();
+		message.write(packet);
 	}
 	else
 	{
@@ -79,39 +65,23 @@ void Game::applyGameInfo(sf::Packet& info)
 		sf::Uint32 id;
 		info >> id;
 
-		sf::Uint8 syncType;
-		info >> syncType;
+		sf::Uint8 entityType;
+		info >> entityType;
 
-		Entity* ent = findEntity(id);
-		//Entity* ent = players[id];
-		if (ent == 0 || id == players[Client::getClientId()]->getNid())
+		MultiplayerMessage message(info);
+
+		Entity* ent = world.findEntity(id);
+
+		if (ent == 0)
 		{
-			Entity::SyncType type = (Entity::SyncType)syncType;
-			if (type == Entity::SyncType::Entity)
-			{
-				float x, y, w, h, ang;
-				info >> x >> y >> w >> h >> ang;
-
-				if (ent == 0)
-					Log::debug("No entity found with nid " + std::to_string(id));
-			}else
-			if (type == Entity::SyncType::Player)
-			{
-				float x, y, ang;
-				info >> x >> y >> ang;
-
-				if (ent == 0)
-					Log::debug("No entity found with nid " + std::to_string(id));
-			}
-			else
-			{
-				Log::err("Something is very wrong "+std::to_string(count));
-			}
+			Log::err("Something is very wrong "+std::to_string(count));
 		}
-		else
+		else if (id == players[Client::getClientId()].entity->getNid())
+		{
+		}else
 		{
 			//Log::debug("its ok");
-			ent->readInformation(info);
+			ent->readInformation(message);
 		}
 	}
 
@@ -120,7 +90,40 @@ void Game::applyGameInfo(sf::Packet& info)
 
 bool Game::handlePacket(Server::MESSAGE_TYPE type, sf::Packet & packet)
 {
-	if (type == Server::MESSAGE_TYPE::NEW_PLAYER)
+	if (type == Server::MESSAGE_TYPE::MESSAGE)
+	{
+		MultiplayerMessage message(packet);
+
+		if (message.getType() == MessageType::SpawnPlayerEntity)
+		{
+			auto* m = message.getMessage<SpawnPlayerEntityMessage>();
+
+			Player* player = new Player(m->playerId, m->nid);
+			player->setPos(Vec2f(m->x, m->y));
+			ClientPlayerInfo playerinfo;
+			playerinfo.entity = player;
+
+			players[m->playerId] = playerinfo;
+
+			Log::debug("Player with id " + std::to_string(m->nid));
+
+			if (m->playerId != Client::getClientId())
+			{
+				player->setRemote(true);
+			}
+			world.add(player);
+		}
+		if (message.getType() == MessageType::SpawnDynamicPropEntity)
+		{
+			auto* m = message.getMessage<SpawnDynamicPropEntityMessage>();
+
+			DynamicProp* prop = new DynamicProp(m->nid);
+			prop->setPos(Vec2f(m->x, m->y));
+			world.add(prop);
+		}
+	}
+
+	/*if (type == Server::MESSAGE_TYPE::NEW_PLAYER)
 	{
 		sf::Uint32 id;
 		packet >> id;
@@ -145,7 +148,7 @@ bool Game::handlePacket(Server::MESSAGE_TYPE type, sf::Packet & packet)
 		entities.push_back(std::unique_ptr<Entity>(player));
 
 		return true;
-	}
+	}*/
 
 
 	return false;

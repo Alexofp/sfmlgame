@@ -5,6 +5,12 @@
 #include "Player.h"
 #include "Server.h"
 #include <unordered_map>
+#include "GameWorld.h"
+
+struct ServerPlayerInfo
+{
+	Player* entity;
+};
 
 class GameServer :
 	public State
@@ -21,7 +27,7 @@ public:
 	bool handlePacketServer(ClientInformation& info, Server::MESSAGE_TYPE type, sf::Packet& packet);
 	void serverPlayerConnected(ClientInformation& info);
 private:
-	std::vector<std::unique_ptr<Entity> > entities;
-	std::unordered_map<int, Player*> players;
+	GameWorld world;
+	std::unordered_map<int, ServerPlayerInfo> players;
 };
 

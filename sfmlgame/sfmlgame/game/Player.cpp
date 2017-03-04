@@ -1,15 +1,16 @@
 #include "Player.h"
 #include "Input.h"
 #include "Log.h"
+#include "GameWorld.h"
 
-Player::Player(int nid):Entity(nid)
+Player::Player(int clientId, int nid):PhysicsEntity(nid)
 {
+	this->clientId = clientId;
 	sprite.setSize(Vec2f(38,26));
 	sprite.setTexture("player");
 	speed = Vec2f(0, 0);
 	this->isRemote = false;
 	realType = Type::Player;
-	type = SyncType::Player;
 	Log::debug("new player entity");
 
 	walkAnim.loadFromFile("resources/player/walkanim.json");
@@ -29,14 +30,19 @@ Player::~Player()
 {
 }
 
+void Player::init()
+{
+	body = world->getPhysicsWorld().createCircle(getPos(), 40.f);
+}
+
 void Player::update(float dt)
 {
-
+	updateBody();
 }
 
 void Player::localUpdate(float dt)
 {
-	float acc = 300;
+	float acc = 1000;
 	Vec2f newspeed;
 	if (!isRemote)
 	{
@@ -62,7 +68,9 @@ void Player::localUpdate(float dt)
 	speed = Vec2f::sub(speed, Vec2f::mul(speed, Vec2f(dt * 5, dt * 5)));
 	if (speed.len()<100)
 		speed = Vec2f::add(speed, Vec2f::mul(newspeed, Vec2f(dt, dt)));
-	setPos(Vec2f::add(getPos(), Vec2f::mul(speed, Vec2f(dt, dt))));
+
+	body->setSpeed(speed);
+	//setPos(Vec2f::add(getPos(), Vec2f::mul(speed, Vec2f(dt, dt))));
 
 
 	if (speed.len() > 0.1)
@@ -74,7 +82,10 @@ void Player::localUpdate(float dt)
 	}
 
 	skeleton.update(dt);
+	updateBody();
+
 	sprite.setPos(getPos());
+	//skeleton.setPos(getPos());
 	skeleton.setPos(getPos());
 }
 
@@ -89,17 +100,36 @@ void Player::setRemote(bool isRemote)
 	this->isRemote = isRemote;
 }
 
-void Player::writeInformation(sf::Packet & packet)
+int Player::getClientId()
 {
-	packet << getPos().x << getPos().y << skeleton.getAng();
+	return clientId;
 }
 
-void Player::readInformation(sf::Packet & packet)
+MultiplayerMessage Player::writeInformation()
 {
-	float x,y,ang;
-	packet >> x >> y >> ang;
+	MultiplayerMessage message(MessageType::PlayerUpdate);
+	message.setMessage(new PlayerUpdateMessage(getBodyPos().x, getBodyPos().y, skeleton.getAng(), getBodySpeed().x, getBodySpeed().y));
 
-	setPos(Vec2f(x, y));
-	sprite.setAng(ang);
-	skeleton.setAng(ang);
+	return message;
+}
+
+void Player::readInformation(MultiplayerMessage& message)
+{
+	if (message.getType() == MessageType::PlayerUpdate)
+	{
+		PlayerUpdateMessage* m = message.getMessage<PlayerUpdateMessage>();
+
+		setBodyPos(Vec2f(m->x, m->y));
+		//setBodyAng(m->ang);
+		skeleton.setAng(m->ang);
+		setBodySpeed(Vec2f(m->speedx, m->speedy));
+	}
+}
+
+MultiplayerMessage Player::spawnMessage()
+{
+	MultiplayerMessage message(MessageType::SpawnPlayerEntity);
+	message.setMessage(new SpawnPlayerEntityMessage(getNid(),clientId ,getPos().x, getPos().y));
+
+	return message;
 }

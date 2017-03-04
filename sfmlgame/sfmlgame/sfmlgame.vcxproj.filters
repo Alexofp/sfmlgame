@@ -139,6 +139,24 @@
     <ClCompile Include="animation\Skin.cpp">
       <Filter>code\animation</Filter>
     </ClCompile>
+    <ClCompile Include="game\DynamicProp.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\GameWorld.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\PhysicsEntity.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\PhysicsWorld.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\PlayerServer.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\SharedMultiplayer.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -254,6 +272,24 @@
     </ClInclude>
     <ClInclude Include="animation\Skin.h">
       <Filter>code\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="game\DynamicProp.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\GameWorld.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\PhysicsEntity.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\PhysicsWorld.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\PlayerServer.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\SharedMultiplayer.h">
+      <Filter>code\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

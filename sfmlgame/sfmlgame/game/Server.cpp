@@ -174,6 +174,22 @@ void Server::send(sf::Packet packet)
 	}
 }
 
+void Server::send(ClientInformation & client, MultiplayerMessage& message)
+{
+	sf::Packet packet;
+	packet << (sf::Uint8)Server::MESSAGE_TYPE::MESSAGE;
+	message.write(packet);
+	Server::send(client, packet);
+}
+
+void Server::send(MultiplayerMessage& message)
+{
+	sf::Packet packet;
+	packet << (sf::Uint8)Server::MESSAGE_TYPE::MESSAGE;
+	message.write(packet);
+	Server::send(packet);
+}
+
 bool Server::isServer()
 {
 	Server& server = get();

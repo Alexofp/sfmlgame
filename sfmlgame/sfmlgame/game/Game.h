@@ -7,6 +7,12 @@
 #include "Server.h"
 #include <unordered_map>
 #include "Terrain.h"
+#include "GameWorld.h"
+
+struct ClientPlayerInfo
+{
+	Player* entity;
+};
 
 class Game :
 	public State
@@ -19,14 +25,14 @@ public:
 	void draw();
 	void handleEvent(sf::Event event);
 
-	Entity* findEntity(int nid);
 	void applyGameInfo(sf::Packet& info);
 	bool handlePacket(Server::MESSAGE_TYPE type, sf::Packet& packet);
 	sf::Packet getClientInfo();
 
 private:
-	std::vector<std::unique_ptr<Entity> > entities;
-	std::unordered_map<int, Player*> players;
+	//std::vector<std::unique_ptr<Entity> > entities;
+	std::unordered_map<int, ClientPlayerInfo> players;
 	Terrain terrain;
+	GameWorld world;
 };
 

@@ -4,20 +4,25 @@
 #include "AnimatedSkeleton.h"
 #include "Skin.h"
 #include "Animation.h"
+#include "PhysicsEntity.h"
 
-class Player: public Entity
+class Player: public PhysicsEntity
 {
 public:
-	Player(int nid = -1);
+	Player(int clientId, int nid = -1);
 	~Player();
 
+	void init();
 	void update(float dt);
 	void localUpdate(float dt);
 	void draw();
 	void setRemote(bool isRemote);
 
-	virtual void writeInformation(sf::Packet& packet);
-	virtual void readInformation(sf::Packet& packet);
+	int getClientId();
+
+	virtual MultiplayerMessage writeInformation();
+	virtual void readInformation(MultiplayerMessage& message);
+	MultiplayerMessage spawnMessage();
 private:
 	SimpleSprite sprite;
 	AnimatedSkeleton skeleton;
@@ -26,5 +31,6 @@ private:
 	Vec2f speed;
 	bool isRemote;
 	bool attacking;
+	int clientId;
 };
 

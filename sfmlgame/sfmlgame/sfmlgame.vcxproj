@@ -69,20 +69,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
-    <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Box2D\lib\debug;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
-    <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Box2D\lib\release;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
-    <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Box2D\lib\debug;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
-    <LibraryPath>..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Box2D\lib\release;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -91,7 +91,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;sfml-network-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;Box2D.lib;sfml-network-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -101,7 +101,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;sfml-network-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;Box2D.lib;sfml-network-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,7 +115,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;sfml-network.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;Box2D.lib;sfml-network.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,15 +129,21 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;sfml-network.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;Box2D.lib;sfml-network.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animation\AnimatedSkeleton.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
+    <ClCompile Include="game\DynamicProp.cpp" />
+    <ClCompile Include="game\GameWorld.cpp" />
     <ClCompile Include="gui\SimpleGuiWindow.cpp" />
     <ClCompile Include="animation\Skin.cpp" />
+    <ClCompile Include="game\PhysicsEntity.cpp" />
+    <ClCompile Include="game\PhysicsWorld.cpp" />
+    <ClCompile Include="game\PlayerServer.cpp" />
+    <ClCompile Include="game\SharedMultiplayer.cpp" />
     <ClCompile Include="system\Application.cpp" />
     <ClCompile Include="gui\TextLine.cpp" />
     <ClCompile Include="util\BlueprintBackground.cpp" />
@@ -177,8 +183,14 @@
     <ClInclude Include="animation\AnimatedSkeleton.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />
+    <ClInclude Include="game\DynamicProp.h" />
+    <ClInclude Include="game\GameWorld.h" />
     <ClInclude Include="gui\SimpleGuiWindow.h" />
     <ClInclude Include="animation\Skin.h" />
+    <ClInclude Include="game\PhysicsEntity.h" />
+    <ClInclude Include="game\PhysicsWorld.h" />
+    <ClInclude Include="game\PlayerServer.h" />
+    <ClInclude Include="game\SharedMultiplayer.h" />
     <ClInclude Include="system\Application.h" />
     <ClInclude Include="gui\TextLine.h" />
     <ClInclude Include="util\BlueprintBackground.h" />

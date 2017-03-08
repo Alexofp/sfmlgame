@@ -1,11 +1,14 @@
 #include "PhysicsWorld.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <SFML\Graphics\CircleShape.hpp>
+#include "GameWindow.h"
 
-PhysicsBody::PhysicsBody(PhysicsWorld * world, b2Body* body)
+PhysicsBody::PhysicsBody(PhysicsWorld * world, b2Body* body, Type type)
 {
 	this->world = world;
 	this->body = body;
+	this->type = type;
 }
 
 PhysicsBody::~PhysicsBody()
@@ -48,6 +51,16 @@ void PhysicsBody::setSpeed(Vec2f speed)
 	body->SetLinearVelocity(velocity);
 }
 
+float PhysicsBody::getRadius()
+{
+	return ((b2CircleShape*)body->GetFixtureList()->GetShape())->m_radius*world->worldToB2World;
+}
+
+PhysicsBody::Type PhysicsBody::getType()
+{
+	return type;
+}
+
 
 PhysicsWorld::PhysicsWorld():
 	world(b2Vec2(0.f,0.f))
@@ -86,7 +99,7 @@ PhysicsBody * PhysicsWorld::createCircle(Vec2f pos, float radius)
 	// Add the shape to the body.
 	circleBody->CreateFixture(&fixtureDef);
 
-	PhysicsBody* body = new PhysicsBody(this, circleBody);
+	PhysicsBody* body = new PhysicsBody(this, circleBody, PhysicsBody::Type::Circle);
 	circleBody->SetUserData(body);
 	bodies.push_back(std::unique_ptr<PhysicsBody>(body));
 
@@ -116,6 +129,26 @@ void PhysicsWorld::update(float dt)
 	{
 		time -= timestep;
 		world.Step(timestep, 6, 2);
+	}
+}
+
+void PhysicsWorld::debugDraw()
+{
+	sf::CircleShape circle;
+	circle.setFillColor(sf::Color::Transparent);
+	circle.setOutlineColor(sf::Color::Red);
+	circle.setOutlineThickness(2.f);
+
+	for (auto& body : bodies)
+	{
+		if (body->getType() == PhysicsBody::Type::Circle)
+		{
+			circle.setPosition(body->getPos().toSFMLVec());
+			circle.setRadius(body->getRadius() - 2.f);
+			circle.setOrigin(circle.getRadius(), circle.getRadius());
+
+			GameWindow::getInternalHandle().draw(circle);
+		}
 	}
 }
 

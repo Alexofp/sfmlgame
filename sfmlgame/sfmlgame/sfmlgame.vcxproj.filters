@@ -157,6 +157,12 @@
     <ClCompile Include="game\SharedMultiplayer.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
+    <ClCompile Include="system\Settings.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
+    <ClCompile Include="game\GameMenu.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -289,6 +295,12 @@
       <Filter>code\game</Filter>
     </ClInclude>
     <ClInclude Include="game\SharedMultiplayer.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="system\Settings.h">
+      <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="game\GameMenu.h">
       <Filter>code\game</Filter>
     </ClInclude>
   </ItemGroup>

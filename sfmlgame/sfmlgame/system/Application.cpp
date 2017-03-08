@@ -4,9 +4,10 @@
 #include "Game.h"
 #include "Input.h"
 #include "TextureManager.h"
-#include "GameServer.h"
 #include <iostream>
 #include "AnimationEditor.h"
+#include "Settings.h"
+#include "GameMenu.h"
 
 Application::Application()
 {
@@ -25,40 +26,23 @@ void Application::pushState(State * state)
 
 int Application::run()
 {
+	Settings::load();
+	Settings::save();
+
 	TextureManager::loadFromFile("resources/gui/textures.txt");
 	TextureManager::loadFromFile("resources/somedude/textures.txt");
 	TextureManager::loadFromFile("resources/player/player.txt");
 	TextureManager::load("player", "resources/player.png");
 	TextureManager::load("blueprint", "resources/blueprint.png");
 
-	GameWindow::open(Vec2i(800, 700));
+	GameWindow::open(Settings::getVec2i("window","size",Vec2i(800,600)), Settings::getBool("window","fullscreen", false));
 	GameWindow::setOnClose([&]() { return true; });
 	GameWindow::setOnEvent([&](sf::Event e) { states.back()->handleEvent(e); });
 	
 
 	sf::Clock clock;
-	std::unique_ptr<GameServer> server(nullptr);
-
-	bool isGame;
-	std::cout << "Game?" << std::endl;
-	std::cin >> isGame;
-
-	bool isServer = false;
-	if (isGame)
-	{
-		std::cout << "Server?" << std::endl;
-		std::cin >> isServer;
-		//isServer = true;
-
-		if (isServer)
-			server.reset(new GameServer());
-
-		pushState(new Game());
-	}
-	else
-	{
-		pushState(new AnimationEditor());
-	}
+	isServer = false;
+	pushState(new GameMenu());
 
 	while (states.size()>0 && GameWindow::isOpen())
 	{
@@ -74,7 +58,16 @@ int Application::run()
 		GameWindow::clear();
 		states.back()->draw();
 		GameWindow::display();
+
+		if (states.back()->finished)
+			states.pop_back();
 	}
 
 	return 0;
+}
+
+void Application::startServer()
+{
+	isServer = true;
+	server.reset(new GameServer());
 }

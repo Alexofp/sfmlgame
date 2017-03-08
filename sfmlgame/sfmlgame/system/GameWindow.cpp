@@ -17,10 +17,14 @@ GameWindow& GameWindow::get()
 }
 
 
-void GameWindow::open(Vec2i size)
+void GameWindow::open(Vec2i size, bool fullscreen)
 {
+	auto flags = sf::Style::Default;
+	if (fullscreen)
+		flags = sf::Style::Fullscreen;
+
 	GameWindow& window = get();
-	window.window.create(sf::VideoMode(size.x, size.y), "My window");
+	window.window.create(sf::VideoMode(size.x, size.y), "My window", flags);
 	window.window.setFramerateLimit(60);
 }
 

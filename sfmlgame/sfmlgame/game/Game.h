@@ -18,7 +18,7 @@ class Game :
 	public State
 {
 public:
-	Game();
+	Game(std::string ip = "127.0.0.1");
 	~Game();
 
 	void update(float dt);

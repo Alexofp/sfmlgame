@@ -5,7 +5,7 @@
 #include "Log.h"
 #include "DynamicProp.h"
 
-Game::Game():State()
+Game::Game(std::string ip):State()
 {
 	Client::connect("127.0.0.1");
 	Client::setOnGameInfo([&](sf::Packet& packet) { this->applyGameInfo(packet); });
@@ -30,6 +30,7 @@ void Game::draw()
 {
 	terrain.draw();
 	world.draw();
+	world.getPhysicsWorld().debugDraw();
 }
 
 void Game::handleEvent(sf::Event event)

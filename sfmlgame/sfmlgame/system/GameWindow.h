@@ -10,7 +10,7 @@ public:
 	GameWindow();
 	~GameWindow();
 
-	static void open(Vec2i size);
+	static void open(Vec2i size, bool fullscreen);
 	static void close();
 	static void handleMessages();
 	static void setOnClose(std::function<bool()> func); // bool func() { return true; }

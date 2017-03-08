@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "State.h"
+#include "GameServer.h"
 
 class Application
 {
@@ -11,6 +12,9 @@ public:
 
 	void pushState(State* state);
 	int run();
+	void startServer();
 	std::vector<std::unique_ptr<State> > states;
+	bool isServer;
+	std::unique_ptr<GameServer> server;
 };
 

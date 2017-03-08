@@ -9,7 +9,12 @@ class PhysicsWorld;
 class PhysicsBody
 {
 public:
-	PhysicsBody(PhysicsWorld* world, b2Body* body);
+	enum class Type
+	{
+		Circle
+	};
+
+	PhysicsBody(PhysicsWorld* world, b2Body* body, Type type);
 	~PhysicsBody();
 
 	Vec2f getPos();
@@ -18,9 +23,12 @@ public:
 	void setAng(float ang);
 	Vec2f getSpeed();
 	void setSpeed(Vec2f speed);
+	float getRadius();
+	Type getType();
 private:
 	b2Body* body;
 	PhysicsWorld* world;
+	Type type;
 };
 
 class PhysicsWorld
@@ -36,6 +44,7 @@ public:
 	Vec2f translate(b2Vec2 p);
 	void destroy(PhysicsBody* body);
 	void update(float dt);
+	void debugDraw();
 private:
 
 

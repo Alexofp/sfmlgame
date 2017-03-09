@@ -7,6 +7,7 @@ NinePatchImage::NinePatchImage()
 	//ctor
 	mult = 1.f;
 	shouldUpdate = true;
+	color = sf::Color::White;
 }
 
 NinePatchImage::~NinePatchImage()
@@ -128,6 +129,11 @@ void NinePatchImage::redraw()
 		center.setTextureRect(sf::IntRect(textureRect.getX(), textureRect.getY(), TextureManager::get(texture)->getSize().x - 2 * textureRect.getX(), TextureManager::get(texture)->getSize().y - 2 * textureRect.getY()));
 	}
 	shapes.push_back(center);
+
+	for (auto& shape : shapes)
+	{
+		shape.setFillColor(color);
+	}
 }
 
 void NinePatchImage::setPos(Vec2f p)
@@ -168,6 +174,16 @@ void NinePatchImage::setMult(float m)
 {
 	mult = m / textureRect.getY()*getSize().getY();
 	shouldUpdate = true;
+}
+
+void NinePatchImage::setColor(sf::Color color)
+{
+	this->color = color;
+
+	for (auto& shape : shapes)
+	{
+		shape.setFillColor(color);
+	}
 }
 
 void NinePatchImage::draw()

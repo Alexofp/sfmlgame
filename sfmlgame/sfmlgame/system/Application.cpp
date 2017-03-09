@@ -8,6 +8,7 @@
 #include "AnimationEditor.h"
 #include "Settings.h"
 #include "GameMenu.h"
+#include "MapEditor.h"
 
 Application::Application()
 {

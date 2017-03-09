@@ -7,6 +7,8 @@
 
 Game::Game(std::string ip):State()
 {
+	terrain.load("maps/map1/");
+
 	Client::connect("127.0.0.1");
 	Client::setOnGameInfo([&](sf::Packet& packet) { this->applyGameInfo(packet); });
 	Client::setOnPacket([&](Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacket(type, packet); });

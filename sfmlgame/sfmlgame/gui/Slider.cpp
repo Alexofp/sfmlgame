@@ -96,6 +96,7 @@ void Slider::handleEvent(WidgetEvent& event)
 	}
 	if (isDraging && event.type == WidgetEventType::MouseMove)
 	{
+		event.handled = true;
 		float oldValue = value;
 		value = calculateValue(event.mouseMove.pos);
 		if (onValueChange && oldValue != value)

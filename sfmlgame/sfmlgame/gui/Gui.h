@@ -18,6 +18,7 @@ public:
 	static sf::Font& getDefaultFont();
 	Widget* findById(std::string id);
 	sf::View getView();
+	void triggerResize();
 protected:
 private:
 	GuiHandler handler;

@@ -20,6 +20,9 @@
     <Filter Include="code\util">
       <UniqueIdentifier>{097800f4-fcbc-47c6-ba91-262d98b1da33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="code\mapeditor">
+      <UniqueIdentifier>{205667ea-6abb-4fe9-9eb8-483301ce63ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="oldmain.cpp">
@@ -163,6 +166,12 @@
     <ClCompile Include="game\GameMenu.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
+    <ClCompile Include="mapeditor\EditorTerrain.cpp">
+      <Filter>code\mapeditor</Filter>
+    </ClCompile>
+    <ClCompile Include="mapeditor\MapEditor.cpp">
+      <Filter>code\mapeditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -302,6 +311,12 @@
     </ClInclude>
     <ClInclude Include="game\GameMenu.h">
       <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="mapeditor\EditorTerrain.h">
+      <Filter>code\mapeditor</Filter>
+    </ClInclude>
+    <ClInclude Include="mapeditor\MapEditor.h">
+      <Filter>code\mapeditor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

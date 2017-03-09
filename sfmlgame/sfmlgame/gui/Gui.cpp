@@ -5,6 +5,7 @@
 Gui::Gui()
 {
 	//ctor
+	triggerResize();
 }
 
 Gui::~Gui()
@@ -21,6 +22,15 @@ void Gui::draw()
 sf::View Gui::getView()
 {
 	return handler.getView();
+}
+
+void Gui::triggerResize()
+{
+	WidgetEvent e;
+	e.handled = false;
+	e.type = WidgetEventType::Resized;
+	e.resized.size = Vec2f(GameWindow::getSize().x, GameWindow::getSize().y);
+	handler.handleEvent(e);
 }
 
 bool Gui::handleEvent(sf::Event& event)

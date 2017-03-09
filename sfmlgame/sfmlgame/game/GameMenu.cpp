@@ -3,6 +3,8 @@
 #include "SimpleGuiWindow.h"
 #include "Game.h"
 #include "Application.h"
+#include "AnimationEditor.h"
+#include "MapEditor.h"
 
 GameMenu::GameMenu()
 {
@@ -36,6 +38,26 @@ GameMenu::GameMenu()
 		button1->OnClick(std::bind(&GameMenu::onConnectButton, this, std::placeholders::_1, std::placeholders::_2));
 		gui.add(button1, "connect");
 	}
+	{
+		Button* button1 = new Button();
+		button1->setSize(Vec2f(150.f, 30.f));
+		button1->setTextSize(12u);
+		button1->setTexture("button");
+		button1->setText(L"Редактор анимаций");
+		button1->setMult(0.3f);
+		button1->OnClick(std::bind(&GameMenu::onAnimButton, this, std::placeholders::_1, std::placeholders::_2));
+		gui.add(button1, "anims");
+	}
+	{
+		Button* button1 = new Button();
+		button1->setSize(Vec2f(150.f, 30.f));
+		button1->setTextSize(12u);
+		button1->setTexture("button");
+		button1->setText(L"Редактор карт");
+		button1->setMult(0.3f);
+		button1->OnClick(std::bind(&GameMenu::onMapButton, this, std::placeholders::_1, std::placeholders::_2));
+		gui.add(button1, "map");
+	}
 
 	resizeGui();
 }
@@ -43,13 +65,17 @@ GameMenu::GameMenu()
 void GameMenu::resizeGui()
 {
 	Vec2f size(gui.getView().getSize());
-	int count = 2;
+	int count = 4;
 	int i = 0;
-	float w = 100.f;
+	float w = 150.f;
 
 	gui.findById("host")->setPos(Vec2f(size.x/2.f, size.y/2.f - w/2.f + w*((float)i/count)));
 	i++;
 	gui.findById("connect")->setPos(Vec2f(size.x / 2.f, size.y / 2.f - w / 2.f + w*((float)i / count)));
+	i++;
+	gui.findById("anims")->setPos(Vec2f(size.x / 2.f, size.y / 2.f - w / 2.f + w*((float)i / count)));
+	i++;
+	gui.findById("map")->setPos(Vec2f(size.x / 2.f, size.y / 2.f - w / 2.f + w*((float)i / count)));
 	i++;
 	gui.findById("quit")->setPos(Vec2f(size.x / 2.f, size.y / 2.f - w / 2.f + w*((float)i / count)));
 	i++;
@@ -80,6 +106,16 @@ void GameMenu::onHostButton(Button * sender, MouseDownEvent event)
 {
 	app->startServer();
 	pushState(new Game());
+}
+
+void GameMenu::onAnimButton(Button * sender, MouseDownEvent event)
+{
+	pushState(new AnimationEditor());
+}
+
+void GameMenu::onMapButton(Button * sender, MouseDownEvent event)
+{
+	pushState(new MapEditor());
 }
 
 GameMenu::~GameMenu()

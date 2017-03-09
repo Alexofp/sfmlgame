@@ -19,7 +19,9 @@ public:
 	void onQuitButton(Button* sender, MouseDownEvent event);
 	void onConnectButton(Button* sender, MouseDownEvent event);
 	void onHostButton(Button* sender, MouseDownEvent event);
-public:
+	void onAnimButton(Button* sender, MouseDownEvent event);
+	void onMapButton(Button* sender, MouseDownEvent event);
+private:
 	Gui gui;
 };
 

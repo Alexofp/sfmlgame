@@ -17,6 +17,7 @@ public:
 	void setTexture(std::string texture);
 	void setTextureRect(Vec2f textureRect);
 	void setMult(float m);
+	void setColor(sf::Color color);
 
 	void setPos(Vec2f pos);
 	void setSize(Vec2f size);
@@ -30,6 +31,7 @@ private:
 	Vec2f textureRect;
 	float mult;
 	bool shouldUpdate;
+	sf::Color color;
 
 	std::vector<sf::RectangleShape> shapes;
 };

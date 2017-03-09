@@ -23,13 +23,13 @@ vec3 blend(vec4 tex1, vec4 tex1z, vec4 tex2, vec4 tex2z, vec4 tex3, vec4 tex3z)
 void main()
 {
     // lookup the pixel in the texture
-    vec3 pixel1 = texture2D(texture1, gl_TexCoord[0].xy / 0.2 ).rgb;
-	vec3 pixel2 = texture2D(texture2, gl_TexCoord[0].xy / 0.2 ).rgb;
-	vec3 pixel3 = texture2D(texture3, gl_TexCoord[0].xy / 0.2 ).rgb;//texture2D(texture3, gl_TexCoord[0].xy / scale).rgb;
+    vec3 pixel1 = texture2D(texture1, gl_TexCoord[0].xy / 0.05 ).rgb;
+	vec3 pixel2 = texture2D(texture2, gl_TexCoord[0].xy / 0.01 ).rgb;
+	vec3 pixel3 = texture2D(texture3, gl_TexCoord[0].xy / 0.01 ).rgb;//texture2D(texture3, gl_TexCoord[0].xy / scale).rgb;
 	
-	vec4 pixel1z = texture2D(texture1z, gl_TexCoord[0].xy / 0.2 );
-	vec4 pixel2z = texture2D(texture2z, gl_TexCoord[0].xy / 0.2 );
-	vec4 pixel3z = texture2D(texture3z, gl_TexCoord[0].xy / 0.2 );//texture2D(texture3z, gl_TexCoord[0].xy / scale);
+	vec4 pixel1z = texture2D(texture1z, gl_TexCoord[0].xy / 0.05 );
+	vec4 pixel2z = texture2D(texture2z, gl_TexCoord[0].xy / 0.05 );
+	vec4 pixel3z = texture2D(texture3z, gl_TexCoord[0].xy / 0.05 );//texture2D(texture3z, gl_TexCoord[0].xy / scale);
 	
 	vec4 bl = texture2D(blendtexture, gl_TexCoord[0].xy);
 	

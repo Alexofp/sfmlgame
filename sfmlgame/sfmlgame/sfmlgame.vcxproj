@@ -69,19 +69,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\debug;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\release;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\debug;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\release;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -136,6 +136,7 @@
     <ClCompile Include="animation\AnimatedSkeleton.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
+    <ClCompile Include="mapeditor\EditorTerrain.cpp" />
     <ClCompile Include="game\GameMenu.cpp" />
     <ClCompile Include="game\DynamicProp.cpp" />
     <ClCompile Include="game\GameWorld.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="game\PhysicsWorld.cpp" />
     <ClCompile Include="game\PlayerServer.cpp" />
     <ClCompile Include="game\SharedMultiplayer.cpp" />
+    <ClCompile Include="mapeditor\MapEditor.cpp" />
     <ClCompile Include="system\Settings.cpp" />
     <ClCompile Include="system\Application.cpp" />
     <ClCompile Include="gui\TextLine.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="animation\AnimatedSkeleton.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />
+    <ClInclude Include="mapeditor\EditorTerrain.h" />
     <ClInclude Include="game\GameMenu.h" />
     <ClInclude Include="game\DynamicProp.h" />
     <ClInclude Include="game\GameWorld.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="game\PhysicsWorld.h" />
     <ClInclude Include="game\PlayerServer.h" />
     <ClInclude Include="game\SharedMultiplayer.h" />
+    <ClInclude Include="mapeditor\MapEditor.h" />
     <ClInclude Include="system\Settings.h" />
     <ClInclude Include="system\Application.h" />
     <ClInclude Include="gui\TextLine.h" />

@@ -5,28 +5,33 @@
 #include <memory>
 #include "Vec2f.h"
 
-class Terrain
+class EditorTerrain
 {
 public:
 	struct Part
 	{
-		sf::Texture texture;
+		sf::RenderTexture texture;
 		sf::RectangleShape ground;
 		int x;
 		int y;
 	};
 
-	Terrain();
-	~Terrain();
+	EditorTerrain();
+	~EditorTerrain();
+
+	void resetSize(Vec2i size, float tilesize);
+
+	void drawOnMap(Vec2f pos, float radius, sf::Color color);
+	void save(std::string folder);
+	void load(std::string folder);
 
 	void draw();
-	void load(std::string folder);
 private:
 	//sf::RectangleShape ground;
 	sf::Shader shader;
 	int w;
 	int h;
-
+	
 	std::vector<std::unique_ptr<Part> > parts;
 
 	float tileSize;

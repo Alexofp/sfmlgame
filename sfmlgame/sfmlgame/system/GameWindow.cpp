@@ -23,8 +23,11 @@ void GameWindow::open(Vec2i size, bool fullscreen)
 	if (fullscreen)
 		flags = sf::Style::Fullscreen;
 
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
 	GameWindow& window = get();
-	window.window.create(sf::VideoMode(size.x, size.y), "My window", flags);
+	window.window.create(sf::VideoMode(size.x, size.y), "My window", flags, settings);
 	window.window.setFramerateLimit(60);
 }
 

@@ -81,3 +81,21 @@ std::string Util::wStrToStr(std::wstring str)
 {
 	return std::string(str.begin(), str.end());
 }
+
+int Util::strToInt(std::string str)
+{
+	try
+	{
+		int n = std::stoi(str);
+		return n;
+	}
+	catch (std::invalid_argument e)
+	{
+		return 0;
+	}
+}
+
+int Util::strToInt(std::wstring str)
+{
+	return strToInt(wStrToStr(str));
+}

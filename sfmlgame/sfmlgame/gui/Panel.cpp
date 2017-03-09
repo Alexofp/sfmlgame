@@ -51,6 +51,7 @@ void Panel::handleEvent(WidgetEvent& event)
 		if (isDraging)
 		{
 			Vec2f delta = Vec2f::sub(event.mouseMove.pos, storedPos);
+			event.handled = true;
 
 			if (onDrag)
 			{
@@ -85,6 +86,7 @@ void Panel::init(GuiHandler* handler)
 void Panel::setColor(sf::Color color)
 {
 	box.setFillColor(color);
+	im.setColor(color);
 }
 
 void Panel::OnDrag(std::function<void(Panel*, MouseMoveEvent, Vec2f)> f)

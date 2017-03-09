@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Log.h"
 #include "GameWorld.h"
+#include "GameWindow.h"
 
 Player::Player(int clientId, int nid):PhysicsEntity(nid)
 {
@@ -66,7 +67,7 @@ void Player::localUpdate(float dt)
 	}
 
 	speed = Vec2f::sub(speed, Vec2f::mul(speed, Vec2f(dt * 5, dt * 5)));
-	if (speed.len()<100)
+	if (speed.len()<500)
 		speed = Vec2f::add(speed, Vec2f::mul(newspeed, Vec2f(dt, dt)));
 
 	body->setSpeed(speed);
@@ -87,6 +88,12 @@ void Player::localUpdate(float dt)
 	sprite.setPos(getPos());
 	//skeleton.setPos(getPos());
 	skeleton.setPos(getPos());
+
+	if (!isRemote)
+	{
+		GameWindow::setCameraCenter(getPos());
+		GameWindow::setZoom(2.f);
+	}
 }
 
 void Player::draw()

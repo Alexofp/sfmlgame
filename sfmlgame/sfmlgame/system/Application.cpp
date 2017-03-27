@@ -30,6 +30,8 @@ int Application::run()
 	Settings::load();
 	Settings::save();
 
+	TextureManager::loadFromFile("resources/ground/textures.txt");
+	TextureManager::loadFromFile("resources/props/textures.txt");
 	TextureManager::loadFromFile("resources/gui/textures.txt");
 	TextureManager::loadFromFile("resources/somedude/textures.txt");
 	TextureManager::loadFromFile("resources/player/player.txt");

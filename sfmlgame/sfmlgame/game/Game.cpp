@@ -4,6 +4,7 @@
 #include "Server.h"
 #include "Log.h"
 #include "DynamicProp.h"
+#include "Settings.h"
 
 Game::Game(std::string ip):State()
 {
@@ -32,7 +33,8 @@ void Game::draw()
 {
 	terrain.draw();
 	world.draw();
-	world.getPhysicsWorld().debugDraw();
+	if(Settings::getBool("render", "debug", false))
+		world.getPhysicsWorld().debugDraw();
 }
 
 void Game::handleEvent(sf::Event event)

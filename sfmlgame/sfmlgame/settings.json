@@ -1,4 +1,7 @@
 {
+    "render": {
+        "debug": false
+    },
     "window": {
         "fullscreen": false,
         "size": [

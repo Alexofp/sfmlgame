@@ -16,6 +16,7 @@ public:
 
 	void update(float dt);
 	void draw();
+	void debugDraw();
 
 	float getProgress();
 	void setProgress(float p);

@@ -4,7 +4,8 @@
 
 DynamicProp::DynamicProp(int nid) :PhysicsEntity(nid)
 {
-	sprite.setSize(Vec2f(40, 40));
+	sprite.setSize(Vec2f(80, 80));
+	sprite.setTexture("prop_barrel");
 	speed = Vec2f(0, 0);
 	realType = Type::DynamicProp;
 }
@@ -15,7 +16,7 @@ DynamicProp::~DynamicProp()
 
 void DynamicProp::init()
 {
-	body = world->getPhysicsWorld().createCircle(getPos(), 20.f);
+	body = world->getPhysicsWorld().createCircle(getPos(), 40.f);
 }
 
 void DynamicProp::update(float dt)

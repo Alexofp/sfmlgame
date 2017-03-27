@@ -1,0 +1,5 @@
+ground_grass resources/ground/grass.png
+ground_sand resources/ground/sand.png
+ground_dirt resources/ground/dirt.png
+ground_rock resources/ground/rock.png
+ground_depth resources/ground/depth.jpg

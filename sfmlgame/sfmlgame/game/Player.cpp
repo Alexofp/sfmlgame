@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "GameWorld.h"
 #include "GameWindow.h"
+#include "Settings.h"
 
 Player::Player(int clientId, int nid):PhysicsEntity(nid)
 {
@@ -99,6 +100,8 @@ void Player::localUpdate(float dt)
 void Player::draw()
 {
 	skeleton.draw();
+	if (Settings::getBool("render", "debug", false))
+		skeleton.debugDraw();
 	//sprite.draw();
 }
 

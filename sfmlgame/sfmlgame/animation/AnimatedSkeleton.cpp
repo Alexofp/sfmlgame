@@ -98,6 +98,18 @@ void AnimatedSkeleton::draw()
 			window.draw(item.shape, boneTransform);
 		}
 	}
+}
+
+void AnimatedSkeleton::debugDraw()
+{
+	sf::Transform transform;
+	transform.translate(pos.toSFMLVec());
+	transform.rotate(angle);
+	transform.scale(sf::Vector2f(scale, scale));
+
+	sf::RenderStates states;
+	states.transform = transform;
+	auto& window = GameWindow::getInternalHandle();
 
 	for (auto& bone : bones)
 	{

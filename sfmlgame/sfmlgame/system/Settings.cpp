@@ -9,6 +9,7 @@ void Settings::defaults()
 {
 	setVec2i("window", "size", Vec2i(800, 700));
 	setBool("window", "fullscreen", false);
+	setBool("render", "debug", true);
 }
 
 Settings::Settings()

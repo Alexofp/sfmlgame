@@ -1,0 +1,18 @@
+{
+	"name": "penek",
+	"parts": [
+		{
+			"texture": "tex_penek",
+			"pos": [0,0],
+			"size": [200,200],
+			"angle": 0
+		}
+	],
+	"collisions": [
+		{
+			"type": "circle",
+			"pos": [0,0],
+			"size": 40
+		}
+	]
+}

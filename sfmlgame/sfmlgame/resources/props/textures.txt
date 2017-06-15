@@ -1,1 +1,3 @@
 prop_barrel resources/props/barrel.png
+tex_penek resources/props/stomp_low.png
+tex_penek2 resources/props/stomp2_low.png

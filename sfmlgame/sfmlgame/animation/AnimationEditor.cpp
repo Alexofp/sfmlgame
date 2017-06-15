@@ -287,6 +287,7 @@ void AnimationEditor::draw()
 	back.draw();
 
 	skelet.draw();
+	skelet.debugDraw();
 
 	if (selectedBone != nullptr)
 	{

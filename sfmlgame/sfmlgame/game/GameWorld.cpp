@@ -2,7 +2,8 @@
 
 
 
-GameWorld::GameWorld()
+GameWorld::GameWorld():
+	objects(this)
 {
 }
 
@@ -34,6 +35,7 @@ void GameWorld::physicsUpdate(float dt)
 
 void GameWorld::draw()
 {
+	objects.draw();
 	for (auto& entity : entities)
 	{
 		entity->draw();
@@ -65,4 +67,13 @@ PhysicsWorld & GameWorld::getPhysicsWorld()
 std::vector<std::unique_ptr<Entity>>& GameWorld::getEntities()
 {
 	return entities;
+}
+
+void GameWorld::addObject(std::string type, Vec2f pos, float angle, Vec2f size)
+{
+	StaticObject object = ObjectManager::getObject(type);
+	object.setPos(pos);
+	object.setSize(size);
+	object.setAng(angle);
+	objects.addObject(object);
 }

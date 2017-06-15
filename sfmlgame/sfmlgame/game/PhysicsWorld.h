@@ -38,6 +38,7 @@ public:
 	~PhysicsWorld();
 
 	PhysicsBody* createCircle(Vec2f pos, float radius);
+	PhysicsBody* createStaticCircle(Vec2f pos, float radius);
 
 	float worldToB2World;
 	b2Vec2 translate(Vec2f p);

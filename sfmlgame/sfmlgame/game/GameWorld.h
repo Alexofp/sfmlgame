@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 #include "PhysicsWorld.h"
+#include "ObjectHandler.h"
+#include "ObjectManager.h"
 
 class GameWorld
 {
@@ -19,9 +21,11 @@ public:
 	Entity* findEntity(int nid);
 	PhysicsWorld& getPhysicsWorld();
 	std::vector<std::unique_ptr<Entity> >& getEntities();
+	void addObject(std::string type, Vec2f pos, float angle = 0.f, Vec2f size = Vec2f(1.f,1.f));
 
 private:
 	std::vector<std::unique_ptr<Entity> > entities;
 	PhysicsWorld physics;
+	ObjectHandler objects;
 };
 

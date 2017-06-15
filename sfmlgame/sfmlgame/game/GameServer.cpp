@@ -9,12 +9,14 @@ GameServer::GameServer()
 	Server::setOnNewPlayer([&](ClientInformation& id) { this->serverPlayerConnected(id); });
 	Server::setOnPacket([&](ClientInformation& info, Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacketServer(info, type, packet); });
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		DynamicProp* prop = new DynamicProp();
 		prop->setPos(Vec2f(100.f+rand()%200, 100.f + rand() % 200));
 		world.add(prop);
 	}
+
+	//world.addObject("penek", Vec2f(450.f, 100.f));
 }
 
 

@@ -106,6 +106,37 @@ PhysicsBody * PhysicsWorld::createCircle(Vec2f pos, float radius)
 	return body;
 }
 
+PhysicsBody * PhysicsWorld::createStaticCircle(Vec2f pos, float radius)
+{
+	b2BodyDef bodyDef;
+	bodyDef.position = translate(pos);
+	bodyDef.type = b2_staticBody;
+
+	b2Body* circleBody = world.CreateBody(&bodyDef);
+	circleBody->SetLinearDamping(10.f);
+
+	b2CircleShape circle;
+	circle.m_radius = radius / worldToB2World;
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &circle;
+
+	// Set the box density to be non-zero, so it will be dynamic.
+	fixtureDef.density = 1.0f;
+
+	// Override the default friction.
+	fixtureDef.friction = 0.3f;
+
+	// Add the shape to the body.
+	circleBody->CreateFixture(&fixtureDef);
+
+	PhysicsBody* body = new PhysicsBody(this, circleBody, PhysicsBody::Type::Circle);
+	circleBody->SetUserData(body);
+	bodies.push_back(std::unique_ptr<PhysicsBody>(body));
+
+	return body;
+}
+
 b2Vec2 PhysicsWorld::translate(Vec2f p)
 {
 	return b2Vec2(p.x/worldToB2World, p.y/worldToB2World);

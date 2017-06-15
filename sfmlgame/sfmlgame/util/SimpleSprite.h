@@ -19,6 +19,7 @@ public:
 	float getAng();
 
 	void draw();
+	void draw(sf::RenderStates& states);
 private:
 	sf::RectangleShape box;
 };

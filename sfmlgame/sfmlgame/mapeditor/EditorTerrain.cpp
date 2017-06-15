@@ -15,6 +15,7 @@ EditorTerrain::EditorTerrain()
 	TextureManager::get("ground_sand")->setRepeated(true);
 	TextureManager::get("ground_dirt")->setRepeated(true);
 	TextureManager::get("ground_depth")->setRepeated(true);
+	TextureManager::get("ground_depth")->setSmooth(true);
 
 	shader.loadFromFile("resources/groundShader.frag", sf::Shader::Fragment);
 

@@ -172,6 +172,15 @@
     <ClCompile Include="mapeditor\MapEditor.cpp">
       <Filter>code\mapeditor</Filter>
     </ClCompile>
+    <ClCompile Include="system\StaticObject.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
+    <ClCompile Include="system\ObjectManager.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
+    <ClCompile Include="system\ObjectHandler.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -317,6 +326,15 @@
     </ClInclude>
     <ClInclude Include="mapeditor\MapEditor.h">
       <Filter>code\mapeditor</Filter>
+    </ClInclude>
+    <ClInclude Include="system\StaticObject.h">
+      <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="system\ObjectManager.h">
+      <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="system\ObjectHandler.h">
+      <Filter>code\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

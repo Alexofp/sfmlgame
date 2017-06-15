@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "DynamicProp.h"
 #include "Settings.h"
+#include "ObjectManager.h"
 
 Game::Game(std::string ip):State()
 {
@@ -13,6 +14,9 @@ Game::Game(std::string ip):State()
 	Client::connect("127.0.0.1");
 	Client::setOnGameInfo([&](sf::Packet& packet) { this->applyGameInfo(packet); });
 	Client::setOnPacket([&](Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacket(type, packet); });
+
+	world.addObject("penek", Vec2f(400.f, 700.f));
+	world.addObject("penek2", Vec2f(830.f, 200.f), 45.f, Vec2f(10.2f,10.2f));
 }
 
 
@@ -39,6 +43,10 @@ void Game::draw()
 
 void Game::handleEvent(sf::Event event)
 {
+	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+	{
+		finish();
+	}
 }
 
 sf::Packet Game::getClientInfo()

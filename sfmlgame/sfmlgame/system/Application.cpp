@@ -9,6 +9,7 @@
 #include "Settings.h"
 #include "GameMenu.h"
 #include "MapEditor.h"
+#include "ObjectManager.h"
 
 Application::Application()
 {
@@ -37,6 +38,7 @@ int Application::run()
 	TextureManager::loadFromFile("resources/player/player.txt");
 	TextureManager::load("player", "resources/player.png");
 	TextureManager::load("blueprint", "resources/blueprint.png");
+	ObjectManager::loadFromFile("objects.txt");
 
 	GameWindow::open(Settings::getVec2i("window","size",Vec2i(800,600)), Settings::getBool("window","fullscreen", false));
 	GameWindow::setOnClose([&]() { return true; });

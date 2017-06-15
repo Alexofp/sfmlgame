@@ -51,3 +51,8 @@ void SimpleSprite::draw()
 {
 	GameWindow::getInternalHandle().draw(box);
 }
+
+void SimpleSprite::draw(sf::RenderStates & states)
+{
+	GameWindow::getInternalHandle().draw(box, states);
+}

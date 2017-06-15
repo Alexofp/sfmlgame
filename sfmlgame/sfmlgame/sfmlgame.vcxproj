@@ -147,6 +147,9 @@
     <ClCompile Include="game\PlayerServer.cpp" />
     <ClCompile Include="game\SharedMultiplayer.cpp" />
     <ClCompile Include="mapeditor\MapEditor.cpp" />
+    <ClCompile Include="system\ObjectHandler.cpp" />
+    <ClCompile Include="system\ObjectManager.cpp" />
+    <ClCompile Include="system\StaticObject.cpp" />
     <ClCompile Include="system\Settings.cpp" />
     <ClCompile Include="system\Application.cpp" />
     <ClCompile Include="gui\TextLine.cpp" />
@@ -198,6 +201,9 @@
     <ClInclude Include="game\PlayerServer.h" />
     <ClInclude Include="game\SharedMultiplayer.h" />
     <ClInclude Include="mapeditor\MapEditor.h" />
+    <ClInclude Include="system\ObjectHandler.h" />
+    <ClInclude Include="system\ObjectManager.h" />
+    <ClInclude Include="system\StaticObject.h" />
     <ClInclude Include="system\Settings.h" />
     <ClInclude Include="system\Application.h" />
     <ClInclude Include="gui\TextLine.h" />

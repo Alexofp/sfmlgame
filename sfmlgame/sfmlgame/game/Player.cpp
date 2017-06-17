@@ -5,11 +5,11 @@
 #include "GameWindow.h"
 #include "Settings.h"
 
-Player::Player(int clientId, int nid):PhysicsEntity(nid)
+Player::Player(int clientId, int nid):AliveEntity(nid)
 {
+	acceleration = 1000.f;
+	maxSpeed = 1000.f;
 	this->clientId = clientId;
-	sprite.setSize(Vec2f(38,26));
-	sprite.setTexture("player");
 	speed = Vec2f(0, 0);
 	this->isRemote = false;
 	realType = Type::Player;
@@ -60,40 +60,20 @@ void Player::localUpdate(float dt)
 		if (Input::getMouseDown(Input::MouseLeft))
 			skeleton.playAnimation(&hitAnim);
 	}
+	targetSpeed = newspeed;
 
-	if (newspeed.len() > acc)
-	{
-		float l = newspeed.len();
-		newspeed = Vec2f::mul(newspeed.normalized(), Vec2f(acc, acc));
-	}
-
-	speed = Vec2f::sub(speed, Vec2f::mul(speed, Vec2f(dt * 5, dt * 5)));
-	if (speed.len()<500)
-		speed = Vec2f::add(speed, Vec2f::mul(newspeed, Vec2f(dt, dt)));
-
-	body->setSpeed(speed);
-	//setPos(Vec2f::add(getPos(), Vec2f::mul(speed, Vec2f(dt, dt))));
-
+	updateMove(dt);
 
 	if (speed.len() > 0.1)
 	{
-		//setAng(speed.getAngle());
-		sprite.setAng(speed.getAngle() + 90);
-
 		skeleton.setAng(speed.getAngle());
 	}
 
-	skeleton.update(dt);
-	updateBody();
-
-	sprite.setPos(getPos());
-	//skeleton.setPos(getPos());
 	skeleton.setPos(getPos());
 
 	if (!isRemote)
 	{
 		GameWindow::setCameraCenter(getPos());
-		GameWindow::setZoom(2.f);
 	}
 }
 
@@ -102,7 +82,6 @@ void Player::draw()
 	skeleton.draw();
 	if (Settings::getBool("render", "debug", false))
 		skeleton.debugDraw();
-	//sprite.draw();
 }
 
 void Player::setRemote(bool isRemote)

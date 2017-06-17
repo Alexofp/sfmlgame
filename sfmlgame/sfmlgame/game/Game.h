@@ -32,7 +32,7 @@ public:
 private:
 	//std::vector<std::unique_ptr<Entity> > entities;
 	std::unordered_map<int, ClientPlayerInfo> players;
-	Terrain terrain;
+	
 	GameWorld world;
 };
 

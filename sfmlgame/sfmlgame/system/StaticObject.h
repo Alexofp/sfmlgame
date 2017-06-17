@@ -15,6 +15,7 @@ public:
 	struct Part
 	{
 		SimpleSprite sprite;
+		SimpleSprite shadow;
 		Vec2f pos;
 		Vec2f size;
 		float ang;
@@ -23,11 +24,17 @@ public:
 
 	enum class CollisionType
 	{
-		CIRCLE
+		CIRCLE,
+		BOX
 	};
 	struct CircleCollision
 	{
 		float radius;
+	};
+	struct BoxCollision
+	{
+		Vec2f size;
+		float angle;
 	};
 
 	struct CollisionPart
@@ -36,6 +43,7 @@ public:
 		Vec2f pos;
 		CollisionType type;
 		CircleCollision circle;
+		BoxCollision box;
 	};
 
 	StaticObject();
@@ -47,11 +55,16 @@ public:
 
 	void addPart(Part part);
 	void addCollisionPart(CollisionPart part);
+	void setShadowPos(Vec2f pos);
 	void setPos(Vec2f pos);
+	Vec2f getPos();
 	void setAng(float ang);
+	float getAng();
 	void setSize(Vec2f size);
+	Vec2f getSize();
 
 	void draw();
+	void drawShadow();
 
 private:
 	void recalculateTransform();
@@ -65,5 +78,7 @@ private:
 	float angle;
 	Vec2f size;
 	sf::Transform trans;
+	sf::Transform shadowTrans;
+	Vec2f shadowPos;
 };
 

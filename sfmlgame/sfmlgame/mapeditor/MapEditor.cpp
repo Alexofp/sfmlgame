@@ -6,10 +6,13 @@
 #include "Slider.h"
 #include "SimpleGuiWindow.h"
 #include "Util.h"
+#include "ObjectManager.h"
 
 MapEditor::MapEditor()
 {
 	terrain.resetSize(Vec2i(5, 5), 6000);
+	tool = 0;
+	objectAngle = 0.f;
 
 	{
 		Panel* panel = new Panel();
@@ -73,6 +76,17 @@ MapEditor::MapEditor()
 		button1->OnClick(std::bind(&MapEditor::onLoadButton, this, std::placeholders::_1, std::placeholders::_2));
 		gui.add(button1, "loadbutton");
 	}
+	{
+		List* list2 = new List();
+		list2->setSize(Vec2f(150.f, 100.f));
+		//list2->addItem("Test", "tex1");
+		for (auto& name : ObjectManager::getObjectNames())
+		{
+			list2->addItem(name, name);
+		}
+		list2->OnListSelect(std::bind(&MapEditor::onObjectSelected, this, std::placeholders::_1, std::placeholders::_2));
+		gui.add(list2, "objectlist");
+	}
 
 	textureMode = -1;
 	mapName = "map1";
@@ -97,6 +111,13 @@ void MapEditor::resizeGui()
 	gui.findById("newbutton")->setPos(Vec2f(size.x - 100.f,30.f));
 	gui.findById("savebutton")->setPos(Vec2f(size.x - 100.f, 70.f));
 	gui.findById("loadbutton")->setPos(Vec2f(size.x - 100.f, 110.f));
+	gui.findById("objectlist")->setPos(Vec2f(size.x - 100.f, size.y - 400.f));
+}
+
+void MapEditor::onObjectSelected(List * sender, ListItem item)
+{
+	tool = 1;
+	objectAngle = 0.f;
 }
 
 void MapEditor::onTextureSelected(List * sender, ListItem item)
@@ -154,6 +175,7 @@ void MapEditor::onSaveButton(Button * sender, MouseDownEvent event)
 		std::string folder = Util::wStrToStr(results["save"].editBox.text);
 		mapName = folder;
 		terrain.save("maps/"+ folder + "/");
+		objects.saveToFile("maps/" + folder + "/objects.json");
 		return true;
 	});
 	gui.add(window);
@@ -170,6 +192,7 @@ void MapEditor::onLoadButton(Button * sender, MouseDownEvent event)
 		std::string folder = Util::wStrToStr(results["load"].editBox.text);
 		mapName = folder;
 		terrain.load("maps/" + folder + "/");
+		objects.loadFromFile("maps/" + folder + "/objects.json");
 		return true;
 	});
 	gui.add(window);
@@ -208,6 +231,10 @@ void MapEditor::update(float dt)
 		cameraPos.y -= dt*cameraSpeed;
 	if (Input::getKey(Input::S))
 		cameraPos.y += dt*cameraSpeed;
+	if (Input::getKey(Input::Q))
+		objectAngle -= dt*100.f;
+	if (Input::getKey(Input::E))
+		objectAngle += dt*100.f;
 	GameWindow::setCameraCenter(cameraPos);
 }
 
@@ -215,14 +242,33 @@ void MapEditor::draw()
 {
 	terrain.draw();
 
-	sf::CircleShape shape;
-	shape.setPosition(Input::getWorldMousePos().toSFMLVec());
-	shape.setRadius(getRadius());
-	shape.setOrigin(shape.getRadius(), shape.getRadius());
-	shape.setFillColor(sf::Color(0, 0, 0, 0));
-	shape.setOutlineColor(getColor());
-	shape.setOutlineThickness(2.f);
-	GameWindow::getInternalHandle().draw(shape);
+	objects.draw();
+
+	if (tool == 0)
+	{
+		sf::CircleShape shape;
+		shape.setPosition(Input::getWorldMousePos().toSFMLVec());
+		shape.setRadius(getRadius());
+		shape.setOrigin(shape.getRadius(), shape.getRadius());
+		shape.setFillColor(sf::Color(0, 0, 0, 0));
+		shape.setOutlineColor(getColor());
+		shape.setOutlineThickness(2.f);
+		GameWindow::getInternalHandle().draw(shape);
+	}
+	else if (tool == 1)
+	{
+		ListItem* selected = ((List*)gui.findById("objectlist"))->getSelected();
+		if (selected)
+		{
+			StaticObject object = ObjectManager::getObject(selected->id);
+			object.setPos(Input::getWorldMousePos());
+			object.setSize(Vec2f(1.f, 1.f));
+			object.setAng(objectAngle);
+			object.draw();
+		}
+	}
+		
+
 
 	gui.draw();
 }
@@ -244,7 +290,7 @@ void MapEditor::handleEvent(sf::Event event)
 			if (GameWindow::getZoom() < 100.f)
 				GameWindow::zoom(1.1f);
 	}
-	if (event.type == sf::Event::MouseMoved)
+	if (event.type == sf::Event::MouseMoved && tool == 0)
 	{
 		if (Input::getMouse(Input::MouseLeft))
 		{
@@ -254,6 +300,35 @@ void MapEditor::handleEvent(sf::Event event)
 
 			if(textureMode >= 0)
 				terrain.drawOnMap(pos, radius, color);
+		}
+	}
+	if (tool == 1)
+	{
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == sf::Mouse::Button::Right)
+			{
+				tool = 0;
+			}
+			if (event.mouseButton.button == sf::Mouse::Button::Left)
+			{
+				ListItem* selected = ((List*)gui.findById("objectlist"))->getSelected();
+				if (selected)
+				{
+					StaticObject object = ObjectManager::getObject(selected->id);
+					object.setPos(Input::getWorldMousePos());
+					object.setSize(Vec2f(1.f,1.f));
+					object.setAng(objectAngle);
+					objects.addObject(object);
+				}
+			}
+		}
+		if (event.type == sf::Event::KeyPressed)
+		{
+			if (event.key.code == sf::Keyboard::Delete)
+			{
+				objects.remoteObjectAt(Input::getWorldMousePos(), 50.f);
+			}
 		}
 	}
 }

@@ -4,6 +4,7 @@
 #include "json.hpp"
 #include <fstream>
 #include "Log.h"
+#include "util.h"
 
 using json = nlohmann::json;
 
@@ -111,11 +112,13 @@ void EditorTerrain::save(std::string folder)
 
 void EditorTerrain::load(std::string folder)
 {
+	parts.clear();
+	if (!Util::fileExists(folder + "/map.json"))
+		return;
 	std::ifstream file(folder + "/map.json");
 	json jsonData;
 	file >> jsonData;
 
-	parts.clear();
 	w = jsonData["size"][0].get<int>();
 	h = jsonData["size"][1].get<int>();
 	tileSize = (float)jsonData["tilesize"].get<int>();

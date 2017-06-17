@@ -5,8 +5,9 @@
 #include "Skin.h"
 #include "Animation.h"
 #include "PhysicsEntity.h"
+#include "AliveEntity.h"
 
-class Player: public PhysicsEntity
+class Player: public AliveEntity
 {
 public:
 	Player(int clientId, int nid = -1);
@@ -24,11 +25,8 @@ public:
 	virtual void readInformation(MultiplayerMessage& message);
 	MultiplayerMessage spawnMessage();
 private:
-	SimpleSprite sprite;
-	AnimatedSkeleton skeleton;
 	Animation walkAnim;
 	Animation hitAnim;
-	Vec2f speed;
 	bool isRemote;
 	bool attacking;
 	int clientId;

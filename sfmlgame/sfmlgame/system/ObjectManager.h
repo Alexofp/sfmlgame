@@ -14,6 +14,7 @@ public:
 	static void loadFromFile(std::string path);
 	static void loadObject(std::string path);
 	static StaticObject getObject(std::string name);
+	static std::vector<std::string> getObjectNames();
 
 private:
 	static ObjectManager& getInstance();

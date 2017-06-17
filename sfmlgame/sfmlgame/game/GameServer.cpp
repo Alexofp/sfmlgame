@@ -71,7 +71,7 @@ bool GameServer::handlePacketServer(ClientInformation & info, Server::MESSAGE_TY
 void GameServer::serverPlayerConnected(ClientInformation& info)
 {
 	int clientId = info.id;
-	float x = 50.f, y = 50.f;
+	float x = 950.f, y = 950.f;
 
 	Player* player = new Player(clientId);
 	player->setPos(Vec2f(x, y));

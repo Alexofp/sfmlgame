@@ -35,11 +35,19 @@ void GameWorld::physicsUpdate(float dt)
 
 void GameWorld::draw()
 {
+	terrain.draw();
+	objects.drawShadow();
 	objects.draw();
 	for (auto& entity : entities)
 	{
 		entity->draw();
 	}
+}
+
+void GameWorld::loadMap(std::string name)
+{
+	terrain.load("maps/"+ name +"/");
+	objects.loadFromFile("maps/" + name + "/objects.json");
 }
 
 void GameWorld::add(Entity * entity)

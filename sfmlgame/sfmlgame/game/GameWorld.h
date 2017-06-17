@@ -5,6 +5,7 @@
 #include "PhysicsWorld.h"
 #include "ObjectHandler.h"
 #include "ObjectManager.h"
+#include "Terrain.h"
 
 class GameWorld
 {
@@ -16,6 +17,7 @@ public:
 	void localUpdate(float dt);
 	void physicsUpdate(float dt);
 	void draw();
+	void loadMap(std::string name);
 
 	void add(Entity* entity);
 	Entity* findEntity(int nid);
@@ -27,5 +29,6 @@ private:
 	std::vector<std::unique_ptr<Entity> > entities;
 	PhysicsWorld physics;
 	ObjectHandler objects;
+	Terrain terrain;
 };
 

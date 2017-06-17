@@ -36,6 +36,8 @@ void ObjectManager::loadObject(std::string path)
 
 	std::string name = jsonData["name"].get<std::string>();
 	object.setName(name);
+	Vec2f shadowPos(jsonData["shadow"][0].get<float>(), jsonData["shadow"][1].get<float>());
+	object.setShadowPos(shadowPos);
 
 	for (json::iterator it = jsonData["parts"].begin(); it != jsonData["parts"].end(); ++it)
 	{
@@ -74,6 +76,15 @@ void ObjectManager::loadObject(std::string path)
 			collpart.circle = circle;
 			collpart.type = StaticObject::CollisionType::CIRCLE;
 		}
+		if (type == "box")
+		{
+			StaticObject::BoxCollision box;
+			box.size.x = part["size"][0].get<float>();
+			box.size.y = part["size"][1].get<float>();
+			box.angle = part["angle"].get<float>();
+			collpart.box = box;
+			collpart.type = StaticObject::CollisionType::BOX;
+		}
 
 		object.addCollisionPart(collpart);
 	}
@@ -84,6 +95,16 @@ void ObjectManager::loadObject(std::string path)
 StaticObject ObjectManager::getObject(std::string name)
 {
 	return getInstance().objects.at(name);
+}
+
+std::vector<std::string> ObjectManager::getObjectNames()
+{
+	std::vector<std::string> result;
+	for (auto& pair : getInstance().objects)
+	{
+		result.push_back(pair.first);
+	}
+	return result;
 }
 
 ObjectManager & ObjectManager::getInstance()

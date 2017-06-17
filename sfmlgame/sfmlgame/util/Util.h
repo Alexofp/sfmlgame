@@ -25,6 +25,7 @@ public:
 	static std::string wStrToStr(std::wstring str);
 	static int strToInt(std::string str);
 	static int strToInt(std::wstring str);
+	static bool fileExists(std::string path);
 protected:
 private:
 };

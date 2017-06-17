@@ -13,6 +13,7 @@ public:
 	void setSize(Vec2f size);
 	void setAng(float ang);
 	void setTexture(std::string texture);
+	void setColor(sf::Color color);
 
 	Vec2f getPos();
 	Vec2f getSize();

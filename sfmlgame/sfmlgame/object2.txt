@@ -1,5 +1,6 @@
 {
 	"name": "penek2",
+	"shadow": [4,4],
 	"parts": [
 		{
 			"texture": "tex_penek2",

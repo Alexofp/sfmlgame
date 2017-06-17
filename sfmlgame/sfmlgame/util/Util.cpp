@@ -1,6 +1,7 @@
 #include "Util.h"
 #include <SFML/Graphics/Vertex.hpp>
 #include "GameWindow.h"
+#include <filesystem>
 
 Util::Util()
 {
@@ -98,4 +99,9 @@ int Util::strToInt(std::string str)
 int Util::strToInt(std::wstring str)
 {
 	return strToInt(wStrToStr(str));
+}
+
+bool Util::fileExists(std::string path)
+{
+	return std::experimental::filesystem::exists(path);;
 }

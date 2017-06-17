@@ -32,6 +32,11 @@ void SimpleSprite::setTexture(std::string texture)
 	box.setTexture(TextureManager::get(texture));
 }
 
+void SimpleSprite::setColor(sf::Color color)
+{
+	box.setFillColor(color);
+}
+
 Vec2f SimpleSprite::getPos()
 {
 	return Vec2f(box.getPosition());

@@ -181,6 +181,9 @@
     <ClCompile Include="system\ObjectHandler.cpp">
       <Filter>code\system</Filter>
     </ClCompile>
+    <ClCompile Include="game\AliveEntity.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -335,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="system\ObjectHandler.h">
       <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="game\AliveEntity.h">
+      <Filter>code\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

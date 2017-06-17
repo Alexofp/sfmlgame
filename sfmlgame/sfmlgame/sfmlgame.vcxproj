@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\AliveEntity.cpp" />
     <ClCompile Include="animation\AnimatedSkeleton.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="gui\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\AliveEntity.h" />
     <ClInclude Include="animation\AnimatedSkeleton.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />

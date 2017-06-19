@@ -1,0 +1,26 @@
+{
+	"name": "house1",
+	"shadow": [30,10],
+	"parts": [
+		{
+			"texture": "tex_house1",
+			"pos": [0,0],
+			"size": [1000,1000],
+			"angle": 0
+		}
+	],
+	"collisions": [
+		{
+			"type": "box",
+			"pos": [-20,-50],
+			"size": [920,640],
+			"angle": 0
+		},
+		{
+			"type": "box",
+			"pos": [50,310],
+			"size": [512,200],
+			"angle": 0
+		}
+	]
+}

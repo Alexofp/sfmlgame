@@ -7,6 +7,7 @@
 #include "Settings.h"
 #include "ObjectManager.h"
 #include "GameWindow.h"
+#include "HumanAi.h"
 
 Game::Game(std::string ip):State()
 {
@@ -139,6 +140,14 @@ bool Game::handlePacket(Server::MESSAGE_TYPE type, sf::Packet & packet)
 			auto* m = message.getMessage<SpawnDynamicPropEntityMessage>();
 
 			DynamicProp* prop = new DynamicProp(m->nid);
+			prop->setPos(Vec2f(m->x, m->y));
+			world.add(prop);
+		}
+		if (message.getType() == MessageType::SpawnHumanAiEntity)
+		{
+			auto* m = message.getMessage<SpawnHumanAiEntityMessage>();
+
+			HumanAi* prop = new HumanAi(m->nid);
 			prop->setPos(Vec2f(m->x, m->y));
 			world.add(prop);
 		}

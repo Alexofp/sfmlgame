@@ -133,10 +133,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="system\AnimationManager.cpp" />
     <ClCompile Include="game\AliveEntity.cpp" />
     <ClCompile Include="animation\AnimatedSkeleton.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
+    <ClCompile Include="game\HumanAi.cpp" />
     <ClCompile Include="mapeditor\EditorTerrain.cpp" />
     <ClCompile Include="game\GameMenu.cpp" />
     <ClCompile Include="game\DynamicProp.cpp" />
@@ -148,6 +150,7 @@
     <ClCompile Include="game\PlayerServer.cpp" />
     <ClCompile Include="game\SharedMultiplayer.cpp" />
     <ClCompile Include="mapeditor\MapEditor.cpp" />
+    <ClCompile Include="game\Person.cpp" />
     <ClCompile Include="system\ObjectHandler.cpp" />
     <ClCompile Include="system\ObjectManager.cpp" />
     <ClCompile Include="system\StaticObject.cpp" />
@@ -188,10 +191,12 @@
     <ClCompile Include="gui\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="system\AnimationManager.h" />
     <ClInclude Include="game\AliveEntity.h" />
     <ClInclude Include="animation\AnimatedSkeleton.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />
+    <ClInclude Include="game\HumanAi.h" />
     <ClInclude Include="mapeditor\EditorTerrain.h" />
     <ClInclude Include="game\GameMenu.h" />
     <ClInclude Include="game\DynamicProp.h" />
@@ -203,6 +208,7 @@
     <ClInclude Include="game\PlayerServer.h" />
     <ClInclude Include="game\SharedMultiplayer.h" />
     <ClInclude Include="mapeditor\MapEditor.h" />
+    <ClInclude Include="game\Person.h" />
     <ClInclude Include="system\ObjectHandler.h" />
     <ClInclude Include="system\ObjectManager.h" />
     <ClInclude Include="system\StaticObject.h" />

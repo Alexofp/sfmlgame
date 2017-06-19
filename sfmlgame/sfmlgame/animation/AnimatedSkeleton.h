@@ -20,10 +20,12 @@ public:
 
 	float getProgress();
 	void setProgress(float p);
+	void setSpeed(float speed);
 private:
 	Skin skin;
 
 	Animation* animation;
 	float progress;
+	float speed;
 };
 

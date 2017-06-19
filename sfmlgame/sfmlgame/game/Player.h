@@ -6,8 +6,9 @@
 #include "Animation.h"
 #include "PhysicsEntity.h"
 #include "AliveEntity.h"
+#include "Person.h"
 
-class Player: public AliveEntity
+class Player: public Person
 {
 public:
 	Player(int clientId, int nid = -1);
@@ -25,10 +26,7 @@ public:
 	virtual void readInformation(MultiplayerMessage& message);
 	MultiplayerMessage spawnMessage();
 private:
-	Animation walkAnim;
-	Animation hitAnim;
 	bool isRemote;
-	bool attacking;
 	int clientId;
 };
 

@@ -1,0 +1,26 @@
+{
+	"name": "deadtree1",
+	"shadow": [10,10],
+	"parts": [
+		{
+			"texture": "tex_deadtree1",
+			"pos": [0,0],
+			"size": [600,300],
+			"angle": 0
+		}
+	],
+	"collisions": [
+		{
+			"type": "box",
+			"pos": [0,20],
+			"size": [400,60],
+			"angle": -4
+		},
+		{
+			"type": "box",
+			"pos": [-220,36],
+			"size": [60,200],
+			"angle": -4
+		}
+	]
+}

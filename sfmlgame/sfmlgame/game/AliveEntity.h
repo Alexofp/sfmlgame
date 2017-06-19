@@ -19,7 +19,6 @@ public:
 	void setTarget(Vec2f target);
 
 protected:
-	AnimatedSkeleton skeleton;
 	Vec2f speed;
 	float maxSpeed;
 	float acceleration;

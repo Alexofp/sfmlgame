@@ -4,22 +4,14 @@
 #include "GameWorld.h"
 #include "GameWindow.h"
 #include "Settings.h"
+#include "AnimationManager.h"
 
-Player::Player(int clientId, int nid):AliveEntity(nid)
+Player::Player(int clientId, int nid):Person(nid)
 {
-	acceleration = 1000.f;
-	maxSpeed = 1000.f;
 	this->clientId = clientId;
-	speed = Vec2f(0, 0);
 	this->isRemote = false;
 	realType = Type::Player;
 	Log::debug("new player entity");
-
-	walkAnim.loadFromFile("resources/player/walkanim.json");
-	hitAnim.loadFromFile("resources/player/hitanim.json");
-	hitAnim.setLooped(false);
-	skeleton.playerSkeleton();
-	skeleton.playAnimation(&walkAnim);
 
 	Skin skin;
 	skin.loadFromFile("resources/skin.json");
@@ -34,7 +26,7 @@ Player::~Player()
 
 void Player::init()
 {
-	body = world->getPhysicsWorld().createCircle(getPos(), 40.f);
+	Person::init();
 }
 
 void Player::update(float dt)
@@ -44,32 +36,25 @@ void Player::update(float dt)
 
 void Player::localUpdate(float dt)
 {
-	float acc = 1000;
-	Vec2f newspeed;
+	moveControl = Vec2f();
 	if (!isRemote)
 	{
 		if (Input::getKey(Input::A))
-			newspeed.x = -acc;
+			moveControl.x = -1;
 		if (Input::getKey(Input::D))
-			newspeed.x = acc;
+			moveControl.x = 1;
 		if (Input::getKey(Input::W))
-			newspeed.y = -acc;
+			moveControl.y = -1;
 		if (Input::getKey(Input::S))
-			newspeed.y = acc;
+			moveControl.y = 1;
 
 		if (Input::getMouseDown(Input::MouseLeft))
-			skeleton.playAnimation(&hitAnim);
-	}
-	targetSpeed = newspeed;
+			playAnimation("person_hit");
 
-	updateMove(dt);
-
-	if (speed.len() > 0.1)
-	{
-		skeleton.setAng(speed.getAngle());
+		lookPosition = Input::getWorldMousePos();
 	}
 
-	skeleton.setPos(getPos());
+	updateSkeleton(dt);
 
 	if (!isRemote)
 	{
@@ -79,9 +64,7 @@ void Player::localUpdate(float dt)
 
 void Player::draw()
 {
-	skeleton.draw();
-	if (Settings::getBool("render", "debug", false))
-		skeleton.debugDraw();
+	Person::draw();
 }
 
 void Player::setRemote(bool isRemote)
@@ -97,7 +80,7 @@ int Player::getClientId()
 MultiplayerMessage Player::writeInformation()
 {
 	MultiplayerMessage message(MessageType::PlayerUpdate);
-	message.setMessage(new PlayerUpdateMessage(getBodyPos().x, getBodyPos().y, skeleton.getAng(), getBodySpeed().x, getBodySpeed().y));
+	message.setMessage(new PlayerUpdateMessage(getBodyPos().x, getBodyPos().y, skeleton.getAng(), getBodySpeed().x, getBodySpeed().y, lookPosition.x, lookPosition.y));
 
 	return message;
 }
@@ -111,7 +94,9 @@ void Player::readInformation(MultiplayerMessage& message)
 		setBodyPos(Vec2f(m->x, m->y));
 		//setBodyAng(m->ang);
 		skeleton.setAng(m->ang);
+		speed = Vec2f(m->speedx, m->speedy);
 		setBodySpeed(Vec2f(m->speedx, m->speedy));
+		lookPosition = Vec2f(m->lookx, m->looky);
 	}
 }
 

@@ -184,6 +184,15 @@
     <ClCompile Include="game\AliveEntity.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
+    <ClCompile Include="game\Person.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\HumanAi.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="system\AnimationManager.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -341,6 +350,15 @@
     </ClInclude>
     <ClInclude Include="game\AliveEntity.h">
       <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Person.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\HumanAi.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="system\AnimationManager.h">
+      <Filter>code\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ AnimatedSkeleton::AnimatedSkeleton():
 	Skeleton()
 {
 	animation = nullptr;
+	speed = 1.f;
 }
 
 
@@ -31,6 +32,8 @@ void AnimatedSkeleton::setSkin(Skin skin)
 
 void AnimatedSkeleton::update(float dt)
 {
+	dt *= speed;
+
 	if (animation != nullptr)
 	{
 		progress += dt / animation->getLength();
@@ -132,4 +135,9 @@ float AnimatedSkeleton::getProgress()
 void AnimatedSkeleton::setProgress(float p)
 {
 	progress = p;
+}
+
+void AnimatedSkeleton::setSpeed(float speed)
+{
+	this->speed = speed;
 }

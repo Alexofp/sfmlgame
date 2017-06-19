@@ -8,7 +8,9 @@ enum class MessageType
 	PlayerUpdate,
 	SpawnPlayerEntity,
 	DynamicPropUpdate,
-	SpawnDynamicPropEntity
+	SpawnDynamicPropEntity,
+	HumanAiUpdate,
+	SpawnHumanAiEntity
 };
 
 struct MessageBase
@@ -41,9 +43,25 @@ struct PlayerUpdateMessage : public MessageBase
 	float ang;
 	float speedx;
 	float speedy;
+	float lookx;
+	float looky;
 
 	PlayerUpdateMessage();
-	PlayerUpdateMessage(float x, float y, float ang, float speedx, float speedy);
+	PlayerUpdateMessage(float x, float y, float ang, float speedx, float speedy, float lookx, float looky);
+};
+
+struct HumanAiUpdateMessage : public MessageBase
+{
+	float x;
+	float y;
+	float ang;
+	float speedx;
+	float speedy;
+	float lookx;
+	float looky;
+
+	HumanAiUpdateMessage();
+	HumanAiUpdateMessage(float x, float y, float ang, float speedx, float speedy, float lookx, float looky);
 };
 
 struct SpawnPlayerEntityMessage : public MessageBase
@@ -55,6 +73,16 @@ struct SpawnPlayerEntityMessage : public MessageBase
 
 	SpawnPlayerEntityMessage();
 	SpawnPlayerEntityMessage(int nid, int playerId, float x, float y);
+};
+
+struct SpawnHumanAiEntityMessage : public MessageBase
+{
+	float x;
+	float y;
+	sf::Uint16 nid;
+
+	SpawnHumanAiEntityMessage();
+	SpawnHumanAiEntityMessage(int nid, float x, float y);
 };
 
 struct DynamicPropUpdateMessage : public MessageBase

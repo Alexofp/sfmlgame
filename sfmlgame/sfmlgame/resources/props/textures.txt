@@ -2,3 +2,5 @@ prop_barrel resources/props/barrel.png
 tex_penek resources/props/stomp_low.png
 tex_penek2 resources/props/stomp2_low.png
 tex_tent resources/props/tent_low.png
+tex_house1 resources/props/house_low.png
+tex_deadtree1 resources/props/dead_tree_low.png

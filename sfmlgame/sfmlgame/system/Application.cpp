@@ -10,6 +10,7 @@
 #include "GameMenu.h"
 #include "MapEditor.h"
 #include "ObjectManager.h"
+#include "AnimationManager.h"
 
 Application::Application()
 {
@@ -39,6 +40,11 @@ int Application::run()
 	TextureManager::load("player", "resources/player.png");
 	TextureManager::load("blueprint", "resources/blueprint.png");
 	ObjectManager::loadFromFile("objects.txt");
+
+	AnimationManager::loadAnimation("person_idle","resources/player/walkanim.json");
+	AnimationManager::loadAnimation("person_hit","resources/player/hitanim.json");
+	AnimationManager::getAnimation("person_hit")->setLooped(false);
+	AnimationManager::loadAnimation("person_walk", "resources/player/walk123.json");
 
 	GameWindow::open(Settings::getVec2i("window","size",Vec2i(800,600)), Settings::getBool("window","fullscreen", false));
 	GameWindow::setOnClose([&]() { return true; });

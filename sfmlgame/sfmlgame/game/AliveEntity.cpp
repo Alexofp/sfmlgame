@@ -34,12 +34,7 @@ void AliveEntity::updateMove(float dt)
 
 	body->setSpeed(speed);
 
-	if (speed.len() > 0.1)
-	{
-		skeleton.setAng(speed.getAngle());
-	}
 
-	skeleton.update(dt);
 	updateBody();
 }
 

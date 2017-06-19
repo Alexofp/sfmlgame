@@ -26,7 +26,14 @@ void MultiplayerMessage::read(sf::Packet & packet)
 		PlayerUpdateMessage* mes = new PlayerUpdateMessage();
 		message = std::unique_ptr<MessageBase>(mes);
 		
-		packet >> mes->x >> mes->y >> mes->ang >> mes->speedx >> mes->speedy;
+		packet >> mes->x >> mes->y >> mes->ang >> mes->speedx >> mes->speedy >> mes->lookx >> mes->looky;
+	}
+	if (type == MessageType::HumanAiUpdate)
+	{
+		HumanAiUpdateMessage* mes = new HumanAiUpdateMessage();
+		message = std::unique_ptr<MessageBase>(mes);
+
+		packet >> mes->x >> mes->y >> mes->ang >> mes->speedx >> mes->speedy >> mes->lookx >> mes->looky;
 	}
 	if (type == MessageType::SpawnPlayerEntity)
 	{
@@ -34,6 +41,13 @@ void MultiplayerMessage::read(sf::Packet & packet)
 		message = std::unique_ptr<MessageBase>(mes);
 
 		packet >> mes->nid >> mes->playerId >> mes->x >> mes->y;
+	}
+	if (type == MessageType::SpawnHumanAiEntity)
+	{
+		SpawnHumanAiEntityMessage* mes = new SpawnHumanAiEntityMessage();
+		message = std::unique_ptr<MessageBase>(mes);
+
+		packet >> mes->nid >> mes->x >> mes->y;
 	}
 	if (type == MessageType::DynamicPropUpdate)
 	{
@@ -60,13 +74,25 @@ void MultiplayerMessage::write(sf::Packet & packet)
 	{
 		PlayerUpdateMessage* mes = (PlayerUpdateMessage*)message.get();
 
-		packet << mes->x << mes->y << mes->ang << mes->speedx << mes->speedy;
+		packet << mes->x << mes->y << mes->ang << mes->speedx << mes->speedy << mes->lookx << mes->looky;
+	}
+	if (type == MessageType::HumanAiUpdate)
+	{
+		HumanAiUpdateMessage* mes = (HumanAiUpdateMessage*)message.get();
+
+		packet << mes->x << mes->y << mes->ang << mes->speedx << mes->speedy << mes->lookx << mes->looky;
 	}
 	if (type == MessageType::SpawnPlayerEntity)
 	{
 		SpawnPlayerEntityMessage* mes = (SpawnPlayerEntityMessage*)message.get();
 
 		packet << mes->nid << mes->playerId << mes->x << mes->y;
+	}
+	if (type == MessageType::SpawnHumanAiEntity)
+	{
+		SpawnHumanAiEntityMessage* mes = (SpawnHumanAiEntityMessage*)message.get();
+
+		packet << mes->nid << mes->x << mes->y;
 	}
 	if (type == MessageType::DynamicPropUpdate)
 	{
@@ -94,13 +120,15 @@ PlayerUpdateMessage::PlayerUpdateMessage()
 	ang = 0.f;
 }
 
-PlayerUpdateMessage::PlayerUpdateMessage(float x, float y, float ang, float speedx, float speedy)
+PlayerUpdateMessage::PlayerUpdateMessage(float x, float y, float ang, float speedx, float speedy, float lookx, float looky)
 {
 	this->x = x;
 	this->y = y;
 	this->ang = ang;
 	this->speedx = speedx;
 	this->speedy = speedy;
+	this->lookx = lookx;
+	this->looky = looky;
 }
 
 SpawnPlayerEntityMessage::SpawnPlayerEntityMessage()
@@ -139,6 +167,33 @@ SpawnDynamicPropEntityMessage::SpawnDynamicPropEntityMessage()
 }
 
 SpawnDynamicPropEntityMessage::SpawnDynamicPropEntityMessage(int nid, float x, float y)
+{
+	this->x = x;
+	this->y = y;
+	this->nid = nid;
+}
+
+HumanAiUpdateMessage::HumanAiUpdateMessage()
+{
+
+}
+
+HumanAiUpdateMessage::HumanAiUpdateMessage(float x, float y, float ang, float speedx, float speedy, float lookx, float looky)
+{
+	this->x = x;
+	this->y = y;
+	this->ang = ang;
+	this->speedx = speedx;
+	this->speedy = speedy;
+	this->lookx = lookx;
+	this->looky = looky;
+}
+
+SpawnHumanAiEntityMessage::SpawnHumanAiEntityMessage()
+{
+}
+
+SpawnHumanAiEntityMessage::SpawnHumanAiEntityMessage(int nid, float x, float y)
 {
 	this->x = x;
 	this->y = y;

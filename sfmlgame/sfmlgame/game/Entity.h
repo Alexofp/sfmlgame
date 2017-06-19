@@ -12,7 +12,8 @@ public:
 	{
 		Entity,
 		Player,
-		DynamicProp
+		DynamicProp,
+		HumanAi
 	};
 
 	Entity(int nid = -1);

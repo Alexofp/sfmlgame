@@ -11,6 +11,7 @@ AliveEntity::AliveEntity(int nid) :PhysicsEntity(nid)
 	acceleration = 100.f;
 	speed = Vec2f();
 	Vec2f targetSpeed = Vec2f();
+	heath = 100;
 }
 
 
@@ -41,4 +42,20 @@ void AliveEntity::updateMove(float dt)
 void AliveEntity::setTarget(Vec2f target)
 {
 	targetSpeed = target;
+}
+
+void AliveEntity::handleEvent(int fromId, std::string type, sf::Packet & packet)
+{
+	if (type == "hurt")
+	{
+		heath -= 100;
+		if (heath <= 0)
+		{
+			onDeath();
+		}
+	}
+}
+
+void AliveEntity::onDeath()
+{
 }

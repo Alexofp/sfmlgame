@@ -11,7 +11,7 @@
 class Player: public Person
 {
 public:
-	Player(int clientId, int nid = -1);
+	Player(int nid = -1);
 	~Player();
 
 	void init();
@@ -20,11 +20,13 @@ public:
 	void draw();
 	void setRemote(bool isRemote);
 
+	void setClientId(int clientId);
 	int getClientId();
 
-	virtual MultiplayerMessage writeInformation();
-	virtual void readInformation(MultiplayerMessage& message);
-	MultiplayerMessage spawnMessage();
+	virtual void writeInformation(sf::Packet& packet);
+	virtual void readInformation(sf::Packet& packet);
+	virtual void writeSpawn(sf::Packet& packet);
+	virtual void readSpawn(sf::Packet& packet);
 private:
 	bool isRemote;
 	int clientId;

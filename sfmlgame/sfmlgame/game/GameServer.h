@@ -23,7 +23,7 @@ public:
 	void draw();
 	void handleEvent(sf::Event event);
 
-	sf::Packet getGameInfo();
+	std::vector<sf::Packet> getGameInfo();
 	bool handlePacketServer(ClientInformation& info, Server::MESSAGE_TYPE type, sf::Packet& packet);
 	void serverPlayerConnected(ClientInformation& info);
 private:

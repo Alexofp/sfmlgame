@@ -6,9 +6,8 @@
 #include "Settings.h"
 #include "AnimationManager.h"
 
-Player::Player(int clientId, int nid):Person(nid)
+Player::Player(int nid):Person(nid)
 {
-	this->clientId = clientId;
 	this->isRemote = false;
 	realType = Type::Player;
 	Log::debug("new player entity");
@@ -36,9 +35,9 @@ void Player::update(float dt)
 
 void Player::localUpdate(float dt)
 {
-	moveControl = Vec2f();
 	if (!isRemote)
 	{
+		moveControl = Vec2f();
 		if (Input::getKey(Input::A))
 			moveControl.x = -1;
 		if (Input::getKey(Input::D))
@@ -49,7 +48,7 @@ void Player::localUpdate(float dt)
 			moveControl.y = 1;
 
 		if (Input::getMouseDown(Input::MouseLeft))
-			playAnimation("person_hit");
+			attack();
 
 		lookPosition = Input::getWorldMousePos();
 	}
@@ -72,38 +71,63 @@ void Player::setRemote(bool isRemote)
 	this->isRemote = isRemote;
 }
 
+void Player::setClientId(int clientId)
+{
+	this->clientId = clientId;
+}
+
 int Player::getClientId()
 {
 	return clientId;
 }
 
-MultiplayerMessage Player::writeInformation()
+void Player::writeInformation(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::PlayerUpdate);
-	message.setMessage(new PlayerUpdateMessage(getBodyPos().x, getBodyPos().y, skeleton.getAng(), getBodySpeed().x, getBodySpeed().y, lookPosition.x, lookPosition.y));
-
-	return message;
+	packet << getBodyPos();
+	packet << getBodySpeed();
+	packet << lookPosition;
+	packet << moveControl;
 }
 
-void Player::readInformation(MultiplayerMessage& message)
+void Player::readInformation(sf::Packet & packet)
 {
-	if (message.getType() == MessageType::PlayerUpdate)
-	{
-		PlayerUpdateMessage* m = message.getMessage<PlayerUpdateMessage>();
+	Vec2f newpos;
+	Vec2f newspeed;
+	Vec2f look;
+	Vec2f control;
 
-		setBodyPos(Vec2f(m->x, m->y));
-		//setBodyAng(m->ang);
-		skeleton.setAng(m->ang);
-		speed = Vec2f(m->speedx, m->speedy);
-		setBodySpeed(Vec2f(m->speedx, m->speedy));
-		lookPosition = Vec2f(m->lookx, m->looky);
+	packet >> newpos >> newspeed >> look >> control;
+
+	if (isRemote)
+	{
+		setBodyPos(newpos);
+		speed = newspeed;
+		setBodySpeed(newspeed);
+		lookPosition = look;
+		moveControl = control;
 	}
 }
 
-MultiplayerMessage Player::spawnMessage()
+void Player::writeSpawn(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::SpawnPlayerEntity);
-	message.setMessage(new SpawnPlayerEntityMessage(getNid(),clientId ,getPos().x, getPos().y));
+	packet << (sf::Int16)getClientId();
+	packet << getBodyPos();
+	packet << getBodySpeed();
+	packet << lookPosition;
+}
 
-	return message;
+void Player::readSpawn(sf::Packet & packet)
+{
+	sf::Int16 clientId;
+	Vec2f newpos;
+	Vec2f newspeed;
+	Vec2f look;
+
+	packet >> clientId >> newpos >> newspeed >> look;
+
+	setClientId(clientId);
+	setBodyPos(newpos);
+	speed = newspeed;
+	setBodySpeed(newspeed);
+	lookPosition = look;
 }

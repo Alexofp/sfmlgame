@@ -12,11 +12,13 @@ public:
 	void localUpdate(float dt);
 	void draw();
 
-	virtual MultiplayerMessage writeInformation();
-	virtual void readInformation(MultiplayerMessage& message);
-	MultiplayerMessage spawnMessage();
+	virtual void writeInformation(sf::Packet& packet);
+	virtual void readInformation(sf::Packet& packet);
+	virtual void writeSpawn(sf::Packet& packet);
+	virtual void readSpawn(sf::Packet& packet);
 
 private:
 	Vec2f targetPos;
+	float timer;
 };
 

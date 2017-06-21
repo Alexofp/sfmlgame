@@ -85,3 +85,19 @@ void GameWorld::addObject(std::string type, Vec2f pos, float angle, Vec2f size)
 	object.setAng(angle);
 	objects.addObject(object);
 }
+
+std::vector<Entity*> GameWorld::findInRange(Vec2f pos, float radius)
+{
+	std::vector<Entity*> result;
+	for (auto& entity : entities)
+	{
+		float dist = Vec2f::distance(entity->getPos(), pos);
+
+		if (dist <= radius)
+		{
+			result.push_back(entity.get());
+		}
+	}
+
+	return result;
+}

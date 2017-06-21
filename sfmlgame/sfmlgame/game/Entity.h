@@ -2,6 +2,7 @@
 #include "Vec2f.h"
 #include <SFML/Network.hpp>
 #include "SharedMultiplayer.h"
+#include "NetEvent.h"
 
 class GameWorld;
 
@@ -32,9 +33,14 @@ public:
 	Vec2f getSize();
 	float getAng();
 
-	virtual MultiplayerMessage writeInformation();
-	virtual void readInformation(MultiplayerMessage& message);
-	virtual MultiplayerMessage spawnMessage();
+	virtual void writeInformation(sf::Packet& packet);
+	virtual void readInformation(sf::Packet& packet);
+	//virtual MultiplayerMessage spawnMessage();
+	virtual void writeSpawn(sf::Packet& packet);
+	virtual void readSpawn(sf::Packet& packet);
+
+	void sendEvent(NetEvent event);
+	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
 	int getNid();
 	Type getType();
 

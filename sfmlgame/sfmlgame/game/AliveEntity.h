@@ -18,11 +18,15 @@ public:
 	void updateMove(float dt);
 	void setTarget(Vec2f target);
 
+	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
+	virtual void onDeath();
+
 protected:
 	Vec2f speed;
 	float maxSpeed;
 	float acceleration;
 
 	Vec2f targetSpeed;
+	int heath;
 };
 

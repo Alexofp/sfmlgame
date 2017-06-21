@@ -28,7 +28,8 @@ void GameWindow::open(Vec2i size, bool fullscreen)
 
 	GameWindow& window = get();
 	window.window.create(sf::VideoMode(size.x, size.y), "My window", flags, settings);
-	window.window.setFramerateLimit(60);
+	window.window.setVerticalSyncEnabled(true);
+	//window.window.setFramerateLimit(60);
 }
 
 void GameWindow::close()

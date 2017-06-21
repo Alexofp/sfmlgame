@@ -5,6 +5,7 @@
 #include <SFML\System\Clock.hpp>
 #include <functional>
 #include "SharedMultiplayer.h"
+#include "NetEvent.h"
 
 struct ClientInformation
 {
@@ -12,6 +13,7 @@ struct ClientInformation
 	int ping;
 	int pingPassword;
 	std::shared_ptr<sf::TcpSocket> socket;
+	sf::Packet packet;
 
 	bool disconnected;
 };
@@ -27,22 +29,29 @@ public:
 		NEW_PLAYER,
 		PLAYER_UPDATE,
 		IGNORE,
-		MESSAGE
+		MESSAGE,
+		ENTITY_SPAWN,
+		EVENT
 	};
 
 	Server();
 	~Server();
 
-	static void listen(int port = 12345);
+	static void listen(int port = 27345);
+	static void stop();
 	static void update(float dt);
 	static void onEvent(ClientInformation& client, sf::Packet packet);
 	static void send(ClientInformation& client, sf::Packet packet);
+	static void sendActually(ClientInformation& client);
 	static void send(sf::Packet packet);
 	static void send(ClientInformation& client, MultiplayerMessage& message);
 	static void send(MultiplayerMessage& message);
+	static void send(NetEvent event);
 	static bool isServer();
 	static int getNewEntityId();
-	static void setGetInfo(std::function<sf::Packet()> f);
+	static void setIsInServer(bool is);
+	static bool isInServer();
+	static void setGetInfo(std::function<std::vector<sf::Packet>()> f);
 	static void setOnNewPlayer(std::function<void(ClientInformation&)> f);
 	static void setOnPacket(std::function<bool(ClientInformation&, Server::MESSAGE_TYPE, sf::Packet&)> f);
 	static std::vector<ClientInformation>& getClients();
@@ -57,10 +66,11 @@ private:
 	float pingTimer;
 	sf::Clock pingClock;
 
-	std::function<sf::Packet()> getGameInfo;
+	std::function<std::vector<sf::Packet>()> getGameInfo;
 	float gameTimer;
 
 	bool isserver;
+	bool isInServerVar;
 
 	int lastEntityId;
 

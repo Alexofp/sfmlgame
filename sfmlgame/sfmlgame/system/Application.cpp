@@ -68,6 +68,9 @@ int Application::run()
 
 		GameWindow::clear();
 		states.back()->draw();
+
+		if (isServer)
+			server->draw();
 		GameWindow::display();
 
 		if (states.back()->finished)
@@ -81,4 +84,10 @@ void Application::startServer()
 {
 	isServer = true;
 	server.reset(new GameServer());
+}
+
+void Application::stopServer()
+{
+	isServer = false;
+	server.reset(0);
 }

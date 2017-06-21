@@ -14,9 +14,10 @@ public:
 	void localUpdate(float dt);
 	void draw();
 
-	MultiplayerMessage writeInformation();
-	void readInformation(MultiplayerMessage& message);
-	MultiplayerMessage spawnMessage();
+	virtual void writeInformation(sf::Packet& packet);
+	virtual void readInformation(sf::Packet& packet);
+	virtual void writeSpawn(sf::Packet& packet);
+	virtual void readSpawn(sf::Packet& packet);
 private:
 	SimpleSprite sprite;
 	Vec2f speed;

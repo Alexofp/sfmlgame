@@ -122,3 +122,13 @@ Vec2f Vec2f::mul(Vec2f v1, float m)
 {
 	return Vec2f(v1.x*m, v1.y*m);
 }
+
+sf::Packet& operator <<(sf::Packet& packet, const Vec2f& v)
+{
+	return packet << v.x << v.y;
+}
+
+sf::Packet& operator >> (sf::Packet& packet, Vec2f& v)
+{
+	return packet >> v.x >> v.y;
+}

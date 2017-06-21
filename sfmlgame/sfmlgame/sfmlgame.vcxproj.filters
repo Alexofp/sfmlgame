@@ -193,6 +193,15 @@
     <ClCompile Include="system\AnimationManager.cpp">
       <Filter>code\system</Filter>
     </ClCompile>
+    <ClCompile Include="game\InventoryPanel.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Inventory.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="system\NetEvent.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -358,6 +367,15 @@
       <Filter>code\game</Filter>
     </ClInclude>
     <ClInclude Include="system\AnimationManager.h">
+      <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="game\InventoryPanel.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Inventory.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="system\NetEvent.h">
       <Filter>code\system</Filter>
     </ClInclude>
   </ItemGroup>

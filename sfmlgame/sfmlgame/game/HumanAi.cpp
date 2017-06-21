@@ -9,6 +9,8 @@ HumanAi::HumanAi(int nid): Person(nid)
 	Skin skin;
 	skin.loadFromFile("resources/skin.json");
 	skeleton.setSkin(skin);
+
+	timer = 0.f;
 }
 
 
@@ -19,8 +21,6 @@ HumanAi::~HumanAi()
 void HumanAi::init()
 {
 	Person::init();
-
-	targetPos = Vec2f::add(Vec2f(rand() % 200 - 100, rand() % 200 - 100), getPos());
 }
 
 void HumanAi::update(float dt)
@@ -30,17 +30,21 @@ void HumanAi::update(float dt)
 	updateSkeleton(dt);
 	updateBody();
 
-	moveControl = Vec2f::sub(targetPos, getPos()).normalized();
-	if (Vec2f::distance(targetPos, getPos()) < 10.f)
+
+	timer -= dt;
+	if (timer <= 0.f || Vec2f::distance(targetPos, getPos()) < 10.f)
 	{
-		targetPos = Vec2f::add(Vec2f(rand() % 200 - 100, rand() % 200 - 100), getPos());
+		timer = 3.f+rand()%3;
+		int size = 1000;
+		targetPos = Vec2f::add(Vec2f(rand() % size - size/2, rand() % size - size/2), getPos());
 	}
+	moveControl = Vec2f::sub(targetPos, getPos()).normalized();
 }
 
 void HumanAi::localUpdate(float dt)
 {
-	updateBody();
 	updateSkeleton(dt);
+	updateBody();
 }
 
 void HumanAi::draw()
@@ -48,34 +52,47 @@ void HumanAi::draw()
 	Person::draw();
 }
 
-MultiplayerMessage HumanAi::writeInformation()
+void HumanAi::writeInformation(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::HumanAiUpdate);
-	message.setMessage(new HumanAiUpdateMessage(getBodyPos().x, getBodyPos().y, skeleton.getAng(), getBodySpeed().x, getBodySpeed().y, lookPosition.x, lookPosition.y));
-
-	return message;
+	packet << getBodyPos();
+	packet << getBodySpeed();
+	packet << lookPosition;
+	packet << moveControl;
 }
 
-void HumanAi::readInformation(MultiplayerMessage& message)
+void HumanAi::readInformation(sf::Packet & packet)
 {
-	if (message.getType() == MessageType::HumanAiUpdate)
-	{
-		HumanAiUpdateMessage* m = message.getMessage<HumanAiUpdateMessage>();
+	Vec2f newpos;
+	Vec2f newspeed;
+	Vec2f look;
+	Vec2f control;
 
-		setBodyPos(Vec2f(m->x, m->y));
-		//setBodyAng(m->ang);
-		//skeleton.setAng(m->ang);
-		
-		speed = Vec2f(m->speedx, m->speedy);
-		setBodySpeed(Vec2f(m->speedx, m->speedy));
-		lookPosition = Vec2f(m->lookx, m->looky);
-	}
+	packet >> newpos >> newspeed >> look >> control;
+
+	setBodyPos(newpos);
+	speed = newspeed;
+	setBodySpeed(newspeed);
+	lookPosition = look;
+	moveControl = control;
 }
 
-MultiplayerMessage HumanAi::spawnMessage()
+void HumanAi::writeSpawn(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::SpawnHumanAiEntity);
-	message.setMessage(new SpawnHumanAiEntityMessage(getNid(), getPos().x, getPos().y));
+	packet << getBodyPos();
+	packet << getBodySpeed();
+	packet << lookPosition;
+}
 
-	return message;
+void HumanAi::readSpawn(sf::Packet & packet)
+{
+	Vec2f newpos;
+	Vec2f newspeed;
+	Vec2f look;
+
+	packet >> newpos >> newspeed >> look;
+
+	setBodyPos(newpos);
+	speed = newspeed;
+	setBodySpeed(newspeed);
+	lookPosition = look;
 }

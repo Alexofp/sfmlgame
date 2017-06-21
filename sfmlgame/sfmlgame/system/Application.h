@@ -13,6 +13,7 @@ public:
 	void pushState(State* state);
 	int run();
 	void startServer();
+	void stopServer();
 	std::vector<std::unique_ptr<State> > states;
 	bool isServer;
 	std::unique_ptr<GameServer> server;

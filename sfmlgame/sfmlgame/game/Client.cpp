@@ -78,17 +78,39 @@ void Client::onEvent(sf::Packet & packet)
 void Client::update(float dt)
 {
 	Client& client = get();
-	sf::Packet packet;
-	if (client.socket.receive(packet) == sf::Socket::Done)
+	for (int i = 0; i < 100; i++)
 	{
-		onEvent(packet);
+		sf::Packet packet;
+		auto status = client.socket.receive(packet);
+		if (status == sf::Socket::Done)
+		{
+			onEvent(packet);
+			continue;
+		}
+		else if (status == sf::Socket::Partial)
+		{
+			while (client.socket.receive(packet) == sf::Socket::Partial)
+			{
+
+			}
+			onEvent(packet);
+			continue;
+		}
+		break;
 	}
+
 }
 
 void Client::send(sf::Packet packet)
 {
 	Client& client = get();
-	client.socket.send(packet);
+	while (client.socket.send(packet) == sf::Socket::Partial) {};
+}
+
+void Client::send(NetEvent event)
+{
+	sf::Packet packet = event.getPacket();
+	send(packet);
 }
 
 void Client::setOnGameInfo(std::function<void(sf::Packet&)> f)

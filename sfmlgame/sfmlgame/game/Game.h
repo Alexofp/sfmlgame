@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include "Terrain.h"
 #include "GameWorld.h"
+#include "Inventory.h"
+#include "InventoryPanel.h"
 
 struct ClientPlayerInfo
 {
@@ -23,6 +25,8 @@ public:
 
 	void update(float dt);
 	void draw();
+	void drawUI();
+	void resizeGui();
 	void handleEvent(sf::Event event);
 
 	void applyGameInfo(sf::Packet& info);
@@ -34,5 +38,11 @@ private:
 	std::unordered_map<int, ClientPlayerInfo> players;
 	
 	GameWorld world;
+
+	float sendGameInfoTimer;
+
+	sf::View guiView;
+	Inventory inventory;
+	InventoryPanel panel;
 };
 

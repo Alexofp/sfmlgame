@@ -133,6 +133,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\Inventory.cpp" />
+    <ClCompile Include="game\InventoryPanel.cpp" />
+    <ClCompile Include="system\NetEvent.cpp" />
     <ClCompile Include="system\AnimationManager.cpp" />
     <ClCompile Include="game\AliveEntity.cpp" />
     <ClCompile Include="animation\AnimatedSkeleton.cpp" />
@@ -191,6 +194,9 @@
     <ClCompile Include="gui\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\Inventory.h" />
+    <ClInclude Include="game\InventoryPanel.h" />
+    <ClInclude Include="system\NetEvent.h" />
     <ClInclude Include="system\AnimationManager.h" />
     <ClInclude Include="game\AliveEntity.h" />
     <ClInclude Include="animation\AnimatedSkeleton.h" />

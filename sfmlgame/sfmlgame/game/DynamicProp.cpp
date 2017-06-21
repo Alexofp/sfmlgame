@@ -39,29 +39,34 @@ void DynamicProp::draw()
 	sprite.draw();
 }
 
-MultiplayerMessage DynamicProp::writeInformation()
+void DynamicProp::writeInformation(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::DynamicPropUpdate);
-	message.setMessage(new DynamicPropUpdateMessage(getBodyPos().x, getBodyPos().y, getBodyAng()));
-
-	return message;
+	packet << getBodyPos();
+	packet << getBodyAng();
 }
 
-void DynamicProp::readInformation(MultiplayerMessage& message)
+void DynamicProp::readInformation(sf::Packet & packet)
 {
-	if (message.getType() == MessageType::DynamicPropUpdate)
-	{
-		DynamicPropUpdateMessage* m = message.getMessage<DynamicPropUpdateMessage>();
+	Vec2f newpos;
+	float newang;
+	packet >> newpos >> newang;
 
-		setBodyPos(Vec2f(m->x, m->y));
-		setBodyAng(m->ang);
-	}
+	setBodyPos(newpos);
+	setBodyAng(newang);
 }
 
-MultiplayerMessage DynamicProp::spawnMessage()
+void DynamicProp::writeSpawn(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::SpawnDynamicPropEntity);
-	message.setMessage(new SpawnDynamicPropEntityMessage(getNid(), getPos().x, getPos().y));
+	packet << getBodyPos();
+	packet << getBodyAng();
+}
 
-	return message;
+void DynamicProp::readSpawn(sf::Packet & packet)
+{
+	Vec2f newpos;
+	float newang;
+	packet >> newpos >> newang;
+
+	setBodyPos(newpos);
+	setBodyAng(newang);
 }

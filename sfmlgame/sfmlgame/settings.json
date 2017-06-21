@@ -1,6 +1,6 @@
 {
     "render": {
-        "debug": true
+        "debug": false
     },
     "window": {
         "fullscreen": false,

@@ -10,14 +10,14 @@ GameServer::GameServer()
 	Server::setOnNewPlayer([&](ClientInformation& id) { this->serverPlayerConnected(id); });
 	Server::setOnPacket([&](ClientInformation& info, Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacketServer(info, type, packet); });
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		DynamicProp* prop = new DynamicProp();
 		prop->setPos(Vec2f(100.f+rand()%200, 100.f + rand() % 200));
 		world.add(prop);
 
 		HumanAi* asd = new HumanAi();
-		asd->setPos(Vec2f(500.f + rand() % 200, 500.f + rand() % 200));
+		asd->setPos(Vec2f(500.f + rand() % 5000, 500.f + rand() % 5000));
 		world.add(asd);
 	}
 
@@ -34,44 +34,62 @@ GameServer::~GameServer()
 
 void GameServer::update(float dt)
 {
+	Server::setIsInServer(true);
 	Server::update(dt);
 	world.update(dt);
 	world.physicsUpdate(dt);
+	Server::setIsInServer(false);
 }
 
 void GameServer::draw()
 {
+	//world.getPhysicsWorld().debugDraw();
 }
 
 void GameServer::handleEvent(sf::Event event)
 {
 }
 
-sf::Packet GameServer::getGameInfo()
+std::vector<sf::Packet> GameServer::getGameInfo()
 {
-	sf::Packet packet;
-	packet << (sf::Uint8)Server::MESSAGE_TYPE::ENTITY_INFO;
-	packet << (sf::Uint16)world.getEntities().size();
+	std::vector<sf::Packet> packets;
+	packets.reserve(world.getEntities().size());
+
 	for (auto& entity : world.getEntities())
 	{
+		sf::Packet packet;
+		packet << (sf::Uint8)Server::MESSAGE_TYPE::ENTITY_INFO;
+
 		packet << (sf::Uint32)entity->getNid();
-		//packet << (sf::Uint8)entity->getSyncType();
-		packet << (sf::Uint8)entity->getType();
-		auto message = entity->writeInformation();
-		message.write(packet);
+		entity->writeInformation(packet);
+		packets.push_back(packet);
 	}
 
-	return packet;
+	return packets;
 }
 
 bool GameServer::handlePacketServer(ClientInformation & info, Server::MESSAGE_TYPE type, sf::Packet & packet)
 {
 	if (type == Server::MESSAGE_TYPE::MESSAGE)
 	{
-		MultiplayerMessage message(packet);
+		players[info.id].entity->readInformation(packet);
+	}
+	else if (type == Server::MESSAGE_TYPE::EVENT)
+	{
+		sf::Packet newpacket;
+		//newpacket << (sf::Uint8)Server::MESSAGE_TYPE::EVENT;
+		newpacket.append(packet.getData(), packet.getDataSize());
+		Server::send(newpacket);
 
-		players[info.id].entity->readInformation(message);
-
+		int from, to;
+		std::string eventType;
+		packet >> from >> to >> eventType;
+		
+		Entity* ent = world.findEntity(to);
+		if (ent != 0)
+		{
+			ent->handleEvent(from, eventType, packet);
+		}
 	}
 	return false;
 }
@@ -81,7 +99,8 @@ void GameServer::serverPlayerConnected(ClientInformation& info)
 	int clientId = info.id;
 	float x = 950.f, y = 950.f;
 
-	Player* player = new Player(clientId);
+	Player* player = new Player();
+	player->setClientId(clientId);
 	player->setPos(Vec2f(x, y));
 	world.add(player);
 	player->setRemote(true);
@@ -105,12 +124,21 @@ void GameServer::serverPlayerConnected(ClientInformation& info)
 		if (entityPtr.get() == player)
 			continue;
 
-		MultiplayerMessage message = entityPtr->spawnMessage();
-		Server::send(info, message);
+		sf::Packet packet;
+		packet << (sf::Uint8)Server::MESSAGE_TYPE::ENTITY_SPAWN;
+		packet << (sf::Uint8)entityPtr->getType();
+		packet << (sf::Uint32)entityPtr->getNid();
+		entityPtr->writeSpawn(packet);
+
+		Server::send(info, packet);
 	}
 
-	MultiplayerMessage message = player->spawnMessage();
-	Server::send(message);
+	sf::Packet packet;
+	packet << (sf::Uint8)Server::MESSAGE_TYPE::ENTITY_SPAWN;
+	packet << (sf::Uint8)player->getType();
+	packet << (sf::Uint32)player->getNid();
+	player->writeSpawn(packet);
+	Server::send(packet);
 
 	Log::debug("its ok");
 }

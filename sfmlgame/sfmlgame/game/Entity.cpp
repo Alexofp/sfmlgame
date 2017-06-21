@@ -1,6 +1,8 @@
 #include "Entity.h"
 #include "Server.h"
 #include "Log.h"
+#include "Client.h"
+#include "GameWorld.h"
 
 Entity::Entity(int nid)
 {
@@ -54,21 +56,53 @@ float Entity::getAng()
 	return angle;
 }
 
-MultiplayerMessage Entity::writeInformation()
+void Entity::writeInformation(sf::Packet & packet)
 {
-	MultiplayerMessage message(MessageType::NoMessage);
-	return message;
+	packet << pos.x << pos.y << size.x << size.y << angle;
 }
 
-void Entity::readInformation(MultiplayerMessage& message)
+void Entity::readInformation(sf::Packet & packet)
 {
-	//packet >> pos.x >> pos.y >> size.x >> size.y >> angle;
+	packet >> pos.x >> pos.y >> size.x >> size.y >> angle;
 }
 
-MultiplayerMessage Entity::spawnMessage()
+void Entity::writeSpawn(sf::Packet & packet)
 {
-	return MultiplayerMessage(MessageType::NoMessage);
+	packet << pos.x << pos.y << size.x << size.y << angle;
 }
+
+void Entity::readSpawn(sf::Packet & packet)
+{
+	packet >> pos.x >> pos.y >> size.x >> size.y >> angle;
+}
+
+void Entity::sendEvent(NetEvent event)
+{
+	if (Server::isInServer())
+	{
+		Server::send(event);
+		sf::Packet packet = event.data;
+		int from, to;
+		std::string eventType;
+		packet >> from >> to >> eventType;
+
+		Entity* ent = world->findEntity(to);
+		if (ent != 0)
+		{
+			ent->handleEvent(from, eventType, packet);
+		}
+	}
+	else
+	{
+		Client::send(event);
+	}
+}
+
+void Entity::handleEvent(int fromId, std::string type, sf::Packet & packet)
+{
+}
+
+
 
 int Entity::getNid()
 {

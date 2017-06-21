@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Network/Packet.hpp>
 #include <string>
 
 class Vec2f
@@ -35,5 +36,9 @@ public:
 	static Vec2f mul(Vec2f v1, float m);
 
 	float x, y;
+
+	
 };
 
+sf::Packet& operator <<(sf::Packet& packet, const Vec2f& v);
+sf::Packet& operator >> (sf::Packet& packet, Vec2f& v);

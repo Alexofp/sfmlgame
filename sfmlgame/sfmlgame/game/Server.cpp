@@ -6,9 +6,10 @@ Server::Server()
 {
 	socketId = 0;
 	pingTimer = 1.f;
-	gameTimer = 0.f;
+	gameTimer = 0.3f;
 	lastEntityId = 0;
 	isserver = false;
+	isInServerVar = false;
 }
 
 
@@ -29,12 +30,22 @@ void Server::listen(int port)
 	server.listener.setBlocking(false);
 }
 
+void Server::stop()
+{
+	Server& server = get();
+	server.clients.clear();
+	server.lastEntityId = 0;
+	server.isserver = false;
+	server.listener.close();
+}
+
 void Server::update(float dt)
 {
 	Server& server = get();
 
 	std::shared_ptr<sf::TcpSocket> socket(new sf::TcpSocket());
-	if (server.listener.accept(*socket) == sf::Socket::Done)
+	auto status = server.listener.accept(*socket);
+	if (status == sf::Socket::Done)
 	{
 		Log::debug("[server] New client with id " + std::to_string(server.socketId) );
 		server.selector.add(*socket);
@@ -42,6 +53,7 @@ void Server::update(float dt)
 		ClientInformation clientInfo;
 		clientInfo.id = server.socketId;
 		clientInfo.socket = socket;
+		clientInfo.packet = sf::Packet();
 		clientInfo.ping = 999;
 		sf::Uint8 pingPassword = rand() & 256;
 		clientInfo.pingPassword = pingPassword;
@@ -65,6 +77,9 @@ void Server::update(float dt)
 		send(clientInfo, pingpacket);
 
 		server.socketId++;
+	}else if (status == sf::Socket::Status::Error)
+	{
+		Log::err("[server] Error while client connecting");
 	}
 
 	for (auto& client : server.clients)
@@ -112,20 +127,23 @@ void Server::update(float dt)
 	server.gameTimer -= dt;
 	if (server.gameTimer < 0)
 	{
-		server.gameTimer = 0.03;
+		server.gameTimer = (1.f/10.f);
 
 		if (server.getGameInfo)
 		{
-			sf::Packet packet = server.getGameInfo();
+			auto packets = server.getGameInfo();
 
-			for (auto& client : server.clients)
+			for (auto& packet : packets)
 			{
-				sf::Packet p = packet;
-				while (client.socket->send(p) == sf::Socket::Partial) {};
+				send(packet);
 			}
 		}
 	}
 
+	for (auto& client : server.clients)
+	{
+		sendActually(client);
+	}
 }
 
 void Server::onEvent(ClientInformation & client, sf::Packet packet)
@@ -161,7 +179,20 @@ void Server::onEvent(ClientInformation & client, sf::Packet packet)
 
 void Server::send(ClientInformation & client, sf::Packet packet)
 {
-	client.socket->send(packet);
+	//client.packet << packet;
+	client.packet.append(packet.getData(), packet.getDataSize());
+	sendActually(client);
+	//if (client.packet.getDataSize() > 2048)
+	//	sendActually(client);
+	//while (client.socket->send(packet) == sf::Socket::Partial) {};
+}
+
+void Server::sendActually(ClientInformation & client)
+{
+	if (client.packet.getDataSize() == 0)
+		return;
+	while (client.socket->send(client.packet) == sf::Socket::Partial) {};
+	client.packet.clear();
 }
 
 void Server::send(sf::Packet packet)
@@ -170,7 +201,7 @@ void Server::send(sf::Packet packet)
 	for (auto& client : server.clients)
 	{
 		sf::Packet p = packet;
-		while (client.socket->send(p) == sf::Socket::Partial) {};
+		send(client, p);
 	}
 }
 
@@ -190,6 +221,12 @@ void Server::send(MultiplayerMessage& message)
 	Server::send(packet);
 }
 
+void Server::send(NetEvent event)
+{
+	sf::Packet packet = event.getPacket();
+	send(packet);
+}
+
 bool Server::isServer()
 {
 	Server& server = get();
@@ -204,7 +241,19 @@ int Server::getNewEntityId()
 	return server.lastEntityId++;
 }
 
-void Server::setGetInfo(std::function<sf::Packet()> f)
+void Server::setIsInServer(bool is)
+{
+	Server& server = get();
+	server.isInServerVar = is;
+}
+
+bool Server::isInServer()
+{
+	Server& server = get();
+	return server.isInServerVar;
+}
+
+void Server::setGetInfo(std::function<std::vector<sf::Packet>()> f)
 {
 	Server& server = get();
 

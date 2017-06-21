@@ -8,8 +8,9 @@
 #include "ObjectManager.h"
 #include "GameWindow.h"
 #include "HumanAi.h"
+#include "Application.h"
 
-Game::Game(std::string ip):State()
+Game::Game(std::string ip):State(),inventory(5,5)
 {
 	world.loadMap("map1");
 
@@ -18,6 +19,15 @@ Game::Game(std::string ip):State()
 	Client::setOnPacket([&](Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacket(type, packet); });
 
 	GameWindow::setZoom(2.f);
+	sendGameInfoTimer = 0.1f;
+
+
+	inventory.addItem({ Vec2i(0,0),Vec2i(0,0) });
+	inventory.addItem({ Vec2i(3,2),Vec2i(1,0) });
+
+	panel.setInventory(&inventory);
+	resizeGui();
+
 }
 
 
@@ -32,6 +42,13 @@ void Game::update(float dt)
 
 	world.localUpdate(dt);
 	world.physicsUpdate(dt);
+
+	sendGameInfoTimer -= dt;
+	while (sendGameInfoTimer <= 0)
+	{
+		sendGameInfoTimer += (1.f/30.f);
+		Client::send(getClientInfo());
+	}
 }
 
 void Game::draw()
@@ -39,10 +56,32 @@ void Game::draw()
 	world.draw();
 	if(Settings::getBool("render", "debug", false))
 		world.getPhysicsWorld().debugDraw();
+
+	sf::View oldView = GameWindow::getInternalHandle().getView();
+	GameWindow::getInternalHandle().setView(guiView);
+	drawUI();
+	GameWindow::getInternalHandle().setView(oldView);
+}
+
+void Game::drawUI()
+{
+	panel.draw();
+}
+
+void Game::resizeGui()
+{
+	Vec2f size = Vec2f(GameWindow::getSize().x, GameWindow::getSize().y);
+	guiView.setSize(size.toSFMLVec());
+	guiView.setCenter(sf::Vector2f(size.x / 2.f, size.y / 2.f));
 }
 
 void Game::handleEvent(sf::Event event)
 {
+	if (event.type == sf::Event::Resized)
+	{
+		resizeGui();
+	}
+
 	if (event.type == sf::Event::MouseWheelScrolled)
 	{
 		if (event.mouseWheelScroll.delta > 0)
@@ -55,6 +94,9 @@ void Game::handleEvent(sf::Event event)
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 	{
 		finish();
+		Client::disconnect();
+		Server::stop();
+		app->stopServer();
 	}
 }
 
@@ -64,8 +106,7 @@ sf::Packet Game::getClientInfo()
 	if (Client::getClientId() != -1 && players.find(Client::getClientId())!=players.end())
 	{
 		packet << (sf::Uint8)Server::MESSAGE_TYPE::MESSAGE;
-		auto message = players[Client::getClientId()].entity->writeInformation();
-		message.write(packet);
+		players[Client::getClientId()].entity->writeInformation(packet);
 	}
 	else
 	{
@@ -77,109 +118,86 @@ sf::Packet Game::getClientInfo()
 
 void Game::applyGameInfo(sf::Packet& info)
 {
-	int count;
-	sf::Uint16 c;
-	info >> c;
-	count = c;
+	sf::Uint32 id;
+	info >> id;
 
-	for (int i = 0; i < count; i++)
+	Entity* ent = world.findEntity(id);
+
+	if (ent == 0)
 	{
-		sf::Uint32 id;
-		info >> id;
-
-		sf::Uint8 entityType;
-		info >> entityType;
-
-		MultiplayerMessage message(info);
-
-		Entity* ent = world.findEntity(id);
-
-		if (ent == 0)
-		{
-			Log::err("Something is very wrong "+std::to_string(count));
-		}
-		else if (id == players[Client::getClientId()].entity->getNid())
-		{
-		}else
-		{
-			//Log::debug("its ok");
-			ent->readInformation(message);
-		}
+		Log::err("[client] Entity with id "+std::to_string(id)+" is not found");
 	}
-
-	Client::send(getClientInfo());
+	else if (players.find(Client::getClientId()) != players.end() && id == players[Client::getClientId()].entity->getNid())
+	{
+		ent->readInformation(info);
+	}
+	else
+	{
+		ent->readInformation(info);
+	}
 }
 
 bool Game::handlePacket(Server::MESSAGE_TYPE type, sf::Packet & packet)
 {
-	if (type == Server::MESSAGE_TYPE::MESSAGE)
+	if (type == Server::MESSAGE_TYPE::EVENT)
 	{
-		MultiplayerMessage message(packet);
+		int from, to;
+		std::string eventType;
+		packet >> from >> to >> eventType;
 
-		if (message.getType() == MessageType::SpawnPlayerEntity)
+		Entity* ent = world.findEntity(to);
+		if (ent != 0)
 		{
-			auto* m = message.getMessage<SpawnPlayerEntityMessage>();
+			ent->handleEvent(from, eventType, packet);
+		}
+	}else if (type == Server::MESSAGE_TYPE::ENTITY_SPAWN)
+	{
+		sf::Uint8 entTypeB;
+		packet >> entTypeB;
+		Entity::Type entType = (Entity::Type)entTypeB;
+		sf::Uint32 nid;
+		packet >> nid;
 
-			Player* player = new Player(m->playerId, m->nid);
-			player->setPos(Vec2f(m->x, m->y));
-			ClientPlayerInfo playerinfo;
-			playerinfo.entity = player;
+		Entity* entity = 0;
+		if (entType == Entity::Type::Player)
+		{
+			entity = new Player(nid);
+		}
+		else if (entType == Entity::Type::DynamicProp)
+		{
+			entity = new DynamicProp(nid);
+		}
+		else if (entType == Entity::Type::HumanAi)
+		{
+			entity = new HumanAi(nid);
+		}
+		if (entity != 0)
+		{
+			world.add(entity);
+			entity->readSpawn(packet);
 
-			players[m->playerId] = playerinfo;
-
-			Log::debug("Player with id " + std::to_string(m->nid));
-
-			if (m->playerId != Client::getClientId())
+			if (entType == Entity::Type::Player)
 			{
-				player->setRemote(true);
+				ClientPlayerInfo playerinfo;
+				playerinfo.entity = (Player*)entity;
+
+				players[((Player*)entity)->getClientId()] = playerinfo;
+
+				Log::debug("Player with id " + std::to_string(entity->getNid()));
+
+				if (((Player*)entity)->getClientId() != Client::getClientId())
+				{
+					((Player*)entity)->setRemote(true);
+				}
 			}
-			world.add(player);
+			
 		}
-		if (message.getType() == MessageType::SpawnDynamicPropEntity)
-		{
-			auto* m = message.getMessage<SpawnDynamicPropEntityMessage>();
 
-			DynamicProp* prop = new DynamicProp(m->nid);
-			prop->setPos(Vec2f(m->x, m->y));
-			world.add(prop);
-		}
-		if (message.getType() == MessageType::SpawnHumanAiEntity)
-		{
-			auto* m = message.getMessage<SpawnHumanAiEntityMessage>();
-
-			HumanAi* prop = new HumanAi(m->nid);
-			prop->setPos(Vec2f(m->x, m->y));
-			world.add(prop);
-		}
 	}
-
-	/*if (type == Server::MESSAGE_TYPE::NEW_PLAYER)
+	else
 	{
-		sf::Uint32 id;
-		packet >> id;
-		int clientId = id;
-
-		packet >> id;
-		int nid = id;
-
-		float x, y;
-		packet >> x >> y;
-
-		Player* player = new Player(nid);
-		player->setPos(Vec2f(x, y));
-		players[clientId] = player;
-
-		Log::debug("Player with id "+std::to_string(nid));
-
-		if (clientId != Client::getClientId())
-		{
-			player->setRemote(true);
-		}
-		entities.push_back(std::unique_ptr<Entity>(player));
-
-		return true;
-	}*/
-
+		Log::err("[client] WTF "+std::to_string((int)type));
+	}
 
 	return false;
 }

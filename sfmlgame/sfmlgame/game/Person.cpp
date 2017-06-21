@@ -5,13 +5,13 @@
 #include "GameWindow.h"
 #include "Settings.h"
 #include "AnimationManager.h"
-
+#include "Server.h"
 
 Person::Person(int nid) :AliveEntity(nid)
 {
-	walkSpeed = 1000.f;
+	walkSpeed = 3000.f;
 	acceleration = 1000.f;
-	maxSpeed = 1000.f;
+	maxSpeed = 3000.f;
 	speed = Vec2f(0, 0);
 	currentAnimation = 0;
 
@@ -19,6 +19,7 @@ Person::Person(int nid) :AliveEntity(nid)
 
 	state = "idle";
 
+	currentPriority = 0;
 	playAnimation("person_idle");
 }
 
@@ -54,6 +55,11 @@ void Person::updateSkeleton(float dt)
 		playAnimation("person_idle");
 		skeleton.setSpeed(1.f);
 	}
+	if (getCurrentAnimation() == "person_hit")
+	{
+		skeleton.setSpeed(1.f);
+	}
+
 	float targetAngle = Vec2f::sub(lookPosition, getPos()).getAngle();
 	while (targetAngle > 180.f)
 		targetAngle -= 360.f;
@@ -81,13 +87,66 @@ void Person::updateSkeleton(float dt)
 	skeleton.setPos(getPos());
 }
 
-void Person::playAnimation(std::string animName)
+void Person::playAnimation(std::string animName, int priority)
 {
 	Animation* anim = AnimationManager::getAnimation(animName);
 
-	if (anim != currentAnimation)
+	if (priority >= currentPriority || skeleton.getProgress() >= 1.f)
 	{
-		currentAnimation = anim;
-		skeleton.playAnimation(anim);
+		currentPriority = priority;
+
+		if (anim != currentAnimation)
+		{
+			currentAnimationName = animName;
+			currentAnimation = anim;
+			skeleton.playAnimation(anim);
+		}
 	}
+}
+
+void Person::playAttack()
+{
+	playAnimation("person_hit", 1);
+}
+
+std::string Person::getCurrentAnimation()
+{
+	if (currentAnimation == 0)
+		return "";
+
+	return currentAnimationName;
+}
+
+void Person::attack()
+{
+	NetEvent event(getNid(), getNid(), "attack");
+	sendEvent(event);
+}
+
+void Person::handleEvent(int fromId, std::string type, sf::Packet & packet)
+{
+	AliveEntity::handleEvent(fromId, type, packet);
+
+	if (type == "attack" && fromId == getNid())
+	{
+		playAttack();
+
+		if (Server::isInServer())
+		{
+			auto closeEntities = world->findInRange(getPos(), 140.f);
+			for (Entity* ent : closeEntities)
+			{
+				if (ent != this)
+				{
+					NetEvent event(getNid(), ent->getNid(), "hurt");
+					sendEvent(event);
+				}
+			}
+		}
+	}
+}
+
+void Person::onDeath()
+{
+	skeleton.setScale( 0.f );
 }

@@ -202,6 +202,12 @@
     <ClCompile Include="system\NetEvent.cpp">
       <Filter>code\system</Filter>
     </ClCompile>
+    <ClCompile Include="game\PlayerInventory.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ItemManager.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -377,6 +383,12 @@
     </ClInclude>
     <ClInclude Include="system\NetEvent.h">
       <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="game\PlayerInventory.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ItemManager.h">
+      <Filter>code\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

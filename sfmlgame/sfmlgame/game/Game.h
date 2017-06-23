@@ -9,6 +9,7 @@
 #include "Terrain.h"
 #include "GameWorld.h"
 #include "Inventory.h"
+#include "PlayerInventory.h"
 #include "InventoryPanel.h"
 
 struct ClientPlayerInfo
@@ -32,6 +33,7 @@ public:
 	void applyGameInfo(sf::Packet& info);
 	bool handlePacket(Server::MESSAGE_TYPE type, sf::Packet& packet);
 	sf::Packet getClientInfo();
+	void loadPlayer(Player* player);
 
 private:
 	//std::vector<std::unique_ptr<Entity> > entities;
@@ -42,7 +44,6 @@ private:
 	float sendGameInfoTimer;
 
 	sf::View guiView;
-	Inventory inventory;
-	InventoryPanel panel;
+	PlayerInventory inventoryScreen;
 };
 

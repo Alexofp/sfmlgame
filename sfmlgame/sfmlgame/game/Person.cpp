@@ -16,6 +16,11 @@ Person::Person(int nid) :AliveEntity(nid)
 	currentAnimation = 0;
 
 	skeleton.playerSkeleton();
+	legsskeleton.legsSkeleton();
+	Skin legSkin;
+	legSkin.loadFromFile("resources/legsskin.json");
+	legsskeleton.setSkin(legSkin);
+	legsskeleton.setScale(0.5f);
 
 	state = "idle";
 
@@ -35,6 +40,7 @@ void Person::init()
 
 void Person::draw()
 {
+	legsskeleton.draw();
 	skeleton.draw();
 	if (Settings::getBool("render", "debug", false))
 		skeleton.debugDraw();
@@ -42,18 +48,33 @@ void Person::draw()
 
 void Person::updateSkeleton(float dt)
 {
+	legsskeleton.update(dt);
+	legsskeleton.setPos(getPos());
+
 	targetSpeed = Vec2f::mul(moveControl, walkSpeed);
 	updateMove(dt);
 
 	if (speed.len() > 10)
 	{
 		playAnimation("person_walk");
-		skeleton.setSpeed(speed.len()/200.f);
+		skeleton.setSpeed(speed.len()/400.f);
+
+		legsskeleton.setAng(speed.getAngle());
+		legsskeleton.setSpeed(speed.len() / 400.f);
+
+		
+		Animation* anim = AnimationManager::getAnimation("legs_walk");
+		if(legsskeleton.getAnimation() != anim)
+			legsskeleton.playAnimation(anim);
 	}
 	else
 	{
 		playAnimation("person_idle");
+		Animation* anim = AnimationManager::getAnimation("legs_idle");
+		legsskeleton.playAnimation(anim);
 		skeleton.setSpeed(1.f);
+
+		legsskeleton.setAng(skeleton.getAng());
 	}
 	if (getCurrentAnimation() == "person_hit")
 	{

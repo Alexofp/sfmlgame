@@ -156,3 +156,15 @@ void Skeleton::sideSkeleton()
 	addBone("lleg", new Bone("llleg", 60.f, 0.f, -10.f, 50.f));
 	addBone("rleg", new Bone("rrleg", 60.f, 0.f, 10.f, 50.f));
 }
+
+void Skeleton::legsSkeleton()
+{
+	clear();
+
+	addBone(new Bone("root", 0.f, 0.f, 0.f, 100.f));
+	addBone("root", new Bone("lleg", 0.f, 36.f, 0.f, 20.f));
+	addBone("lleg", new Bone("lfoot", 0.f, 0.f, 0.f, 21.f));
+
+	addBone("root", new Bone("rleg", 0.f, -36.f, 0.f, 20.f));
+	addBone("rleg", new Bone("rfoot", 0.f, 0.f, 0.f, 21.f));
+}

@@ -21,6 +21,7 @@ public:
 
 protected:
 	AnimatedSkeleton skeleton;
+	AnimatedSkeleton legsskeleton;
 	Animation* currentAnimation;
 	std::string currentAnimationName;
 	Vec2f moveControl;

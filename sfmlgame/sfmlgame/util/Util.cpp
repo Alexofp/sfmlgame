@@ -24,6 +24,17 @@ bool Util::boxCollision(Vec2f pos1, Vec2f size1, Vec2f pos2, Vec2f size2)
 	return false;
 }
 
+bool Util::boxCollision2(Vec2f pos1, Vec2f size1, Vec2f pos2, Vec2f size2)
+{
+	if ((pos1.getX() + size1.getX() > pos2.getX() ) &&
+		(pos1.getX() < pos2.getX() + size2.getX() ) &&
+		(pos1.getY() + size1.getY() > pos2.getY() ) &&
+		(pos1.getY() < pos2.getY() + size2.getY() )
+		)
+		return true;
+	return false;
+}
+
 float Util::lineCollision(Line line1, Line line2)
 {
 	float r_px = line1.pos.getX();
@@ -104,4 +115,26 @@ int Util::strToInt(std::wstring str)
 bool Util::fileExists(std::string path)
 {
 	return std::experimental::filesystem::exists(path);;
+}
+
+Vec2f Util::fitView(Vec2f screenSize, Vec2f panelSize, float margin)
+{
+	panelSize.x += margin;
+	panelSize.y += margin;
+	float aspect = screenSize.x / screenSize.y;
+
+	float aspect2 = panelSize.x / panelSize.y;
+
+	Vec2f newsize;
+	if (aspect > aspect2)
+	{
+		newsize = Vec2f(panelSize.y*aspect, panelSize.y);
+	}
+	else
+	{
+		newsize = Vec2f(panelSize.x, panelSize.x/aspect);
+	}
+	
+
+	return newsize;
 }

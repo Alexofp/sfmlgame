@@ -10,7 +10,7 @@
 #include "HumanAi.h"
 #include "Application.h"
 
-Game::Game(std::string ip):State(),inventory(5,5)
+Game::Game(std::string ip):State()
 {
 	world.loadMap("map1");
 
@@ -22,10 +22,10 @@ Game::Game(std::string ip):State(),inventory(5,5)
 	sendGameInfoTimer = 0.1f;
 
 
-	inventory.addItem({ Vec2i(0,0),Vec2i(0,0) });
-	inventory.addItem({ Vec2i(3,2),Vec2i(1,0) });
+	//inventory.addItem({ Vec2i(0,0),Vec2i(0,0) });
+	//inventory.addItem({ Vec2i(3,2),Vec2i(1,0) });
 
-	panel.setInventory(&inventory);
+	//panel.setInventory(&inventory);
 	resizeGui();
 
 }
@@ -65,7 +65,7 @@ void Game::draw()
 
 void Game::drawUI()
 {
-	panel.draw();
+	inventoryScreen.draw();
 }
 
 void Game::resizeGui()
@@ -73,6 +73,7 @@ void Game::resizeGui()
 	Vec2f size = Vec2f(GameWindow::getSize().x, GameWindow::getSize().y);
 	guiView.setSize(size.toSFMLVec());
 	guiView.setCenter(sf::Vector2f(size.x / 2.f, size.y / 2.f));
+	inventoryScreen.resize();
 }
 
 void Game::handleEvent(sf::Event event)
@@ -98,6 +99,13 @@ void Game::handleEvent(sf::Event event)
 		Server::stop();
 		app->stopServer();
 	}
+
+	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::E)
+	{
+		inventoryScreen.toggle();
+	}
+
+	inventoryScreen.handleEvent(event);
 }
 
 sf::Packet Game::getClientInfo()
@@ -114,6 +122,11 @@ sf::Packet Game::getClientInfo()
 	}
 	
 	return packet;
+}
+
+void Game::loadPlayer(Player * player)
+{
+	inventoryScreen.setPlayer(player);
 }
 
 void Game::applyGameInfo(sf::Packet& info)
@@ -188,6 +201,10 @@ bool Game::handlePacket(Server::MESSAGE_TYPE type, sf::Packet & packet)
 				if (((Player*)entity)->getClientId() != Client::getClientId())
 				{
 					((Player*)entity)->setRemote(true);
+				}
+				else
+				{
+					loadPlayer((Player*)entity);
 				}
 			}
 			

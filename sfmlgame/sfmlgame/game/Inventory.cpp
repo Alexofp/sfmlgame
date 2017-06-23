@@ -2,6 +2,12 @@
 
 
 
+Inventory::Inventory()
+{
+	w = 5;
+	h = 5;
+}
+
 Inventory::Inventory(int w, int h)
 {
 	this->w = w;
@@ -41,6 +47,9 @@ bool Inventory::placeFree(Vec2i pos, Vec2i size)
 
 bool Inventory::addItem(Item item)
 {
+	ItemManager::Item info = ItemManager::getItem(item.name);
+	item.size = Vec2i(info.w, info.h);
+
 	if (placeFree(item.pos, item.size))
 	{
 		items.push_back(item);
@@ -71,6 +80,12 @@ bool Inventory::addItemAnywhere(Item item)
 Vec2i Inventory::getSize()
 {
 	return Vec2i(w,h);
+}
+
+void Inventory::setSize(Vec2i size)
+{
+	w = size.x;
+	h = size.y;
 }
 
 std::vector<Inventory::Item>& Inventory::getItems()

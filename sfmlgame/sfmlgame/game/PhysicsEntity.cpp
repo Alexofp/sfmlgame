@@ -25,6 +25,11 @@ void PhysicsEntity::setBodySpeed(Vec2f speed)
 	body->setSpeed(speed);
 }
 
+Inventory & PhysicsEntity::getInventory()
+{
+	return inventory;
+}
+
 Vec2f PhysicsEntity::getBodyPos()
 {
 	return body->getPos();

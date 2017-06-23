@@ -561,7 +561,7 @@ void AnimationEditor::onNewButton(Button * sender, MouseDownEvent event)
 		
 		SimpleGuiWindow* window = new SimpleGuiWindow({
 			SimpleWidget::TextLine(L"Select skeleton type"),
-			SimpleWidget::ListBox("type", {{"Player skeleton", "player"}, {"Test skeleton", "test"}}, "player")
+			SimpleWidget::ListBox("type", {{"Player skeleton", "player"}, {"Test skeleton", "test"}, {"Legs", "legs"}}, "player")
 		}, SimpleGuiWindow::Style::OkCancel);
 
 		window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
@@ -572,10 +572,18 @@ void AnimationEditor::onNewButton(Button * sender, MouseDownEvent event)
 			if (type == "player")
 			{
 				skelet.playerSkeleton();
+				skin.loadFromFile("resources/skin.json");
+				skelet.setSkin(skin);
 			}
 			if (type == "test")
 			{
 				skelet.sideSkeleton();
+			}
+			if (type == "legs")
+			{
+				skelet.legsSkeleton();
+				skin.loadFromFile("resources/legsskin.json");
+				skelet.setSkin(skin);
 			}
 			updateBoneList();
 			updateKeyframelist();

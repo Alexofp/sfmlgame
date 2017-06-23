@@ -11,6 +11,7 @@
 #include "MapEditor.h"
 #include "ObjectManager.h"
 #include "AnimationManager.h"
+#include "ItemManager.h"
 
 Application::Application()
 {
@@ -35,6 +36,7 @@ int Application::run()
 	TextureManager::loadFromFile("resources/ground/textures.txt");
 	TextureManager::loadFromFile("resources/props/textures.txt");
 	TextureManager::loadFromFile("resources/gui/textures.txt");
+	TextureManager::loadFromFile("resources/items/textures.txt");
 	TextureManager::loadFromFile("resources/somedude/textures.txt");
 	TextureManager::loadFromFile("resources/player/player.txt");
 	TextureManager::load("player", "resources/player.png");
@@ -45,6 +47,11 @@ int Application::run()
 	AnimationManager::loadAnimation("person_hit","resources/player/hitanim.json");
 	AnimationManager::getAnimation("person_hit")->setLooped(false);
 	AnimationManager::loadAnimation("person_walk", "resources/player/walk123.json");
+
+	AnimationManager::loadAnimation("legs_idle", "resources/player/legs_idle.json");
+	AnimationManager::loadAnimation("legs_walk", "resources/player/legs_walk.json");
+
+	ItemManager::loadItems("items.txt");
 
 	GameWindow::open(Settings::getVec2i("window","size",Vec2i(800,600)), Settings::getBool("window","fullscreen", false));
 	GameWindow::setOnClose([&]() { return true; });

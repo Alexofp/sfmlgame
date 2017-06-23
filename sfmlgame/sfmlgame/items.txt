@@ -1,0 +1,18 @@
+[
+	{
+		"name": "test",
+		"textName": "Test",
+		"description": "description 123",
+		"texture": "tex_tent",
+		"w": 4,
+		"h": 2
+	},
+	{
+		"name": "ak74",
+		"textName": "AK-74",
+		"description": "description 123\n123\n\nasdzxcas",
+		"texture": "tex_ak74",
+		"w": 6,
+		"h": 2
+	}
+]

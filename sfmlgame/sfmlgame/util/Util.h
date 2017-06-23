@@ -3,6 +3,7 @@
 
 #include "Vec2f.h"
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/View.hpp>
 #include <string>
 
 struct Line
@@ -18,6 +19,7 @@ public:
 	virtual ~Util();
 
 	static bool boxCollision(Vec2f pos1, Vec2f size1, Vec2f pos2, Vec2f size2);
+	static bool boxCollision2(Vec2f pos1, Vec2f size1, Vec2f pos2, Vec2f size2);
 	static float lineCollision(Line line1, Line line2);
 	static void drawLine(Vec2f pos1, Vec2f pos2, sf::Color color = sf::Color::White);
 	static float lineDistanceToPoint(Vec2f pos1, Vec2f pos2, Vec2f point);
@@ -26,6 +28,7 @@ public:
 	static int strToInt(std::string str);
 	static int strToInt(std::wstring str);
 	static bool fileExists(std::string path);
+	static Vec2f fitView(Vec2f screenSize, Vec2f panelSize, float margin);
 protected:
 private:
 };

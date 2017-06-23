@@ -16,6 +16,10 @@ Player::Player(int nid):Person(nid)
 	skin.loadFromFile("resources/skin.json");
 
 	skeleton.setSkin(skin);
+
+	inventory.setSize(Vec2i(10, 10));
+	inventory.addItem(Inventory::Item(Vec2i(0, 0), "test"));
+	inventory.addItem(Inventory::Item(Vec2i(0, 2), "ak74"));
 }
 
 

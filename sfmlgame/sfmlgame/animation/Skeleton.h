@@ -32,6 +32,7 @@ public:
 	void clear();
 	void playerSkeleton();
 	void sideSkeleton();
+	void legsSkeleton();
 protected:
 	std::unordered_map<std::string, Bone*> bones;
 	Bone root;

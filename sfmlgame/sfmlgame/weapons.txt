@@ -1,0 +1,20 @@
+[
+	{
+		"name": "fists",
+		"textName": "Fists",
+		"attackType": "melee",
+		"attackAnimation": "person_hit",
+		"skin": "fists.json",
+		"idleAnimation": "person_idle",
+		"walkAnimation": "person_walk"
+	},
+	{
+		"name": "ak74",
+		"textName": "AK-74",
+		"attackType": "bullet",
+		"attackAnimation": "ak74_attack",
+		"skin": "ak74.json",
+		"idleAnimation": "ak74_idle",
+		"walkAnimation": "ak74_walk"
+	}
+]

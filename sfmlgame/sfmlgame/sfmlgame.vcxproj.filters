@@ -208,6 +208,24 @@
     <ClCompile Include="game\ItemManager.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
+    <ClCompile Include="game\Bullet.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\GameButton.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\WeaponManager.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Weapon.cpp">
+      <Filter>code\game</Filter>
+    </ClCompile>
+    <ClCompile Include="system\PhysicsCallbacks.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
+    <ClCompile Include="system\ContactListener.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -389,6 +407,24 @@
     </ClInclude>
     <ClInclude Include="game\ItemManager.h">
       <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Bullet.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\GameButton.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Weapon.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\WeaponManager.h">
+      <Filter>code\game</Filter>
+    </ClInclude>
+    <ClInclude Include="system\PhysicsCallbacks.h">
+      <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="system\ContactListener.h">
+      <Filter>code\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

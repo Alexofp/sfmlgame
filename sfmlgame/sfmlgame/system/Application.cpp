@@ -12,6 +12,7 @@
 #include "ObjectManager.h"
 #include "AnimationManager.h"
 #include "ItemManager.h"
+#include "WeaponManager.h"
 
 Application::Application()
 {
@@ -42,11 +43,17 @@ int Application::run()
 	TextureManager::load("player", "resources/player.png");
 	TextureManager::load("blueprint", "resources/blueprint.png");
 	ObjectManager::loadFromFile("objects.txt");
+	WeaponManager::loadFromFile("weapons.txt");
 
 	AnimationManager::loadAnimation("person_idle","resources/player/walkanim.json");
 	AnimationManager::loadAnimation("person_hit","resources/player/hitanim.json");
 	AnimationManager::getAnimation("person_hit")->setLooped(false);
 	AnimationManager::loadAnimation("person_walk", "resources/player/walk123.json");
+
+	AnimationManager::loadAnimation("ak74_idle", "resources/weapon_idle.json");
+	AnimationManager::loadAnimation("ak74_walk", "resources/weapon_walk.json");
+	AnimationManager::loadAnimation("ak74_attack", "resources/weapon_attack.json");
+	AnimationManager::getAnimation("ak74_attack")->setLooped(false);
 
 	AnimationManager::loadAnimation("legs_idle", "resources/player/legs_idle.json");
 	AnimationManager::loadAnimation("legs_walk", "resources/player/legs_walk.json");

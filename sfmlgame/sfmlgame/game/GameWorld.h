@@ -6,6 +6,7 @@
 #include "ObjectHandler.h"
 #include "ObjectManager.h"
 #include "Terrain.h"
+#include "Bullet.h"
 
 class GameWorld
 {
@@ -18,6 +19,7 @@ public:
 	void physicsUpdate(float dt);
 	void draw();
 	void loadMap(std::string name);
+	Bullet* fireBullet(Vec2f pos, Vec2f speed);
 
 	void add(Entity* entity);
 	Entity* findEntity(int nid);
@@ -25,9 +27,11 @@ public:
 	std::vector<std::unique_ptr<Entity> >& getEntities();
 	void addObject(std::string type, Vec2f pos, float angle = 0.f, Vec2f size = Vec2f(1.f,1.f));
 	std::vector<Entity*> findInRange(Vec2f pos, float radius);
+	void bulletsClearDestroyed();
 
 private:
 	std::vector<std::unique_ptr<Entity> > entities;
+	std::vector<std::unique_ptr<Bullet> > bullets;
 	PhysicsWorld physics;
 	ObjectHandler objects;
 	Terrain terrain;

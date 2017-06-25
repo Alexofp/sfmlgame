@@ -1,1 +1,2 @@
 tex_ak74 resources/items/ak74_low.png
+tex_ak74_top resources/items/ak74_top_low.png

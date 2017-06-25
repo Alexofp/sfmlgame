@@ -16,6 +16,10 @@ PlayerInventory::PlayerInventory()
 	description.setFillColor(sf::Color::Black);
 
 	show = false;
+
+	button1.setText("Equip");
+
+	selectedItem = 0;
 }
 
 
@@ -40,9 +44,40 @@ void PlayerInventory::draw()
 	GameWindow::getInternalHandle().draw(background);
 	panel.draw();
 
+	button1.draw();
+
 	GameWindow::getInternalHandle().draw(name);
 	GameWindow::getInternalHandle().draw(description);
 	GameWindow::getInternalHandle().setView(oldView);
+}
+
+void PlayerInventory::update(float dt)
+{
+	if (!show)
+		return;
+
+	if (button1.isClicked())
+	{
+		if (selectedItem)
+		{
+			ItemManager::Item info = ItemManager::getItem(selectedItem->name);
+
+			if (info.type == "weapon")
+			{
+				if (player->getWeaponName() == info.weaponType)
+				{
+					player->setWeapon("fists");
+				}
+				else
+				{
+					player->setWeapon(info.weaponType);
+				}
+				updateSelection();
+			}
+		}
+	}
+
+	button1.update(dt);
 }
 
 void PlayerInventory::resize()
@@ -64,6 +99,9 @@ void PlayerInventory::resize()
 	panel.setPos(centerPanel);
 	background.setPosition(centerPanel.toSFMLVec());
 
+	button1.setPos(Vec2f::add(centerPanel,Vec2f(5.f, 805.f)));
+	button1.setSize(Vec2f(200.f, 70.f));
+
 	name.setPosition(centerPanel.toSFMLVec()+sf::Vector2f(810.f,10.f));
 	description.setPosition(centerPanel.toSFMLVec() + sf::Vector2f(810.f, 80.f));
 }
@@ -78,30 +116,52 @@ bool PlayerInventory::handleEvent(sf::Event event)
 	if (!show)
 		return false;
 
+	if (button1.handleEvent(event, guiView))
+		return true;
+
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
 		if (event.mouseButton.button == sf::Mouse::Left)
 		{
 			Vec2f mousePos = GameWindow::getInternalHandle().mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), guiView);
 
-			Inventory::Item* selectedItem = panel.getAt(mousePos);
+			selectedItem = panel.getAt(mousePos);
 
-			if (selectedItem != 0)
-			{
-				panel.selectItem(selectedItem->pos, selectedItem->size);
-
-				ItemManager::Item item = ItemManager::getItem(selectedItem->name);
-				name.setString(item.textName);
-				description.setString(item.description);
-			}
-			else
-			{
-				panel.clearSelection();
-				name.setString("");
-				description.setString("");
-			}
+			updateSelection();
 		}
 	}
 
 	return false;
+}
+
+void PlayerInventory::updateSelection()
+{
+	if (selectedItem != 0)
+	{
+		panel.selectItem(selectedItem->pos, selectedItem->size);
+
+		ItemManager::Item info = ItemManager::getItem(selectedItem->name);
+		name.setString(info.textName);
+		description.setString(info.description);
+
+		button1.setText("Use");
+
+		if (info.type == "weapon")
+		{
+			if (player->getWeaponName() == info.weaponType)
+			{
+				button1.setText("Remove");
+			}
+			else
+			{
+				button1.setText("Equip");
+			}
+		}
+	}
+	else
+	{
+		panel.clearSelection();
+		name.setString("");
+		description.setString("");
+	}
 }

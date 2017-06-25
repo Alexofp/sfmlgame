@@ -6,10 +6,6 @@ HumanAi::HumanAi(int nid): Person(nid)
 {
 	realType = Type::HumanAi;
 
-	Skin skin;
-	skin.loadFromFile("resources/skin.json");
-	skeleton.setSkin(skin);
-
 	timer = 0.f;
 }
 

@@ -9,11 +9,14 @@ PhysicsBody::PhysicsBody(PhysicsWorld * world, b2Body* body, Type type)
 	this->world = world;
 	this->body = body;
 	this->type = type;
+	this->tag = 0;
+	this->destroyed = false;
+	this->entity = 0;
 }
 
 PhysicsBody::~PhysicsBody()
 {
-	this->world->destroy(this);
+	//this->world->destroy(this);
 }
 
 Vec2f PhysicsBody::getPos()
@@ -100,6 +103,42 @@ std::vector<std::vector<Vec2f>> PhysicsBody::getPoints()
 	return result;
 }
 
+void PhysicsBody::setTag(void * tag)
+{
+	this->tag = tag;
+}
+
+void * PhysicsBody::getTag()
+{
+	return tag;
+}
+
+void PhysicsBody::destroy()
+{
+	destroyed = true;
+	this->world->destroy(this);
+}
+
+b2Body * PhysicsBody::getInternalBody()
+{
+	return body;
+}
+
+bool PhysicsBody::isDestroyed()
+{
+	return destroyed;
+}
+
+void PhysicsBody::setEntity(PhysicsEntity * entity)
+{
+	this->entity = entity;
+}
+
+PhysicsEntity * PhysicsBody::getEntity()
+{
+	return entity;
+}
+
 
 PhysicsWorld::PhysicsWorld():
 	world(b2Vec2(0.f,0.f))
@@ -107,6 +146,8 @@ PhysicsWorld::PhysicsWorld():
 	worldToB2World = 10.f;
 	timestep = 1.f / 60.f;
 	time = 0.f;
+
+	world.SetContactListener(&listener);
 }
 
 
@@ -238,6 +279,37 @@ PhysicsBody * PhysicsWorld::createBox(Vec2f pos, Vec2f size)
 	return body;
 }
 
+PhysicsBody * PhysicsWorld::createBullet(Vec2f pos, float radius)
+{
+	b2BodyDef bodyDef;
+	bodyDef.position = translate(pos);
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.bullet = true;
+
+	b2Body* circleBody = world.CreateBody(&bodyDef);
+
+	b2CircleShape circle;
+	circle.m_radius = radius / worldToB2World;
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &circle;
+
+	// Set the box density to be non-zero, so it will be dynamic.
+	fixtureDef.density = 0.1f;
+
+	// Override the default friction.
+	fixtureDef.friction = 0.3f;
+
+	// Add the shape to the body.
+	circleBody->CreateFixture(&fixtureDef);
+
+	PhysicsBody* body = new PhysicsBody(this, circleBody, PhysicsBody::Type::Circle);
+	circleBody->SetUserData(body);
+	bodies.push_back(std::unique_ptr<PhysicsBody>(body));
+
+	return body;
+}
+
 b2Vec2 PhysicsWorld::translate(Vec2f p)
 {
 	return b2Vec2(p.x/worldToB2World, p.y/worldToB2World);
@@ -262,6 +334,20 @@ void PhysicsWorld::update(float dt)
 		time -= timestep;
 		world.Step(timestep, 6, 2);
 	}
+
+	for (auto& body : bodies)
+	{
+		if(body->isDestroyed())
+			world.DestroyBody(body->getInternalBody());
+	}
+	auto new_end = std::remove_if(bodies.begin(), bodies.end(),
+		[](std::unique_ptr<PhysicsBody>& body)
+	{
+		return body->isDestroyed();
+	});
+
+	bodies.erase(new_end, bodies.end());
+	toDestroy.clear();
 }
 
 void PhysicsWorld::debugDraw()

@@ -5,7 +5,8 @@
 		"description": "description 123",
 		"texture": "tex_tent",
 		"w": 4,
-		"h": 2
+		"h": 2,
+		"type": "asd"
 	},
 	{
 		"name": "ak74",
@@ -13,6 +14,8 @@
 		"description": "description 123\n123\n\nasdzxcas",
 		"texture": "tex_ak74",
 		"w": 6,
-		"h": 2
+		"h": 2,
+		"type": "weapon",
+		"weaponType": "ak74"
 	}
 ]

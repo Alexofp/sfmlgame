@@ -43,6 +43,8 @@ void Game::update(float dt)
 	world.localUpdate(dt);
 	world.physicsUpdate(dt);
 
+	inventoryScreen.update(dt);
+
 	sendGameInfoTimer -= dt;
 	while (sendGameInfoTimer <= 0)
 	{

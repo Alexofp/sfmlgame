@@ -136,6 +136,8 @@ void Skeleton::playerSkeleton()
 
 	addBone("lforearm", new Bone("lhand", 31.5f, 1.5f, 9.f, 20.f));
 	addBone("rforearm", new Bone("rhand", 31.5f, -1.5f, -9.f, 20.f));
+
+	addBone("rhand", new Bone("weapon", 28.1f, -5.5f, -30.f, 20.f));
 }
 
 void Skeleton::sideSkeleton()

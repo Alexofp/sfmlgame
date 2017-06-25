@@ -6,6 +6,7 @@
 #include "Settings.h"
 #include "AnimationManager.h"
 #include "Server.h"
+#include "WeaponManager.h"
 
 Person::Person(int nid) :AliveEntity(nid)
 {
@@ -26,6 +27,10 @@ Person::Person(int nid) :AliveEntity(nid)
 
 	currentPriority = 0;
 	playAnimation("person_idle");
+
+	baseSkin.loadFromFile("resources/skin.json");
+
+	setWeapon("ak74");
 }
 
 
@@ -36,6 +41,7 @@ Person::~Person()
 void Person::init()
 {
 	body = world->getPhysicsWorld().createCircle(getPos(), 40.f);
+	body->setEntity(this);
 }
 
 void Person::draw()
@@ -56,7 +62,7 @@ void Person::updateSkeleton(float dt)
 
 	if (speed.len() > 10)
 	{
-		playAnimation("person_walk");
+		playAnimation(weapon.info.walkAnimation);
 		skeleton.setSpeed(speed.len()/400.f);
 
 		legsskeleton.setAng(speed.getAngle());
@@ -69,14 +75,15 @@ void Person::updateSkeleton(float dt)
 	}
 	else
 	{
-		playAnimation("person_idle");
+		//playAnimation("person_idle");
+		playAnimation(weapon.info.idleAnimation);
 		Animation* anim = AnimationManager::getAnimation("legs_idle");
 		legsskeleton.playAnimation(anim);
 		skeleton.setSpeed(1.f);
 
 		legsskeleton.setAng(skeleton.getAng());
 	}
-	if (getCurrentAnimation() == "person_hit")
+	if (getCurrentAnimation() == weapon.info.attackAnimation)
 	{
 		skeleton.setSpeed(1.f);
 	}
@@ -108,6 +115,28 @@ void Person::updateSkeleton(float dt)
 	skeleton.setPos(getPos());
 }
 
+void Person::setWeapon(std::string name)
+{
+	WeaponData weapon;
+	weapon.name = name;
+	weapon.info = WeaponManager::getWeapon(name);
+
+	this->weapon = weapon;
+
+	Skin weaponSkin;
+	weaponSkin.loadFromFile("resources/"+weapon.info.skin);
+
+	Skin finalSkin = baseSkin;
+	finalSkin.applySkin(weaponSkin);
+
+	skeleton.setSkin(finalSkin);
+}
+
+std::string Person::getWeaponName()
+{
+	return weapon.name;
+}
+
 void Person::playAnimation(std::string animName, int priority)
 {
 	Animation* anim = AnimationManager::getAnimation(animName);
@@ -127,7 +156,7 @@ void Person::playAnimation(std::string animName, int priority)
 
 void Person::playAttack()
 {
-	playAnimation("person_hit", 1);
+	playAnimation(weapon.info.attackAnimation, 1);
 }
 
 std::string Person::getCurrentAnimation()
@@ -151,16 +180,24 @@ void Person::handleEvent(int fromId, std::string type, sf::Packet & packet)
 	if (type == "attack" && fromId == getNid())
 	{
 		playAttack();
-
-		if (Server::isInServer())
+		
+		if (weapon.info.attackType == "bullet")
 		{
-			auto closeEntities = world->findInRange(getPos(), 140.f);
-			for (Entity* ent : closeEntities)
+			float ang = skeleton.getAng();
+			world->fireBullet(Vec2f::add(getPos(), Vec2f::fromAngle(ang, 100.f)), Vec2f::fromAngle(ang, 1000.f));
+		}else
+		if (weapon.info.attackType == "melee")
+		{
+			if (Server::isInServer())
 			{
-				if (ent != this)
+				auto closeEntities = world->findInRange(getPos(), 140.f);
+				for (Entity* ent : closeEntities)
 				{
-					NetEvent event(getNid(), ent->getNid(), "hurt");
-					sendEvent(event);
+					if (ent != this)
+					{
+						NetEvent event(getNid(), ent->getNid(), "hurt");
+						sendEvent(event);
+					}
 				}
 			}
 		}

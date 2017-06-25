@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 #include "Vec2f.h"
+#include "ContactListener.h"
+#include "PhysicsEntity.h"
 
 class PhysicsWorld;
 
@@ -29,11 +31,21 @@ public:
 	void setSize(Vec2f size);
 	Vec2f getSize();
 	std::vector<std::vector<Vec2f> > getPoints();
+	void setTag(void* tag);
+	void* getTag();
+	void destroy();
+	b2Body* getInternalBody();
+	bool isDestroyed();
+	void setEntity(PhysicsEntity* entity);
+	PhysicsEntity* getEntity();
 private:
+	void* tag;
 	b2Body* body;
 	PhysicsWorld* world;
+	PhysicsEntity* entity;
 	Type type;
 	Vec2f size;
+	bool destroyed;
 };
 
 class PhysicsWorld
@@ -46,6 +58,7 @@ public:
 	PhysicsBody* createStaticCircle(Vec2f pos, float radius);
 	PhysicsBody* createStaticBox(Vec2f pos, Vec2f size);
 	PhysicsBody* createBox(Vec2f pos, Vec2f size);
+	PhysicsBody* createBullet(Vec2f pos, float radius);
 
 	float worldToB2World;
 	b2Vec2 translate(Vec2f p);
@@ -61,5 +74,6 @@ private:
 	std::vector<PhysicsBody*> toDestroy;
 	float time;
 	float timestep;
+	ContactListener listener;
 };
 

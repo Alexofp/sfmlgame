@@ -1,0 +1,235 @@
+{
+    "data": {
+        "head": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "larm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -22.1217498779297
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -0.303054809570313
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -2.73647308349609
+                }
+            ]
+        },
+        "lforearm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 34.3145408630371
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "lhand": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 19.6327819824219
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "rarm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.24237060546875
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 4.93731689453125
+                }
+            ]
+        },
+        "rforearm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -64.0275039672852
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "rhand": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 9.58974075317383
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "root": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "superroot": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                }
+            ]
+        },
+        "weapon": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 21.460765838623
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 5.22419548034668
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -0.348316192626953
+                }
+            ]
+        }
+    },
+    "length": 1
+}

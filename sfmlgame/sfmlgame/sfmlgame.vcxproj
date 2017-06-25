@@ -133,10 +133,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\Bullet.cpp" />
+    <ClCompile Include="system\ContactListener.cpp" />
+    <ClCompile Include="game\GameButton.cpp" />
     <ClCompile Include="game\Inventory.cpp" />
     <ClCompile Include="game\InventoryPanel.cpp" />
     <ClCompile Include="game\ItemManager.cpp" />
     <ClCompile Include="game\PlayerInventory.cpp" />
+    <ClCompile Include="system\PhysicsCallbacks.cpp" />
     <ClCompile Include="system\NetEvent.cpp" />
     <ClCompile Include="system\AnimationManager.cpp" />
     <ClCompile Include="game\AliveEntity.cpp" />
@@ -194,12 +198,18 @@
     <ClCompile Include="util\Vec2f.cpp" />
     <ClCompile Include="util\Vec2i.cpp" />
     <ClCompile Include="gui\Widget.cpp" />
+    <ClCompile Include="game\Weapon.cpp" />
+    <ClCompile Include="game\WeaponManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\Bullet.h" />
+    <ClInclude Include="system\ContactListener.h" />
+    <ClInclude Include="game\GameButton.h" />
     <ClInclude Include="game\Inventory.h" />
     <ClInclude Include="game\InventoryPanel.h" />
     <ClInclude Include="game\ItemManager.h" />
     <ClInclude Include="game\PlayerInventory.h" />
+    <ClInclude Include="system\PhysicsCallbacks.h" />
     <ClInclude Include="system\NetEvent.h" />
     <ClInclude Include="system\AnimationManager.h" />
     <ClInclude Include="game\AliveEntity.h" />
@@ -256,6 +266,8 @@
     <ClInclude Include="util\Vec2f.h" />
     <ClInclude Include="util\Vec2i.h" />
     <ClInclude Include="gui\Widget.h" />
+    <ClInclude Include="game\Weapon.h" />
+    <ClInclude Include="game\WeaponManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

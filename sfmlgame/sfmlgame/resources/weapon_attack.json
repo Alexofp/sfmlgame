@@ -1,0 +1,535 @@
+{
+    "data": {
+        "head": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -36.5177726745605
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -36.751335144043
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -36.5177726745605
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -1.29348492622375
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -1.29348492622375
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -1.29348492622375
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 3.27931642532349
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 3.27931642532349
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 3.27931642532349
+                }
+            ]
+        },
+        "larm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 17.5834350585938
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 13.5118312835693
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 17.5834350585938
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 3.70951652526855
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -0.14896559715271
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 3.70951652526855
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -0.888607025146484
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.450479745864868
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -0.888607025146484
+                }
+            ]
+        },
+        "lforearm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -2.50412368774414
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 3.2440230846405
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -2.50412368774414
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ]
+        },
+        "lhand": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -2.13678741455078
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -2.13678741455078
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -2.13678741455078
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ]
+        },
+        "rarm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 19.7314758300781
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 19.7314758300781
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 19.7314758300781
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 2.09992980957031
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -0.41199916601181
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 2.09992980957031
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -0.975273132324219
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -0.377848714590073
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -0.975273132324219
+                }
+            ]
+        },
+        "rforearm": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -104.685729980469
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -112.34992980957
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -104.685729980469
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.890003204345703
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.890003204345703
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.890003204345703
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -1.42395210266113
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -1.42395210266113
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -1.42395210266113
+                }
+            ]
+        },
+        "rhand": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 44.0493583679199
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 51.9530715942383
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 44.0493583679199
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 1.72264862060547
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 1.72264873981476
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 1.72264862060547
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -3.02650833129883
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -3.02650833129883
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -3.02650833129883
+                }
+            ]
+        },
+        "root": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 36.2406616210938
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 38.1090927124023
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 36.2406616210938
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 2.31212615966797
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 1.57145094871521
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 2.31212615966797
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": -3.69740295410156
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": -4.24503707885742
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": -3.69740295410156
+                }
+            ]
+        },
+        "superroot": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 0.0
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 0.0
+                }
+            ]
+        },
+        "weapon": {
+            "angle": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 43.5917587280273
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 44.2355766296387
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 43.5917587280273
+                }
+            ],
+            "x": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 9.5549373626709
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 9.46471977233887
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 9.5549373626709
+                }
+            ],
+            "y": [
+                {
+                    "interpolation": "linear",
+                    "time": 0.0,
+                    "value": 9.67632102966309
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 0.29990890622139,
+                    "value": 9.35883522033691
+                },
+                {
+                    "interpolation": "linear",
+                    "time": 1,
+                    "value": 9.67632102966309
+                }
+            ]
+        }
+    },
+    "length": 0.200000002980232
+}

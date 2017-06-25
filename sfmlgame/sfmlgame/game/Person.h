@@ -1,15 +1,25 @@
 #pragma once
 #include "AliveEntity.h"
+#include "Weapon.h"
+
 class Person :
 	public AliveEntity
 {
 public:
+	struct WeaponData
+	{
+		std::string name;
+		Weapon info;
+	};
+
 	Person(int nid = -1);
 	virtual ~Person();
 
 	virtual void init();
 	virtual void draw();
 	void updateSkeleton(float dt);
+	void setWeapon(std::string name);
+	std::string getWeaponName();
 
 	void playAnimation(std::string anim, int priority = 0);
 	void playAttack();
@@ -29,5 +39,7 @@ protected:
 	Vec2f lookPosition;
 	std::string state;
 	int currentPriority;
+	WeaponData weapon;
+	Skin baseSkin;
 };
 

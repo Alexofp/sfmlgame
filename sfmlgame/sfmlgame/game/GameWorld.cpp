@@ -18,6 +18,7 @@ void GameWorld::update(float dt)
 	{
 		entity->update(dt);
 	}
+	bulletsClearDestroyed();
 }
 
 void GameWorld::localUpdate(float dt)
@@ -26,11 +27,17 @@ void GameWorld::localUpdate(float dt)
 	{
 		entity->localUpdate(dt);
 	}
+	bulletsClearDestroyed();
 }
 
 void GameWorld::physicsUpdate(float dt)
 {
 	physics.update(dt);
+	for (auto& entity : bullets)
+	{
+		entity->update(dt);
+	}
+	bulletsClearDestroyed();
 }
 
 void GameWorld::draw()
@@ -42,12 +49,26 @@ void GameWorld::draw()
 	{
 		entity->draw();
 	}
+	for (auto& entity : bullets)
+	{
+		entity->draw();
+	}
 }
 
 void GameWorld::loadMap(std::string name)
 {
 	terrain.load("maps/"+ name +"/");
 	objects.loadFromFile("maps/" + name + "/objects.json");
+}
+
+Bullet * GameWorld::fireBullet(Vec2f pos, Vec2f speed)
+{
+	PhysicsBody* bulletBody = physics.createBullet(pos, 10.f);
+	Bullet* bullet = new Bullet(bulletBody);
+	bullet->setPos(pos);
+	bullet->setSpeed(speed);
+	bullets.push_back(std::unique_ptr<Bullet>(bullet));
+	return bullet;
 }
 
 void GameWorld::add(Entity * entity)
@@ -100,4 +121,15 @@ std::vector<Entity*> GameWorld::findInRange(Vec2f pos, float radius)
 	}
 
 	return result;
+}
+
+void GameWorld::bulletsClearDestroyed()
+{
+	auto new_end = std::remove_if(bullets.begin(), bullets.end(),
+		[](std::unique_ptr<Bullet>& bullet)
+	{
+		return bullet->isDestroyed();
+	});
+
+	bullets.erase(new_end, bullets.end());
 }

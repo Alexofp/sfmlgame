@@ -11,6 +11,8 @@ public:
 		std::string textName;
 		std::string description;
 		std::string texture;
+		std::string type;
+		std::string weaponType;
 		int w;
 		int h;
 	};

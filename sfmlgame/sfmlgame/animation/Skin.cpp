@@ -76,3 +76,11 @@ std::unordered_map<std::string, std::vector<SkinPart>>& Skin::getParts()
 {
 	return parts;
 }
+
+void Skin::applySkin(Skin otherskin)
+{
+	for (auto& otherparts : otherskin.getParts())
+	{
+		parts[otherparts.first] = otherparts.second;
+	}
+}

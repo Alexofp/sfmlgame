@@ -23,6 +23,11 @@ AnimationEditor::AnimationEditor()
 
 	Skin skin;
 	skin.loadFromFile("resources/skin.json");
+
+	Skin skin2;
+	skin2.loadFromFile("resources/ak74.json");
+	skin.applySkin(skin2);
+
 	skelet.setSkin(skin);
 
 	skelet.playAnimation(&anim);

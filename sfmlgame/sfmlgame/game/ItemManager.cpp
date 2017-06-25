@@ -18,14 +18,15 @@ void ItemManager::loadItems(std::string path)
 	json jsonData;
 	file >> jsonData;
 
-	for (auto& item : jsonData)
+	for (auto& itemJson : jsonData)
 	{
-		std::string name = item["name"].get<std::string>();
-		std::string textName = item["textName"].get<std::string>();
-		std::string description = item["description"].get<std::string>();
-		std::string texture = item["texture"].get<std::string>();
-		int w = item["w"].get<int>()-1;
-		int h = item["h"].get<int>()-1;
+		std::string name = itemJson["name"].get<std::string>();
+		std::string textName = itemJson["textName"].get<std::string>();
+		std::string description = itemJson["description"].get<std::string>();
+		std::string texture = itemJson["texture"].get<std::string>();
+		int w = itemJson["w"].get<int>()-1;
+		int h = itemJson["h"].get<int>()-1;
+		std::string type = itemJson["type"].get<std::string>();
 
 		Item item;
 		item.name = name;
@@ -34,6 +35,11 @@ void ItemManager::loadItems(std::string path)
 		item.texture = texture;
 		item.w = w;
 		item.h = h;
+		item.type = type;
+		if (type == "weapon")
+		{
+			item.weaponType = itemJson["weaponType"].get<std::string>();
+		}
 
 		getInstance().items[name] = item;
 	}

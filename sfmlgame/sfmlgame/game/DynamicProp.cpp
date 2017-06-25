@@ -17,6 +17,7 @@ DynamicProp::~DynamicProp()
 void DynamicProp::init()
 {
 	body = world->getPhysicsWorld().createCircle(getPos(), 40.f);
+	body->setEntity(this);
 }
 
 void DynamicProp::update(float dt)

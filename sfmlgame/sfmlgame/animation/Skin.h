@@ -24,6 +24,7 @@ public:
 
 	void loadFromFile(std::string path);
 	std::unordered_map<std::string, std::vector<SkinPart> >& getParts();
+	void applySkin(Skin otherskin);
 private:
 	std::unordered_map<std::string, std::vector<SkinPart> > parts;
 };

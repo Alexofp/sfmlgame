@@ -72,13 +72,12 @@ int Application::run()
 	while (states.size()>0 && GameWindow::isOpen())
 	{
 		sf::Time elapsed = clock.restart();
+		Input::update();
 		GameWindow::handleMessages();
 
 		states.back()->update(elapsed.asSeconds());
 		if(isServer)
 			server->update(elapsed.asSeconds());
-
-		Input::update();
 
 		GameWindow::clear();
 		states.back()->draw();

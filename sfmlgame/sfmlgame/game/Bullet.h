@@ -20,6 +20,7 @@ public:
 
 	void destroy();
 	bool isDestroyed();
+	float aliveTimer;
 private:
 	PhysicsBody* bullet;
 	sf::CircleShape shape;

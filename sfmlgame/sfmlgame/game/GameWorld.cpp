@@ -61,12 +61,13 @@ void GameWorld::loadMap(std::string name)
 	objects.loadFromFile("maps/" + name + "/objects.json");
 }
 
-Bullet * GameWorld::fireBullet(Vec2f pos, Vec2f speed)
+Bullet * GameWorld::fireBullet(Vec2f pos, Vec2f speed, float liveTimer)
 {
 	PhysicsBody* bulletBody = physics.createBullet(pos, 10.f);
 	Bullet* bullet = new Bullet(bulletBody);
 	bullet->setPos(pos);
 	bullet->setSpeed(speed);
+	bullet->aliveTimer = liveTimer;
 	bullets.push_back(std::unique_ptr<Bullet>(bullet));
 	return bullet;
 }

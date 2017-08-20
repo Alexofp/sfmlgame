@@ -81,15 +81,15 @@ void Entity::sendEvent(NetEvent event)
 	if (Server::isInServer())
 	{
 		Server::send(event);
-		sf::Packet packet = event.data;
-		int from, to;
-		std::string eventType;
-		packet >> from >> to >> eventType;
 
-		Entity* ent = world->findEntity(to);
+		Entity* ent = world->findEntity(event.toId);
 		if (ent != 0)
 		{
-			ent->handleEvent(from, eventType, packet);
+			ent->handleEvent(event.fromId, event.type, event.data);
+		}
+		else
+		{
+			Log::debug("wtf");
 		}
 	}
 	else

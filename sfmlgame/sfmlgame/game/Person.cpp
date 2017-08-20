@@ -7,6 +7,7 @@
 #include "AnimationManager.h"
 #include "Server.h"
 #include "WeaponManager.h"
+#include "GlobalRandom.h"
 
 Person::Person(int nid) :AliveEntity(nid)
 {
@@ -15,6 +16,7 @@ Person::Person(int nid) :AliveEntity(nid)
 	maxSpeed = 3000.f;
 	speed = Vec2f(0, 0);
 	currentAnimation = 0;
+	attackTimer = 0.0f;
 
 	skeleton.playerSkeleton();
 	legsskeleton.legsSkeleton();
@@ -113,6 +115,9 @@ void Person::updateSkeleton(float dt)
 	skeleton.update(dt);
 
 	skeleton.setPos(getPos());
+
+	if(attackTimer >= 0)
+		attackTimer -= dt;
 }
 
 void Person::setWeapon(std::string name)
@@ -137,7 +142,7 @@ std::string Person::getWeaponName()
 	return weapon.name;
 }
 
-void Person::playAnimation(std::string animName, int priority)
+void Person::playAnimation(std::string animName, int priority, bool playAgain)
 {
 	Animation* anim = AnimationManager::getAnimation(animName);
 
@@ -145,7 +150,12 @@ void Person::playAnimation(std::string animName, int priority)
 	{
 		currentPriority = priority;
 
-		if (anim != currentAnimation)
+		if (playAgain)
+		{
+			currentAnimationName = animName;
+			currentAnimation = anim;
+			skeleton.playAnimation(anim);
+		}else if (anim != currentAnimation)
 		{
 			currentAnimationName = animName;
 			currentAnimation = anim;
@@ -156,7 +166,7 @@ void Person::playAnimation(std::string animName, int priority)
 
 void Person::playAttack()
 {
-	playAnimation(weapon.info.attackAnimation, 1);
+	playAnimation(weapon.info.attackAnimation, 1, true);
 }
 
 std::string Person::getCurrentAnimation()
@@ -169,23 +179,66 @@ std::string Person::getCurrentAnimation()
 
 void Person::attack()
 {
-	NetEvent event(getNid(), getNid(), "attack");
-	sendEvent(event);
+	if (attackTimer > 0.0)
+		return;
+
+	if (weapon.info.attackType == "bullet")
+	{
+		for (int i = 0; i < weapon.info.bulletsPerShot;i++)
+		{
+			float randAng = GlobalRandom::range(-weapon.info.dispersion, weapon.info.dispersion);
+			float randSpeed = GlobalRandom::range(weapon.info.bulletSpeed - weapon.info.bulletSpeedSpread, weapon.info.bulletSpeed + weapon.info.bulletSpeedSpread);
+
+			NetEvent event(getNid(), getNid(), "fireBullet");
+			event.data << getShootingPos() << (getShootingAng() + randAng) << randSpeed << weapon.info.bulletAliveTime;
+			sendEvent(event);
+		}
+
+		NetEvent event(getNid(), getNid(), "attack");
+		sendEvent(event);
+	}else if (weapon.info.attackType == "melee")
+	{
+		NetEvent event(getNid(), getNid(), "attack");
+		sendEvent(event);
+	}
+
+
+	attackTimer = weapon.info.attackSpeed;
+}
+
+Vec2f Person::getShootingPos()
+{
+	float ang = skeleton.getAng();
+	return Vec2f::add(getPos(), Vec2f::fromAngle(ang, 100.f));
+}
+
+float Person::getShootingAng()
+{
+	float ang = skeleton.getAng();
+	return ang;
 }
 
 void Person::handleEvent(int fromId, std::string type, sf::Packet & packet)
 {
 	AliveEntity::handleEvent(fromId, type, packet);
 
+	if (type == "fireBullet" && fromId == getNid())
+	{
+		if (weapon.info.attackType == "bullet")
+		{
+			Vec2f shootingPos;
+			float ang;
+			float speed;
+			float bulletAliveTimer;
+			packet >> shootingPos >> ang >> speed >> bulletAliveTimer;
+			world->fireBullet(shootingPos, Vec2f::fromAngle(ang, speed), bulletAliveTimer);
+		}
+	}
+
 	if (type == "attack" && fromId == getNid())
 	{
 		playAttack();
-		
-		if (weapon.info.attackType == "bullet")
-		{
-			float ang = skeleton.getAng();
-			world->fireBullet(Vec2f::add(getPos(), Vec2f::fromAngle(ang, 100.f)), Vec2f::fromAngle(ang, 1000.f));
-		}else
+
 		if (weapon.info.attackType == "melee")
 		{
 			if (Server::isInServer())

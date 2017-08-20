@@ -29,7 +29,7 @@ void Player::init()
 
 void Player::update(float dt)
 {
-	updateBody();
+	updateSkeleton(dt);
 }
 
 void Player::localUpdate(float dt)
@@ -46,7 +46,7 @@ void Player::localUpdate(float dt)
 		if (Input::getKey(Input::S))
 			moveControl.y = 1;
 
-		if (Input::getMouseDown(Input::MouseLeft))
+		if (Input::getMouseDown(Input::MouseLeft) || (weapon.info.autoFire && Input::getMouse(Input::MouseLeft)))
 			attack();
 
 		lookPosition = Input::getWorldMousePos();

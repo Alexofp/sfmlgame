@@ -6,15 +6,30 @@
 		"attackAnimation": "person_hit",
 		"skin": "fists.json",
 		"idleAnimation": "person_idle",
-		"walkAnimation": "person_walk"
+		"walkAnimation": "person_walk",
+		"baseDamage": 40,
+		"damagePerLevelPercent": 0,
+		"magazineCapacity": 0,
+		"attackSpeed": 1,
+		"autoFire": true
 	},
 	{
 		"name": "ak74",
 		"textName": "AK-74",
 		"attackType": "bullet",
-		"attackAnimation": "ak74_attack",
 		"skin": "ak74.json",
+		"attackAnimation": "ak74_attack",
 		"idleAnimation": "ak74_idle",
-		"walkAnimation": "ak74_walk"
+		"walkAnimation": "ak74_walk",
+		"baseDamage": 40,
+		"damagePerLevelPercent": 10,
+		"bulletSpeed": 5000,
+		"magazineCapacity": 30,
+		"dispersion": 3,
+		"bulletsPerShot": 1,
+		"attackSpeed": 0.15,
+		"bulletAliveTime": 3.0,
+		"autoFire": true,
+		"bulletSpeedSpread": 0
 	}
 ]

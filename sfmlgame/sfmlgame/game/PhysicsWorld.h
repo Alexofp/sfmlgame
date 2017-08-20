@@ -6,6 +6,12 @@
 #include "ContactListener.h"
 #include "PhysicsEntity.h"
 
+enum class PhysicsEntityCategory {
+	STATIC = 0x0001,
+	ENTITY = 0x0002,
+	BULLET = 0x0004
+};
+
 class PhysicsWorld;
 
 class PhysicsBody
@@ -20,6 +26,7 @@ public:
 	PhysicsBody(PhysicsWorld* world, b2Body* body, Type type);
 	~PhysicsBody();
 
+	void setLinearDamping(float a);
 	Vec2f getPos();
 	void setPos(Vec2f pos);
 	float getAng();

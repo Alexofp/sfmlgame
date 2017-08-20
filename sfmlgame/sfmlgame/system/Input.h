@@ -139,7 +139,9 @@ public:
 
 	private:
 		static bool pressedButtons[KeyCount];
+		static bool pressedButtonsSaved[KeyCount];
 		static bool mousePressedButtons[ButtonCount];
+		static bool mousePressedButtonsSaved[ButtonCount];
 
 		static Vec2f oldMousePos;
 		static Vec2f delta;

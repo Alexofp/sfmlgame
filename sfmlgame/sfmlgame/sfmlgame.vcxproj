@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game\Bullet.cpp" />
+    <ClCompile Include="system\GlobalRandom.cpp" />
     <ClCompile Include="system\ContactListener.cpp" />
     <ClCompile Include="game\GameButton.cpp" />
     <ClCompile Include="game\Inventory.cpp" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\Bullet.h" />
+    <ClInclude Include="system\GlobalRandom.h" />
     <ClInclude Include="system\ContactListener.h" />
     <ClInclude Include="game\GameButton.h" />
     <ClInclude Include="game\Inventory.h" />

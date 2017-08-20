@@ -43,7 +43,7 @@ void GameServer::update(float dt)
 
 void GameServer::draw()
 {
-	//world.getPhysicsWorld().debugDraw();
+	world.getPhysicsWorld().debugDraw();
 }
 
 void GameServer::handleEvent(sf::Event event)

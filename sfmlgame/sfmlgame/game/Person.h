@@ -21,10 +21,12 @@ public:
 	void setWeapon(std::string name);
 	std::string getWeaponName();
 
-	void playAnimation(std::string anim, int priority = 0);
+	void playAnimation(std::string anim, int priority = 0, bool playAgain = false);
 	void playAttack();
 	std::string getCurrentAnimation();
 	void attack();
+	Vec2f getShootingPos();
+	float getShootingAng();
 
 	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
 	virtual void onDeath();
@@ -41,5 +43,6 @@ protected:
 	int currentPriority;
 	WeaponData weapon;
 	Skin baseSkin;
+	float attackTimer;
 };
 

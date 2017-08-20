@@ -19,7 +19,7 @@ public:
 	void physicsUpdate(float dt);
 	void draw();
 	void loadMap(std::string name);
-	Bullet* fireBullet(Vec2f pos, Vec2f speed);
+	Bullet* fireBullet(Vec2f pos, Vec2f speed, float liveTimer = 3.f);
 
 	void add(Entity* entity);
 	Entity* findEntity(int nid);

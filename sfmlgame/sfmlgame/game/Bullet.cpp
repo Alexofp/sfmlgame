@@ -12,7 +12,11 @@ Bullet::Bullet(PhysicsBody* bullet)
 	shape.setRadius(bullet->getRadius());
 	shape.setOrigin(bullet->getRadius(), bullet->getRadius());
 
+	bullet->setLinearDamping(0.0f);
+
 	destroyed = false;
+
+	aliveTimer = 3.f;
 }
 
 
@@ -35,6 +39,10 @@ void Bullet::setSpeed(Vec2f speed)
 void Bullet::update(float dt)
 {
 	shape.setPosition(bullet->getPos().toSFMLVec());
+
+	aliveTimer -= dt;
+	if(aliveTimer <= 0.0)
+		destroy();
 }
 
 void Bullet::draw()
@@ -44,8 +52,6 @@ void Bullet::draw()
 
 void Bullet::startContact(PhysicsBody* body)
 {
-	Log::debug("boom");
-	//bullet->destroy();
 	destroy();
 
 	PhysicsEntity* ent = body->getEntity();
@@ -66,6 +72,9 @@ void Bullet::endContact(PhysicsBody* body)
 
 void Bullet::destroy()
 {
+	if (destroyed)
+		return;
+
 	destroyed = true;
 	bullet->destroy();
 }

@@ -19,6 +19,11 @@ PhysicsBody::~PhysicsBody()
 	//this->world->destroy(this);
 }
 
+void PhysicsBody::setLinearDamping(float a)
+{
+	body->SetLinearDamping(a);
+}
+
 Vec2f PhysicsBody::getPos()
 {
 	b2Vec2 pos = this->body->GetPosition();
@@ -143,7 +148,7 @@ PhysicsEntity * PhysicsBody::getEntity()
 PhysicsWorld::PhysicsWorld():
 	world(b2Vec2(0.f,0.f))
 {
-	worldToB2World = 10.f;
+	worldToB2World = 100.f;
 	timestep = 1.f / 60.f;
 	time = 0.f;
 
@@ -169,7 +174,9 @@ PhysicsBody * PhysicsWorld::createCircle(Vec2f pos, float radius)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
-
+	fixtureDef.filter.categoryBits = (uint16)PhysicsEntityCategory::ENTITY;
+	fixtureDef.filter.maskBits = (uint16)PhysicsEntityCategory::ENTITY | (uint16)PhysicsEntityCategory::BULLET | (uint16)PhysicsEntityCategory::STATIC;
+	
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 1.0f;
 
@@ -200,6 +207,8 @@ PhysicsBody * PhysicsWorld::createStaticCircle(Vec2f pos, float radius)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
+	fixtureDef.filter.categoryBits = (uint16)PhysicsEntityCategory::STATIC;
+	fixtureDef.filter.maskBits = (uint16)PhysicsEntityCategory::ENTITY | (uint16)PhysicsEntityCategory::BULLET;
 
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 1.0f;
@@ -231,6 +240,8 @@ PhysicsBody * PhysicsWorld::createStaticBox(Vec2f pos, Vec2f size)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
+	fixtureDef.filter.categoryBits = (uint16)PhysicsEntityCategory::STATIC;
+	fixtureDef.filter.maskBits = (uint16)PhysicsEntityCategory::ENTITY | (uint16)PhysicsEntityCategory::BULLET;
 
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 1.0f;
@@ -262,6 +273,8 @@ PhysicsBody * PhysicsWorld::createBox(Vec2f pos, Vec2f size)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
+	fixtureDef.filter.categoryBits = (uint16)PhysicsEntityCategory::ENTITY;
+	fixtureDef.filter.maskBits = (uint16)PhysicsEntityCategory::ENTITY | (uint16)PhysicsEntityCategory::BULLET | (uint16)PhysicsEntityCategory::STATIC;
 
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 1.0f;
@@ -293,6 +306,8 @@ PhysicsBody * PhysicsWorld::createBullet(Vec2f pos, float radius)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
+	fixtureDef.filter.categoryBits = (uint16)PhysicsEntityCategory::BULLET;
+	fixtureDef.filter.maskBits = (uint16)PhysicsEntityCategory::ENTITY | (uint16)PhysicsEntityCategory::STATIC;
 
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 0.1f;
@@ -322,12 +337,25 @@ Vec2f PhysicsWorld::translate(b2Vec2 p)
 
 void PhysicsWorld::destroy(PhysicsBody * body)
 {
-	toDestroy.push_back(body);
+	//toDestroy.push_back(body);
 }
 
 void PhysicsWorld::update(float dt)
 {
 	time += dt;
+
+	for (auto& body : bodies)
+	{
+		if (body->isDestroyed())
+			world.DestroyBody(body->getInternalBody());
+	}
+	auto new_end2 = std::remove_if(bodies.begin(), bodies.end(),
+		[](std::unique_ptr<PhysicsBody>& body)
+	{
+		return body->isDestroyed();
+	});
+
+	bodies.erase(new_end2, bodies.end());
 
 	while (time >= timestep)
 	{
@@ -337,7 +365,7 @@ void PhysicsWorld::update(float dt)
 
 	for (auto& body : bodies)
 	{
-		if(body->isDestroyed())
+		if (body->isDestroyed())
 			world.DestroyBody(body->getInternalBody());
 	}
 	auto new_end = std::remove_if(bodies.begin(), bodies.end(),
@@ -347,7 +375,7 @@ void PhysicsWorld::update(float dt)
 	});
 
 	bodies.erase(new_end, bodies.end());
-	toDestroy.clear();
+	//toDestroy.clear();
 }
 
 void PhysicsWorld::debugDraw()

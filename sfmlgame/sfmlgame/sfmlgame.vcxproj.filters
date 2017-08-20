@@ -226,6 +226,9 @@
     <ClCompile Include="system\ContactListener.cpp">
       <Filter>code\system</Filter>
     </ClCompile>
+    <ClCompile Include="system\GlobalRandom.cpp">
+      <Filter>code\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -424,6 +427,9 @@
       <Filter>code\system</Filter>
     </ClInclude>
     <ClInclude Include="system\ContactListener.h">
+      <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="system\GlobalRandom.h">
       <Filter>code\system</Filter>
     </ClInclude>
   </ItemGroup>

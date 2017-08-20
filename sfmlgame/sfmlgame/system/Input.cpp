@@ -4,7 +4,9 @@
 #include "GameWindow.h"
 
 bool Input::pressedButtons[Input::KeyCount];
+bool Input::pressedButtonsSaved[Input::KeyCount];
 bool Input::mousePressedButtons[Input::ButtonCount];
+bool Input::mousePressedButtonsSaved[Input::ButtonCount];
 Vec2f Input::delta;
 Vec2f Input::oldMousePos;
 
@@ -20,11 +22,15 @@ void Input::update()
 {
 	for (int i = 0; i<Input::KeyCount; i++)
 	{
+		pressedButtonsSaved[i] = pressedButtons[i];
+
 		pressedButtons[i] = getKey((Key)i);
 	}
 
 	for (int i = 0; i<Input::ButtonCount; i++)
 	{
+		mousePressedButtonsSaved[i] = mousePressedButtons[i];
+
 		mousePressedButtons[i] = getMouse((MouseButton)i);
 	}
 
@@ -43,12 +49,14 @@ bool Input::getMouse(MouseButton b)
 
 bool Input::getMouseDown(MouseButton b)
 {
-	return getMouse(b) && !mousePressedButtons[b];
+	return !mousePressedButtonsSaved[b] && mousePressedButtons[b];
+	//return getMouse(b) && !mousePressedButtons[b];
 }
 
 bool Input::getMouseUp(MouseButton b)
 {
-	return !getMouse(b) && mousePressedButtons[b];
+	return mousePressedButtonsSaved[b] && !mousePressedButtons[b];
+	//return !getMouse(b) && mousePressedButtons[b];
 }
 
 bool Input::getKey(Key key)
@@ -62,12 +70,14 @@ bool Input::getKey(Key key)
 
 bool Input::getKeyDown(Key key)
 {
-	return getKey(key) && !pressedButtons[key];
+	return !pressedButtonsSaved[key] && pressedButtons[key];
+	//return getKey(key) && !pressedButtons[key];
 }
 
 bool Input::getKeyUp(Key key)
 {
-	return !getKey(key) && pressedButtons[key];
+	return pressedButtonsSaved[key] && !pressedButtons[key];
+	//return !getKey(key) && pressedButtons[key];
 }
 
 Vec2i Input::getMousePos()

@@ -86,9 +86,11 @@ void Server::update(float dt)
 	{
 		sf::Packet packet;
 		auto status = client.socket->receive(packet);
-		if (status == sf::Socket::Done)
+		while (status == sf::Socket::Done)
 		{
 			onEvent(client, packet);
+			packet.clear();
+			status = client.socket->receive(packet);
 		}
 		if (status == sf::Socket::Disconnected)
 		{
@@ -116,12 +118,12 @@ void Server::update(float dt)
 			send(client, packet);
 		}
 
-		Log::debug("Pings:");
+		/*Log::debug("Pings:");
 		for (auto& client : server.clients)
 		{
 			Log::debug(std::to_string(client.id) + " - " + std::to_string(client.ping) + " ms");
 		}
-		Log::debug("");
+		Log::debug("");*/
 	}
 
 	server.gameTimer -= dt;

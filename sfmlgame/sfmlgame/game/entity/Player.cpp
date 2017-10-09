@@ -15,6 +15,7 @@ Player::Player(int nid):Person(nid)
 	inventory.setSize(Vec2i(10, 10));
 	inventory.addItem(Inventory::Item(Vec2i(0, 0), "test"));
 	inventory.addItem(Inventory::Item(Vec2i(0, 2), "ak74"));
+	updateInventorySlots();
 }
 
 
@@ -129,4 +130,33 @@ void Player::readSpawn(sf::Packet & packet)
 	speed = newspeed;
 	setBodySpeed(newspeed);
 	lookPosition = look;
+}
+
+PlayerSlots & Player::getInventorySlots()
+{
+	return inventorySlots;
+}
+
+void Player::updateInventorySlots()
+{
+	Inventory::ItemInfo weapon = inventorySlots.getWeapon();
+
+	if (weapon.name == "")
+	{
+		setWeapon("fists");
+	}
+	else
+	{
+		ItemManager::Item info = ItemManager::getItem(weapon.name);
+		if (info.type != "weapon" || info.weaponType == "")
+		{
+			setWeapon("fists");
+		}
+		else
+		{
+			setWeapon(info.weaponType);
+		}
+	}
+
+
 }

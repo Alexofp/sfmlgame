@@ -8,6 +8,7 @@
 #include "Server.h"
 #include "WeaponManager.h"
 #include "GlobalRandom.h"
+#include "Util.h"
 
 Person::Person(int nid) :AliveEntity(nid)
 {
@@ -218,13 +219,36 @@ float Person::getShootingAng()
 	return ang;
 }
 
+bool Person::lookAt(Vec2f pos)
+{
+	lookPosition = pos;
+
+	float targetAngle = Vec2f::sub(lookPosition, getPos()).getAngle();
+	if (abs(Util::angleDifference(targetAngle, skeleton.getAng())) < 1.f)
+	{
+		return true;
+	}	
+
+	return false;
+}
+
+bool Person::moveTo(Vec2f pos)
+{
+	moveControl = Vec2f::sub(pos, getPos()).normalized();
+
+	if (Vec2f::distance(pos, getPos()) < 10.f)
+		return true;
+
+	return false;
+}
+
 void Person::handleEvent(int fromId, std::string type, sf::Packet & packet)
 {
 	AliveEntity::handleEvent(fromId, type, packet);
 
 	if (type == "fireBullet" && fromId == getNid())
 	{
-		if (weapon.info.attackType == "bullet")
+		//if (weapon.info.attackType == "bullet")
 		{
 			Vec2f shootingPos;
 			float ang;

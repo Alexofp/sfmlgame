@@ -1,0 +1,5 @@
+resources/object1.txt
+resources/object2.txt
+resources/object3.txt
+resources/object4.txt
+resources/object5.txt

@@ -29,6 +29,7 @@ public:
 	static int strToInt(std::wstring str);
 	static bool fileExists(std::string path);
 	static Vec2f fitView(Vec2f screenSize, Vec2f panelSize, float margin);
+	static float angleDifference(float ang1, float ang2);
 protected:
 private:
 };

@@ -14,6 +14,7 @@ InventoryPanel::InventoryPanel()
 	selection.setOutlineThickness(2.f);
 
 	actualSize = Vec2f(800.f, 800.f);
+	dirty = true;
 }
 
 
@@ -60,7 +61,7 @@ void InventoryPanel::updatePanel()
 
 		for (auto& item : inventory->getItems())
 		{
-			ItemManager::Item info = ItemManager::getItem(item.name);
+			ItemManager::Item info = ItemManager::getItem(item.info.name);
 
 			Vec2f cellPos(item.pos.x*cellSize, item.pos.y*cellSize);
 			Vec2f cellSize((item.size.x+1)*cellSize, (item.size.y+1)*cellSize);
@@ -87,10 +88,10 @@ Vec2f InventoryPanel::getSize()
 	return size;
 }
 
-Inventory::Item * InventoryPanel::getAt(Vec2f pos)
+int InventoryPanel::getAt(Vec2f pos)
 {
 	if (inventory == 0)
-		return 0;
+		return -1;
 
 	sf::Transform transform;
 
@@ -99,6 +100,7 @@ Inventory::Item * InventoryPanel::getAt(Vec2f pos)
 
 	pos = transform.getInverse().transformPoint(pos.toSFMLVec());
 
+	int i = 0;
 	for (auto& item : inventory->getItems())
 	{
 		Vec2f cellPos(item.pos.x*cellSize, item.pos.y*cellSize);
@@ -106,11 +108,18 @@ Inventory::Item * InventoryPanel::getAt(Vec2f pos)
 
 		if(Util::boxCollision2(cellPos, cellSize, pos, Vec2f(1.f, 1.f)))
 		{
-			return &item;
+			return i;
+			//return &item;
 		}
+		i++;
 	}
 
-	return nullptr;
+	return -1;
+}
+
+Inventory::Item * InventoryPanel::getItem(int index)
+{
+	return inventory->getItem(index);
 }
 
 void InventoryPanel::selectItem(Vec2i pos, Vec2i size)
@@ -127,8 +136,29 @@ void InventoryPanel::clearSelection()
 	selection.setSize(sf::Vector2f(0.f,0.f));
 }
 
+bool InventoryPanel::removeItem(int index)
+{
+	if (inventory->removeItem(index))
+	{
+		dirty = true;
+		return true;
+	}
+	return false;
+}
+
+bool InventoryPanel::addItem(Inventory::ItemInfo info)
+{
+	return inventory->addItem(info);
+}
+
 void InventoryPanel::draw()
 {
+	if (dirty)
+	{
+		dirty = false;
+		updatePanel();
+	}
+
 	sf::RenderStates states;
 
 	sf::Transform transform;

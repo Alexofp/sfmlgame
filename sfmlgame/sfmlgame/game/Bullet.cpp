@@ -38,6 +38,8 @@ void Bullet::setSpeed(Vec2f speed)
 
 void Bullet::update(float dt)
 {
+	if (destroyed)
+		return;
 	shape.setPosition(bullet->getPos().toSFMLVec());
 
 	aliveTimer -= dt;

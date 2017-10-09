@@ -28,6 +28,9 @@ public:
 	Vec2f getShootingPos();
 	float getShootingAng();
 
+	bool lookAt(Vec2f pos);
+	bool moveTo(Vec2f pos);
+
 	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
 	virtual void onDeath();
 

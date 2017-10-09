@@ -1,6 +1,7 @@
 {
     "render": {
-        "debug": false
+        "debug": false,
+        "debugServer": true
     },
     "window": {
         "fullscreen": false,

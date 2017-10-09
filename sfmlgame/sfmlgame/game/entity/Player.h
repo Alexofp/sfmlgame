@@ -7,6 +7,7 @@
 #include "PhysicsEntity.h"
 #include "AliveEntity.h"
 #include "Person.h"
+#include "PlayerSlots.h"
 
 class Player: public Person
 {
@@ -27,8 +28,12 @@ public:
 	virtual void readInformation(sf::Packet& packet);
 	virtual void writeSpawn(sf::Packet& packet);
 	virtual void readSpawn(sf::Packet& packet);
+
+	PlayerSlots& getInventorySlots();
+	void updateInventorySlots();
 private:
 	bool isRemote;
 	int clientId;
+	PlayerSlots inventorySlots;
 };
 

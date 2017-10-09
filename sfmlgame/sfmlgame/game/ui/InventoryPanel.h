@@ -15,14 +15,18 @@ public:
 	void setPos(Vec2f pos);
 	Vec2f getSize();
 
-	Inventory::Item* getAt(Vec2f pos);
+	int getAt(Vec2f pos);
+	Inventory::Item* getItem(int index);
 	void selectItem(Vec2i pos, Vec2i size);
 	void clearSelection();
+	bool removeItem(int index);
+	bool addItem(Inventory::ItemInfo info);
 
 	void draw();
 
 	Vec2f actualSize;
 private:
+	bool dirty;
 	sf::RectangleShape background;
 	sf::RectangleShape selection;
 	std::vector<sf::RectangleShape> cells;

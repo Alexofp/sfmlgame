@@ -138,3 +138,28 @@ Vec2f Util::fitView(Vec2f screenSize, Vec2f panelSize, float margin)
 
 	return newsize;
 }
+
+float Util::angleDifference(float ang1, float ang2)
+{
+	float targetAngle = ang1;
+	while (targetAngle > 180.f)
+		targetAngle -= 360.f;
+	while (targetAngle < -180.f)
+		targetAngle += 360.f;
+	float currentAngle = ang2;
+	while (currentAngle > 180.f)
+		currentAngle -= 360.f;
+	while (currentAngle < -180.f)
+		currentAngle += 360.f;
+	float delta = targetAngle - currentAngle;
+	if (delta > 180)
+	{
+		targetAngle -= 360.f;
+	}
+	if (delta < -180)
+	{
+		targetAngle += 360.f;
+	}
+
+	return (targetAngle - currentAngle);
+}

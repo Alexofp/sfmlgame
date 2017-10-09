@@ -69,19 +69,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(ProjectDir)\game\ai;$(ProjectDir)\game\entity;$(ProjectDir)\game\inventory;$(ProjectDir)\game\server;$(ProjectDir)\game\state;$(ProjectDir)\game\ui;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\debug;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(ProjectDir)\game\ai;$(ProjectDir)\game\entity;$(ProjectDir)\game\inventory;$(ProjectDir)\game\server;$(ProjectDir)\game\state;$(ProjectDir)\game\ui;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\release;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(ProjectDir)\game\ai;$(ProjectDir)\game\entity;$(ProjectDir)\game\inventory;$(ProjectDir)\game\server;$(ProjectDir)\game\state;$(ProjectDir)\game\ui;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\debug;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(IncludePath)</IncludePath>
+    <IncludePath>..\Box2D\;..\SFML-2.4.1\include;$(ProjectDir)\;$(ProjectDir)\system;$(ProjectDir)\animation;$(ProjectDir)\util;$(ProjectDir)\gui;$(ProjectDir)\game;$(ProjectDir)\mapeditor;$(ProjectDir)\game\ai;$(ProjectDir)\game\entity;$(ProjectDir)\game\inventory;$(ProjectDir)\game\server;$(ProjectDir)\game\state;$(ProjectDir)\game\ui;$(IncludePath)</IncludePath>
     <LibraryPath>..\Box2D\lib\release;..\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -134,33 +134,36 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game\Bullet.cpp" />
+    <ClCompile Include="game\ai\HumanAiBrain.cpp" />
+    <ClCompile Include="game\ui\ItemSlot.cpp" />
+    <ClCompile Include="game\inventory\PlayerSlots.cpp" />
+    <ClCompile Include="util\Regulator.cpp" />
     <ClCompile Include="system\GlobalRandom.cpp" />
     <ClCompile Include="system\ContactListener.cpp" />
-    <ClCompile Include="game\GameButton.cpp" />
-    <ClCompile Include="game\Inventory.cpp" />
-    <ClCompile Include="game\InventoryPanel.cpp" />
-    <ClCompile Include="game\ItemManager.cpp" />
-    <ClCompile Include="game\PlayerInventory.cpp" />
+    <ClCompile Include="game\ui\GameButton.cpp" />
+    <ClCompile Include="game\inventory\Inventory.cpp" />
+    <ClCompile Include="game\ui\InventoryPanel.cpp" />
+    <ClCompile Include="game\inventory\ItemManager.cpp" />
+    <ClCompile Include="game\ui\PlayerInventory.cpp" />
     <ClCompile Include="system\PhysicsCallbacks.cpp" />
     <ClCompile Include="system\NetEvent.cpp" />
     <ClCompile Include="system\AnimationManager.cpp" />
-    <ClCompile Include="game\AliveEntity.cpp" />
+    <ClCompile Include="game\entity\AliveEntity.cpp" />
     <ClCompile Include="animation\AnimatedSkeleton.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationEditor.cpp" />
-    <ClCompile Include="game\HumanAi.cpp" />
+    <ClCompile Include="game\entity\HumanAi.cpp" />
     <ClCompile Include="mapeditor\EditorTerrain.cpp" />
-    <ClCompile Include="game\GameMenu.cpp" />
-    <ClCompile Include="game\DynamicProp.cpp" />
+    <ClCompile Include="game\state\GameMenu.cpp" />
+    <ClCompile Include="game\entity\DynamicProp.cpp" />
     <ClCompile Include="game\GameWorld.cpp" />
     <ClCompile Include="gui\SimpleGuiWindow.cpp" />
     <ClCompile Include="animation\Skin.cpp" />
-    <ClCompile Include="game\PhysicsEntity.cpp" />
+    <ClCompile Include="game\entity\PhysicsEntity.cpp" />
     <ClCompile Include="game\PhysicsWorld.cpp" />
-    <ClCompile Include="game\PlayerServer.cpp" />
-    <ClCompile Include="game\SharedMultiplayer.cpp" />
+    <ClCompile Include="game\server\SharedMultiplayer.cpp" />
     <ClCompile Include="mapeditor\MapEditor.cpp" />
-    <ClCompile Include="game\Person.cpp" />
+    <ClCompile Include="game\entity\Person.cpp" />
     <ClCompile Include="system\ObjectHandler.cpp" />
     <ClCompile Include="system\ObjectManager.cpp" />
     <ClCompile Include="system\StaticObject.cpp" />
@@ -170,11 +173,11 @@
     <ClCompile Include="util\BlueprintBackground.cpp" />
     <ClCompile Include="animation\Bone.cpp" />
     <ClCompile Include="gui\Button.cpp" />
-    <ClCompile Include="game\Client.cpp" />
+    <ClCompile Include="game\server\Client.cpp" />
     <ClCompile Include="gui\EditBox.cpp" />
-    <ClCompile Include="game\Entity.cpp" />
-    <ClCompile Include="game\Game.cpp" />
-    <ClCompile Include="game\GameServer.cpp" />
+    <ClCompile Include="game\entity\Entity.cpp" />
+    <ClCompile Include="game\state\Game.cpp" />
+    <ClCompile Include="game\server\GameServer.cpp" />
     <ClCompile Include="system\GameWindow.cpp" />
     <ClCompile Include="gui\Gui.cpp" />
     <ClCompile Include="gui\GuiHandler.cpp" />
@@ -187,8 +190,8 @@
     <ClCompile Include="gui\NinePatchImage.cpp" />
     <ClCompile Include="oldmain.cpp" />
     <ClCompile Include="gui\Panel.cpp" />
-    <ClCompile Include="game\Player.cpp" />
-    <ClCompile Include="game\Server.cpp" />
+    <ClCompile Include="game\entity\Player.cpp" />
+    <ClCompile Include="game\server\Server.cpp" />
     <ClCompile Include="util\SimpleSprite.cpp" />
     <ClCompile Include="animation\Skeleton.cpp" />
     <ClCompile Include="gui\Slider.cpp" />
@@ -199,38 +202,41 @@
     <ClCompile Include="util\Vec2f.cpp" />
     <ClCompile Include="util\Vec2i.cpp" />
     <ClCompile Include="gui\Widget.cpp" />
-    <ClCompile Include="game\Weapon.cpp" />
-    <ClCompile Include="game\WeaponManager.cpp" />
+    <ClCompile Include="game\inventory\Weapon.cpp" />
+    <ClCompile Include="game\inventory\WeaponManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\Bullet.h" />
+    <ClInclude Include="game\ai\HumanAiBrain.h" />
+    <ClInclude Include="game\ui\ItemSlot.h" />
+    <ClInclude Include="game\inventory\PlayerSlots.h" />
+    <ClInclude Include="util\Regulator.h" />
     <ClInclude Include="system\GlobalRandom.h" />
     <ClInclude Include="system\ContactListener.h" />
-    <ClInclude Include="game\GameButton.h" />
-    <ClInclude Include="game\Inventory.h" />
-    <ClInclude Include="game\InventoryPanel.h" />
-    <ClInclude Include="game\ItemManager.h" />
-    <ClInclude Include="game\PlayerInventory.h" />
+    <ClInclude Include="game\ui\GameButton.h" />
+    <ClInclude Include="game\inventory\Inventory.h" />
+    <ClInclude Include="game\ui\InventoryPanel.h" />
+    <ClInclude Include="game\inventory\ItemManager.h" />
+    <ClInclude Include="game\ui\PlayerInventory.h" />
     <ClInclude Include="system\PhysicsCallbacks.h" />
     <ClInclude Include="system\NetEvent.h" />
     <ClInclude Include="system\AnimationManager.h" />
-    <ClInclude Include="game\AliveEntity.h" />
+    <ClInclude Include="game\entity\AliveEntity.h" />
     <ClInclude Include="animation\AnimatedSkeleton.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationEditor.h" />
-    <ClInclude Include="game\HumanAi.h" />
+    <ClInclude Include="game\entity\HumanAi.h" />
     <ClInclude Include="mapeditor\EditorTerrain.h" />
-    <ClInclude Include="game\GameMenu.h" />
-    <ClInclude Include="game\DynamicProp.h" />
+    <ClInclude Include="game\state\GameMenu.h" />
+    <ClInclude Include="game\entity\DynamicProp.h" />
     <ClInclude Include="game\GameWorld.h" />
     <ClInclude Include="gui\SimpleGuiWindow.h" />
     <ClInclude Include="animation\Skin.h" />
-    <ClInclude Include="game\PhysicsEntity.h" />
+    <ClInclude Include="game\entity\PhysicsEntity.h" />
     <ClInclude Include="game\PhysicsWorld.h" />
-    <ClInclude Include="game\PlayerServer.h" />
-    <ClInclude Include="game\SharedMultiplayer.h" />
+    <ClInclude Include="game\server\SharedMultiplayer.h" />
     <ClInclude Include="mapeditor\MapEditor.h" />
-    <ClInclude Include="game\Person.h" />
+    <ClInclude Include="game\entity\Person.h" />
     <ClInclude Include="system\ObjectHandler.h" />
     <ClInclude Include="system\ObjectManager.h" />
     <ClInclude Include="system\StaticObject.h" />
@@ -240,11 +246,11 @@
     <ClInclude Include="util\BlueprintBackground.h" />
     <ClInclude Include="animation\Bone.h" />
     <ClInclude Include="gui\Button.h" />
-    <ClInclude Include="game\Client.h" />
+    <ClInclude Include="game\server\Client.h" />
     <ClInclude Include="gui\EditBox.h" />
-    <ClInclude Include="game\Entity.h" />
-    <ClInclude Include="game\Game.h" />
-    <ClInclude Include="game\GameServer.h" />
+    <ClInclude Include="game\entity\Entity.h" />
+    <ClInclude Include="game\state\Game.h" />
+    <ClInclude Include="game\server\GameServer.h" />
     <ClInclude Include="system\GameWindow.h" />
     <ClInclude Include="gui\Gui.h" />
     <ClInclude Include="gui\GuiHandler.h" />
@@ -256,8 +262,8 @@
     <ClInclude Include="system\Log.h" />
     <ClInclude Include="gui\NinePatchImage.h" />
     <ClInclude Include="gui\Panel.h" />
-    <ClInclude Include="game\Player.h" />
-    <ClInclude Include="game\Server.h" />
+    <ClInclude Include="game\entity\Player.h" />
+    <ClInclude Include="game\server\Server.h" />
     <ClInclude Include="util\SimpleSprite.h" />
     <ClInclude Include="animation\Skeleton.h" />
     <ClInclude Include="gui\Slider.h" />
@@ -268,8 +274,8 @@
     <ClInclude Include="util\Vec2f.h" />
     <ClInclude Include="util\Vec2i.h" />
     <ClInclude Include="gui\Widget.h" />
-    <ClInclude Include="game\Weapon.h" />
-    <ClInclude Include="game\WeaponManager.h" />
+    <ClInclude Include="game\inventory\Weapon.h" />
+    <ClInclude Include="game\inventory\WeaponManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

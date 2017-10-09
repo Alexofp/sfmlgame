@@ -1,5 +1,7 @@
 #pragma once
 #include "Person.h"
+#include "HumanAiBrain.h"
+#include "Regulator.h"
 
 class HumanAi :	public Person
 {
@@ -16,9 +18,8 @@ public:
 	virtual void readInformation(sf::Packet& packet);
 	virtual void writeSpawn(sf::Packet& packet);
 	virtual void readSpawn(sf::Packet& packet);
-
 private:
-	Vec2f targetPos;
-	float timer;
+	HumanAiBrain brain;
+	Regulator brainRegulator;
 };
 

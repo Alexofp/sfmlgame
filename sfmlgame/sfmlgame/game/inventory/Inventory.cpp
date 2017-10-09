@@ -47,7 +47,7 @@ bool Inventory::placeFree(Vec2i pos, Vec2i size)
 
 bool Inventory::addItem(Item item)
 {
-	ItemManager::Item info = ItemManager::getItem(item.name);
+	ItemManager::Item info = ItemManager::getItem(item.info.name);
 	item.size = Vec2i(info.w, info.h);
 
 	if (placeFree(item.pos, item.size))
@@ -61,6 +61,9 @@ bool Inventory::addItem(Item item)
 
 bool Inventory::addItemAnywhere(Item item)
 {
+	ItemManager::Item info = ItemManager::getItem(item.info.name);
+	item.size = Vec2i(info.w, info.h);
+
 	for (int x = 0; x < w; x++)
 	{
 		for (int y = 0; y < h; y++)
@@ -75,6 +78,46 @@ bool Inventory::addItemAnywhere(Item item)
 	}
 
 	return false;
+}
+
+bool Inventory::addItem(ItemInfo itemInfo)
+{
+	ItemManager::Item info = ItemManager::getItem(itemInfo.name);
+
+	for (int x = 0; x < w; x++)
+	{
+		for (int y = 0; y < h; y++)
+		{
+			if (placeFree(Vec2i(x, y), Vec2i(info.w, info.h)))
+			{
+				Inventory::Item item(Vec2i(x, y), itemInfo);
+				item.size = Vec2i(info.w, info.h);
+				items.push_back(item);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+Inventory::Item * Inventory::getItem(int index)
+{
+	if (index < 0 || index >= items.size())
+	{
+		return 0;
+	}
+	return &(items[index]);
+}
+
+bool Inventory::removeItem(int index)
+{
+	if (index < 0 || index >= items.size())
+	{
+		return false;
+	}
+	items.erase(items.begin() + index);
+	return true;
 }
 
 Vec2i Inventory::getSize()

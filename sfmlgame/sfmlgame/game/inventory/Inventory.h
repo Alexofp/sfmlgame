@@ -6,17 +6,27 @@
 class Inventory
 {
 public:
+	struct ItemInfo
+	{
+		std::string name;
+	};
+
 	struct Item
 	{
 		Item(Vec2i pos, std::string name)
 		{
 			this->pos = pos;
-			this->name = name;
+			this->info.name = name;
+		}
+		Item(Vec2i pos, ItemInfo info)
+		{
+			this->pos = pos;
+			this->info = info;
 		}
 
 		Vec2i pos;
 		Vec2i size;
-		std::string name;
+		ItemInfo info;
 	};
 
 	Inventory();
@@ -26,6 +36,9 @@ public:
 	bool placeFree(Vec2i pos, Vec2i size);
 	bool addItem(Item item);
 	bool addItemAnywhere(Item item);
+	bool addItem(ItemInfo item);
+	Item* getItem(int index);
+	bool removeItem(int index);
 
 	Vec2i getSize();
 	void setSize(Vec2i size);

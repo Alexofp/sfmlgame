@@ -23,6 +23,24 @@
     <Filter Include="code\mapeditor">
       <UniqueIdentifier>{205667ea-6abb-4fe9-9eb8-483301ce63ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="code\game\ui">
+      <UniqueIdentifier>{8177d167-49a4-4a3f-b86a-95628c722afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\game\ai">
+      <UniqueIdentifier>{dccad527-6ff9-4b8f-b3de-43fbf8b571ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\game\entity">
+      <UniqueIdentifier>{0a34a3f6-fc9d-473c-9910-a575faba789e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\game\state">
+      <UniqueIdentifier>{f75deed1-763f-40ca-a5e1-dd65193bf64b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\game\server">
+      <UniqueIdentifier>{ffe29b19-4bc1-440d-9d20-e2fe198b60b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\game\inventory">
+      <UniqueIdentifier>{4d1d9cb6-c629-4b09-ad4c-339bd2c05573}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="oldmain.cpp">
@@ -112,24 +130,6 @@
     <ClCompile Include="util\Vec2f.cpp">
       <Filter>code\util</Filter>
     </ClCompile>
-    <ClCompile Include="game\Client.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Entity.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Game.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\GameServer.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Server.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Player.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
     <ClCompile Include="gui\SimpleGuiWindow.cpp">
       <Filter>code\gui</Filter>
     </ClCompile>
@@ -142,29 +142,14 @@
     <ClCompile Include="animation\Skin.cpp">
       <Filter>code\animation</Filter>
     </ClCompile>
-    <ClCompile Include="game\DynamicProp.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
     <ClCompile Include="game\GameWorld.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\PhysicsEntity.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
     <ClCompile Include="game\PhysicsWorld.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
-    <ClCompile Include="game\PlayerServer.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\SharedMultiplayer.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
     <ClCompile Include="system\Settings.cpp">
       <Filter>code\system</Filter>
-    </ClCompile>
-    <ClCompile Include="game\GameMenu.cpp">
-      <Filter>code\game</Filter>
     </ClCompile>
     <ClCompile Include="mapeditor\EditorTerrain.cpp">
       <Filter>code\mapeditor</Filter>
@@ -181,43 +166,13 @@
     <ClCompile Include="system\ObjectHandler.cpp">
       <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="game\AliveEntity.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Person.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\HumanAi.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
     <ClCompile Include="system\AnimationManager.cpp">
       <Filter>code\system</Filter>
-    </ClCompile>
-    <ClCompile Include="game\InventoryPanel.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Inventory.cpp">
-      <Filter>code\game</Filter>
     </ClCompile>
     <ClCompile Include="system\NetEvent.cpp">
       <Filter>code\system</Filter>
     </ClCompile>
-    <ClCompile Include="game\PlayerInventory.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\ItemManager.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
     <ClCompile Include="game\Bullet.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\GameButton.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\WeaponManager.cpp">
-      <Filter>code\game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Weapon.cpp">
       <Filter>code\game</Filter>
     </ClCompile>
     <ClCompile Include="system\PhysicsCallbacks.cpp">
@@ -228,6 +183,78 @@
     </ClCompile>
     <ClCompile Include="system\GlobalRandom.cpp">
       <Filter>code\system</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ai\HumanAiBrain.cpp">
+      <Filter>code\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\AliveEntity.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\DynamicProp.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\Entity.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\HumanAi.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\Person.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\PhysicsEntity.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\entity\Player.cpp">
+      <Filter>code\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="game\inventory\Inventory.cpp">
+      <Filter>code\game\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="game\inventory\ItemManager.cpp">
+      <Filter>code\game\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="game\inventory\PlayerSlots.cpp">
+      <Filter>code\game\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="game\inventory\Weapon.cpp">
+      <Filter>code\game\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="game\inventory\WeaponManager.cpp">
+      <Filter>code\game\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="game\server\Client.cpp">
+      <Filter>code\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="game\server\GameServer.cpp">
+      <Filter>code\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="game\server\Server.cpp">
+      <Filter>code\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="game\server\SharedMultiplayer.cpp">
+      <Filter>code\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="game\state\Game.cpp">
+      <Filter>code\game\state</Filter>
+    </ClCompile>
+    <ClCompile Include="game\state\GameMenu.cpp">
+      <Filter>code\game\state</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ui\GameButton.cpp">
+      <Filter>code\game\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ui\InventoryPanel.cpp">
+      <Filter>code\game\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ui\ItemSlot.cpp">
+      <Filter>code\game\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ui\PlayerInventory.cpp">
+      <Filter>code\game\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Regulator.cpp">
+      <Filter>code\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -315,24 +342,6 @@
     <ClInclude Include="util\Vec2i.h">
       <Filter>code\util</Filter>
     </ClInclude>
-    <ClInclude Include="game\Client.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Entity.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Game.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\GameServer.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Player.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Server.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
     <ClInclude Include="gui\SimpleGuiWindow.h">
       <Filter>code\gui</Filter>
     </ClInclude>
@@ -345,29 +354,14 @@
     <ClInclude Include="animation\Skin.h">
       <Filter>code\animation</Filter>
     </ClInclude>
-    <ClInclude Include="game\DynamicProp.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
     <ClInclude Include="game\GameWorld.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\PhysicsEntity.h">
       <Filter>code\game</Filter>
     </ClInclude>
     <ClInclude Include="game\PhysicsWorld.h">
       <Filter>code\game</Filter>
     </ClInclude>
-    <ClInclude Include="game\PlayerServer.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\SharedMultiplayer.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
     <ClInclude Include="system\Settings.h">
       <Filter>code\system</Filter>
-    </ClInclude>
-    <ClInclude Include="game\GameMenu.h">
-      <Filter>code\game</Filter>
     </ClInclude>
     <ClInclude Include="mapeditor\EditorTerrain.h">
       <Filter>code\mapeditor</Filter>
@@ -384,43 +378,13 @@
     <ClInclude Include="system\ObjectHandler.h">
       <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="game\AliveEntity.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Person.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\HumanAi.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
     <ClInclude Include="system\AnimationManager.h">
       <Filter>code\system</Filter>
-    </ClInclude>
-    <ClInclude Include="game\InventoryPanel.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Inventory.h">
-      <Filter>code\game</Filter>
     </ClInclude>
     <ClInclude Include="system\NetEvent.h">
       <Filter>code\system</Filter>
     </ClInclude>
-    <ClInclude Include="game\PlayerInventory.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\ItemManager.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
     <ClInclude Include="game\Bullet.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\GameButton.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Weapon.h">
-      <Filter>code\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\WeaponManager.h">
       <Filter>code\game</Filter>
     </ClInclude>
     <ClInclude Include="system\PhysicsCallbacks.h">
@@ -431,6 +395,78 @@
     </ClInclude>
     <ClInclude Include="system\GlobalRandom.h">
       <Filter>code\system</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ai\HumanAiBrain.h">
+      <Filter>code\game\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\AliveEntity.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\DynamicProp.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\Entity.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\HumanAi.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\Person.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\PhysicsEntity.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\entity\Player.h">
+      <Filter>code\game\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory\Inventory.h">
+      <Filter>code\game\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory\ItemManager.h">
+      <Filter>code\game\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory\PlayerSlots.h">
+      <Filter>code\game\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory\Weapon.h">
+      <Filter>code\game\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory\WeaponManager.h">
+      <Filter>code\game\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="game\server\Client.h">
+      <Filter>code\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="game\server\GameServer.h">
+      <Filter>code\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="game\server\Server.h">
+      <Filter>code\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="game\server\SharedMultiplayer.h">
+      <Filter>code\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="game\state\Game.h">
+      <Filter>code\game\state</Filter>
+    </ClInclude>
+    <ClInclude Include="game\state\GameMenu.h">
+      <Filter>code\game\state</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ui\GameButton.h">
+      <Filter>code\game\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ui\InventoryPanel.h">
+      <Filter>code\game\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ui\ItemSlot.h">
+      <Filter>code\game\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ui\PlayerInventory.h">
+      <Filter>code\game\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Regulator.h">
+      <Filter>code\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

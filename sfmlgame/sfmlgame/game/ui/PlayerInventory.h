@@ -7,6 +7,7 @@
 #include "gui.h"
 #include <SFML/Graphics/Text.hpp>
 #include "GameButton.h"
+#include "ItemSlot.h"
 
 class PlayerInventory
 {
@@ -24,6 +25,7 @@ public:
 	bool handleEvent(sf::Event event);
 private:
 	void updateSelection();
+	void onWeaponSlotClick();
 
 	Player* player;
 	InventoryPanel panel;
@@ -31,8 +33,9 @@ private:
 	sf::RectangleShape background;
 	sf::Text name;
 	sf::Text description;
-	Inventory::Item* selectedItem;
+	int selectedItem;
 	bool show;
+	ItemSlot weaponSlot;
 
 	GameButton button1;
 };

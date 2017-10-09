@@ -20,6 +20,10 @@ PlayerInventory::PlayerInventory()
 	button1.setText("Equip");
 
 	selectedItem = 0;
+
+	weaponSlot.OnClick([=]() {
+		this->onWeaponSlotClick();
+	});
 }
 
 
@@ -46,6 +50,7 @@ void PlayerInventory::draw()
 
 	button1.draw();
 
+	weaponSlot.draw();
 	GameWindow::getInternalHandle().draw(name);
 	GameWindow::getInternalHandle().draw(description);
 	GameWindow::getInternalHandle().setView(oldView);
@@ -58,20 +63,30 @@ void PlayerInventory::update(float dt)
 
 	if (button1.isClicked())
 	{
-		if (selectedItem)
+		Inventory::Item* item = panel.getItem(selectedItem);
+		if (item != 0)
 		{
-			ItemManager::Item info = ItemManager::getItem(selectedItem->name);
+			ItemManager::Item info = ItemManager::getItem(item->info.name);
 
 			if (info.type == "weapon")
 			{
-				if (player->getWeaponName() == info.weaponType)
+				PlayerSlots& slots = player->getInventorySlots();
+				if (slots.setWeapon(item->info))
+				{
+					weaponSlot.setItem(slots.getWeapon());
+					panel.removeItem(selectedItem);
+					player->updateInventorySlots();
+				}
+				/*if (player->getWeaponName() == info.weaponType)
 				{
 					player->setWeapon("fists");
+					weaponSlot.clear();
 				}
 				else
 				{
 					player->setWeapon(info.weaponType);
-				}
+					weaponSlot.setItem(selectedItem->info);
+				}*/
 				updateSelection();
 			}
 		}
@@ -104,6 +119,9 @@ void PlayerInventory::resize()
 
 	name.setPosition(centerPanel.toSFMLVec()+sf::Vector2f(810.f,10.f));
 	description.setPosition(centerPanel.toSFMLVec() + sf::Vector2f(810.f, 80.f));
+
+	weaponSlot.setPos(Vec2f::add(centerPanel, Vec2f(backgroundSize.x-400.f,160.f)));
+	weaponSlot.setSize(Vec2f(600.f, 150.f));
 }
 
 void PlayerInventory::toggle()
@@ -117,6 +135,9 @@ bool PlayerInventory::handleEvent(sf::Event event)
 		return false;
 
 	if (button1.handleEvent(event, guiView))
+		return true;
+
+	if (weaponSlot.handleEvent(event, guiView))
 		return true;
 
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -136,11 +157,13 @@ bool PlayerInventory::handleEvent(sf::Event event)
 
 void PlayerInventory::updateSelection()
 {
-	if (selectedItem != 0)
+	Inventory::Item* item = panel.getItem(selectedItem);
+	if (item != 0)
 	{
-		panel.selectItem(selectedItem->pos, selectedItem->size);
+		
+		panel.selectItem(item->pos, item->size);
 
-		ItemManager::Item info = ItemManager::getItem(selectedItem->name);
+		ItemManager::Item info = ItemManager::getItem(item->info.name);
 		name.setString(info.textName);
 		description.setString(info.description);
 
@@ -163,5 +186,21 @@ void PlayerInventory::updateSelection()
 		panel.clearSelection();
 		name.setString("");
 		description.setString("");
+	}
+}
+
+void PlayerInventory::onWeaponSlotClick()
+{
+	PlayerSlots& slots = player->getInventorySlots();
+	Inventory::ItemInfo wep = slots.getWeapon();
+	if (wep.name == "")
+		return;
+	
+	if (panel.addItem(wep))
+	{
+		slots.clearWeapon();
+		weaponSlot.clear();
+		player->updateInventorySlots();
+		panel.updatePanel();
 	}
 }

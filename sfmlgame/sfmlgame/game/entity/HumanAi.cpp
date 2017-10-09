@@ -2,11 +2,10 @@
 #include <iostream>
 
 
-HumanAi::HumanAi(int nid): Person(nid)
+HumanAi::HumanAi(int nid): Person(nid),
+brain(this), brainRegulator(1.f)
 {
 	realType = Type::HumanAi;
-
-	timer = 0.f;
 }
 
 
@@ -21,23 +20,12 @@ void HumanAi::init()
 
 void HumanAi::update(float dt)
 {
-	lookPosition = targetPos;
+	if(brainRegulator.isReady(dt))
+		brain.update(brainRegulator.getDelta());
+	//brain.update(dt);
 
 	updateSkeleton(dt);
 	updateBody();
-
-
-	timer -= dt;
-	if (timer <= 0.f || Vec2f::distance(targetPos, getPos()) < 10.f)
-	{
-		timer = 3.f+rand()%3;
-		int size = 1000;
-		targetPos = Vec2f::add(Vec2f(rand() % size - size/2, rand() % size - size/2), getPos());
-	}
-	moveControl = Vec2f::sub(targetPos, getPos()).normalized();
-
-	if (rand() % 100 > 98)
-		attack();
 }
 
 void HumanAi::localUpdate(float dt)

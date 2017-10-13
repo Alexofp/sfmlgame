@@ -30,9 +30,11 @@ void WeaponManager::loadFromFile(std::string path)
 		std::string walkAnimation = item["walkAnimation"].get<std::string>();
 		float baseDamage = item["baseDamage"].get<float>();
 		float damagePerLevelPercent = item["damagePerLevelPercent"].get<float>();
-		int magazineCapacity = item["magazineCapacity"].get<int>();
 		float attackSpeed = item["attackSpeed"].get<float>();
 		bool autoFire = item["autoFire"].get<bool>();
+		std::string usesAmmo = item["usesAmmo"].get<std::string>();
+		int clipSize = item["clipSize"].get<int>();
+		int ammoPerShot = item["ammoPerShot"].get<int>();
 
 		Weapon weapon;
 		weapon.name = name;
@@ -44,9 +46,11 @@ void WeaponManager::loadFromFile(std::string path)
 		weapon.walkAnimation = walkAnimation;
 		weapon.baseDamage = baseDamage;
 		weapon.damagePerLevelPercent = damagePerLevelPercent;
-		weapon.magazineCapacity = magazineCapacity;
 		weapon.attackSpeed = attackSpeed;
 		weapon.autoFire = autoFire;
+		weapon.usesAmmo = usesAmmo;
+		weapon.clipSize = clipSize;
+		weapon.ammoPerShot = ammoPerShot;
 
 		if (attackType == "bullet")
 		{

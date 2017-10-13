@@ -135,3 +135,54 @@ std::vector<Inventory::Item>& Inventory::getItems()
 {
 	return items;
 }
+
+int Inventory::getAmmoCount(std::string ammoType)
+{
+	int count = 0;
+
+	for (auto& item : items)
+	{
+		if (item.info.name == ammoType)
+		{
+			ItemManager::Item info = item.info.getInfo();
+			if (info.type == "ammo")
+			{
+				count += item.info.ammo.count;
+			}
+		}
+	}
+
+	return count;
+}
+
+int Inventory::removeAmmo(std::string ammoType, int ammount)
+{
+	int got = 0;
+	for (int i = items.size() - 1; i >= 0; i--)
+	{
+		Inventory::Item& item = items[i];
+
+		if (item.info.name == ammoType)
+		{
+			ItemManager::Item info = item.info.getInfo();
+			if (info.type == "ammo")
+			{
+				int want = ammount - got;
+				if (item.info.ammo.count < want)
+				{
+					want = item.info.ammo.count;
+				}
+				item.info.ammo.count -= want;
+				if (item.info.ammo.count <= 0)
+				{
+					removeItem(i);
+				}
+				got += want;
+				if (got >= ammount)
+					return got;
+			}
+		}
+	}
+
+	return got;
+}

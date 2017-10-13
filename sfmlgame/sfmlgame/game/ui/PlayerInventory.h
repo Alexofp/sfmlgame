@@ -38,5 +38,6 @@ private:
 	ItemSlot weaponSlot;
 
 	GameButton button1;
+	float updateTimer;
 };
 

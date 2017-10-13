@@ -23,6 +23,8 @@ public:
 
 	void setClientId(int clientId);
 	int getClientId();
+	virtual void reload();
+	void unloadWeapon();
 
 	virtual void writeInformation(sf::Packet& packet);
 	virtual void readInformation(sf::Packet& packet);

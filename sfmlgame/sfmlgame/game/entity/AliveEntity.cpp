@@ -11,7 +11,8 @@ AliveEntity::AliveEntity(int nid) :PhysicsEntity(nid)
 	acceleration = 100.f;
 	speed = Vec2f();
 	Vec2f targetSpeed = Vec2f();
-	heath = 100;
+	health = 100;
+	maxHealth = 100;
 }
 
 
@@ -48,8 +49,8 @@ void AliveEntity::handleEvent(int fromId, std::string type, sf::Packet & packet)
 {
 	if (type == "hurt")
 	{
-		heath -= 100;
-		if (heath <= 0)
+		health -= 34;
+		if (health <= 0)
 		{
 			onDeath();
 		}
@@ -58,4 +59,23 @@ void AliveEntity::handleEvent(int fromId, std::string type, sf::Packet & packet)
 
 void AliveEntity::onDeath()
 {
+}
+
+void AliveEntity::drawHealthBar()
+{
+	healthBar.setHealth(getHealth());
+	healthBar.setMaxHealth(getMaxHealth());
+
+	healthBar.setPos(getPos());
+	healthBar.draw();
+}
+
+int AliveEntity::getHealth()
+{
+	return health;
+}
+
+int AliveEntity::getMaxHealth()
+{
+	return maxHealth;
 }

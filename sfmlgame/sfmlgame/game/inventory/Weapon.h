@@ -1,13 +1,8 @@
 #pragma once
 #include <string>
 
-class Weapon
+struct Weapon
 {
-public:
-	Weapon();
-	~Weapon();
-
-//private:
 	std::string name;
 	std::string textName;
 	std::string attackType;
@@ -19,11 +14,13 @@ public:
 	float damagePerLevelPercent;
 	float bulletSpeed;
 	float dispersion;
-	int magazineCapacity;
 	bool autoFire;
 	float attackSpeed;
 	int bulletsPerShot;
 	float bulletAliveTime;
 	float bulletSpeedSpread;
+	std::string usesAmmo;
+	int clipSize;
+	int ammoPerShot;
 };
 

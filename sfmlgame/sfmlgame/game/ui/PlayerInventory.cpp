@@ -24,6 +24,7 @@ PlayerInventory::PlayerInventory()
 	weaponSlot.OnClick([=]() {
 		this->onWeaponSlotClick();
 	});
+	updateTimer = 1.f;
 }
 
 
@@ -60,6 +61,12 @@ void PlayerInventory::update(float dt)
 {
 	if (!show)
 		return;
+	updateTimer -= dt;
+	if (updateTimer < 0.f)
+	{
+		updateTimer = 1.f;
+		panel.updatePanel();
+	}
 
 	if (button1.isClicked())
 	{

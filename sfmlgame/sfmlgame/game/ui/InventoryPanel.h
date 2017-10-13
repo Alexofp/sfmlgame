@@ -3,10 +3,22 @@
 #include "Inventory.h"
 #include "Vec2f.h"
 #include <vector>
+#include <SFML\Graphics\Text.hpp>
 
 class InventoryPanel
 {
 public:
+
+	struct Cell
+	{
+		sf::RectangleShape shape;
+		int type;
+		sf::Text text;
+
+		void fill(Inventory::Item& item, float cellSize);
+		void draw(sf::RenderStates& states);
+	};
+
 	InventoryPanel();
 	~InventoryPanel();
 
@@ -29,7 +41,8 @@ private:
 	bool dirty;
 	sf::RectangleShape background;
 	sf::RectangleShape selection;
-	std::vector<sf::RectangleShape> cells;
+	std::vector<sf::RectangleShape> invcells;
+	std::vector<Cell> cells;
 	Inventory* inventory;
 	float cellSize;
 	Vec2f size;

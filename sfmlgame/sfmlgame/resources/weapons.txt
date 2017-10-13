@@ -9,9 +9,11 @@
 		"walkAnimation": "person_walk",
 		"baseDamage": 40,
 		"damagePerLevelPercent": 0,
-		"magazineCapacity": 0,
 		"attackSpeed": 1,
-		"autoFire": true
+		"autoFire": true,
+		"usesAmmo": "",
+		"clipSize": 0,
+		"ammoPerShot": 0
 	},
 	{
 		"name": "ak74",
@@ -24,12 +26,14 @@
 		"baseDamage": 40,
 		"damagePerLevelPercent": 10,
 		"bulletSpeed": 5000,
-		"magazineCapacity": 30,
 		"dispersion": 3,
 		"bulletsPerShot": 1,
 		"attackSpeed": 0.15,
 		"bulletAliveTime": 3.0,
 		"autoFire": true,
-		"bulletSpeedSpread": 0
+		"bulletSpeedSpread": 0,
+		"usesAmmo": "riffle_ammo",
+		"clipSize": 30,
+		"ammoPerShot": 1
 	}
 ]

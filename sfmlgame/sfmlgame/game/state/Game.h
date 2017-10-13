@@ -11,6 +11,7 @@
 #include "Inventory.h"
 #include "PlayerInventory.h"
 #include "InventoryPanel.h"
+#include "PlayerUi.h"
 
 struct ClientPlayerInfo
 {
@@ -45,5 +46,6 @@ private:
 
 	sf::View guiView;
 	PlayerInventory inventoryScreen;
+	PlayerUi gameUi;
 };
 

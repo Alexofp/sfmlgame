@@ -18,7 +18,7 @@ public:
 	virtual void init();
 	virtual void draw();
 	void updateSkeleton(float dt);
-	void setWeapon(std::string name);
+	void setWeapon(std::string name, bool fullClip = true);
 	std::string getWeaponName();
 
 	void playAnimation(std::string anim, int priority = 0, bool playAgain = false);
@@ -33,6 +33,14 @@ public:
 
 	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
 	virtual void onDeath();
+	virtual bool canShoot();
+	virtual void afterShoot();
+
+	virtual void reload();
+	bool isReloading();
+	int getClip();
+	int getClipSize();
+	std::string getRequiredAmmo();
 
 protected:
 	AnimatedSkeleton skeleton;
@@ -47,5 +55,8 @@ protected:
 	WeaponData weapon;
 	Skin baseSkin;
 	float attackTimer;
+	int clip;
+	bool isReload;
+	float reloadTimer;
 };
 

@@ -53,6 +53,8 @@ void Person::draw()
 	skeleton.draw();
 	if (Settings::getBool("render", "debug", false))
 		skeleton.debugDraw();
+
+	drawHealthBar();
 }
 
 void Person::updateSkeleton(float dt)
@@ -119,9 +121,18 @@ void Person::updateSkeleton(float dt)
 
 	if(attackTimer >= 0)
 		attackTimer -= dt;
+
+	if (isReload)
+	{
+		reloadTimer -= dt;
+		if (reloadTimer <= 0.f)
+		{
+			isReload = false;
+		}
+	}
 }
 
-void Person::setWeapon(std::string name)
+void Person::setWeapon(std::string name, bool fullClip)
 {
 	WeaponData weapon;
 	weapon.name = name;
@@ -136,6 +147,9 @@ void Person::setWeapon(std::string name)
 	finalSkin.applySkin(weaponSkin);
 
 	skeleton.setSkin(finalSkin);
+
+	if(fullClip)
+		clip = weapon.info.clipSize;
 }
 
 std::string Person::getWeaponName()
@@ -182,6 +196,15 @@ void Person::attack()
 {
 	if (attackTimer > 0.0)
 		return;
+	if (isReload)
+		return;
+	if (!canShoot())
+		return;
+	if (clip <= 0 && weapon.info.ammoPerShot!=0)
+	{
+		reload();
+		return;
+	}
 
 	if (weapon.info.attackType == "bullet")
 	{
@@ -205,6 +228,12 @@ void Person::attack()
 
 
 	attackTimer = weapon.info.attackSpeed;
+	clip-= weapon.info.ammoPerShot;
+	if (clip <= 0 && weapon.info.ammoPerShot != 0)
+	{
+		reload();
+	}
+	afterShoot();
 }
 
 Vec2f Person::getShootingPos()
@@ -284,4 +313,46 @@ void Person::handleEvent(int fromId, std::string type, sf::Packet & packet)
 void Person::onDeath()
 {
 	skeleton.setScale( 0.f );
+}
+
+bool Person::canShoot()
+{
+	return true;
+}
+
+void Person::afterShoot()
+{
+}
+
+void Person::reload()
+{
+	if (weapon.info.ammoPerShot == 0)
+		return;
+
+	if (!isReload)
+	{
+		isReload = true;
+		reloadTimer = 1.f;
+		clip = weapon.info.clipSize;
+	}
+}
+
+bool Person::isReloading()
+{
+	return isReload;
+}
+
+int Person::getClip()
+{
+	return clip;
+}
+
+int Person::getClipSize()
+{
+	return weapon.info.clipSize;
+}
+
+std::string Person::getRequiredAmmo()
+{
+	return weapon.info.usesAmmo;
 }

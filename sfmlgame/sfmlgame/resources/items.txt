@@ -17,5 +17,14 @@
 		"h": 2,
 		"type": "weapon",
 		"weaponType": "ak74"
+	},
+	{
+		"name": "riffle_ammo",
+		"textName": "Riffle ammo",
+		"description": "Ammo for ak74",
+		"texture": "tex_ak74",
+		"w": 2,
+		"h": 1,
+		"type": "ammo"
 	}
 ]

@@ -4,6 +4,7 @@
 #include "AnimatedSkeleton.h"
 #include "Skin.h"
 #include "Animation.h"
+#include "HealthBar.h"
 
 class AliveEntity :	public PhysicsEntity
 {
@@ -20,13 +21,19 @@ public:
 
 	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
 	virtual void onDeath();
+	void drawHealthBar();
 
+	int getHealth();
+	int getMaxHealth();
 protected:
 	Vec2f speed;
 	float maxSpeed;
 	float acceleration;
 
 	Vec2f targetSpeed;
-	int heath;
+	int health;
+	int maxHealth;
+
+	HealthBar healthBar;
 };
 

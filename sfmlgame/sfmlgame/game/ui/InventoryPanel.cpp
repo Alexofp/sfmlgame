@@ -2,6 +2,7 @@
 #include "GameWindow.h"
 #include "TextureManager.h"
 #include "Util.h"
+#include "gui.h"
 
 InventoryPanel::InventoryPanel()
 {
@@ -41,6 +42,7 @@ void InventoryPanel::updatePanel()
 		background.setSize(panelSize.toSFMLVec());
 
 		cells.clear();
+		invcells.clear();
 		for (int x = 0; x < invSize.x; x++)
 		{
 			for (int y = 0; y < invSize.y; y++)
@@ -55,24 +57,14 @@ void InventoryPanel::updatePanel()
 				cell.setPosition(sf::Vector2f(x*cellSize, y*cellSize));
 				cell.setSize(sf::Vector2f(cellSize - padding, cellSize - padding));
 				cell.setOrigin(-padding / 2.f, -padding / 2.f);
-				cells.push_back(cell);
+				invcells.push_back(cell);
 			}
 		}
 
 		for (auto& item : inventory->getItems())
 		{
-			ItemManager::Item info = ItemManager::getItem(item.info.name);
-
-			Vec2f cellPos(item.pos.x*cellSize, item.pos.y*cellSize);
-			Vec2f cellSize((item.size.x+1)*cellSize, (item.size.y+1)*cellSize);
-
-			sf::RectangleShape cell;
-			cell.setTexture(TextureManager::get(info.texture));
-			//cell.setFillColor(sf::Color(0,0,255,100));
-			//cell.setOutlineColor(sf::Color::Red);
-			//cell.setOutlineThickness(2.f);
-			cell.setPosition(cellPos.toSFMLVec());
-			cell.setSize(cellSize.toSFMLVec());
+			Cell cell;
+			cell.fill(item, cellSize);
 			cells.push_back(cell);
 		}
 	}
@@ -170,10 +162,52 @@ void InventoryPanel::draw()
 
 	GameWindow::getInternalHandle().draw(background, states);
 
-	for (auto& cell : cells)
+	for (auto& cell : invcells)
 	{
 		GameWindow::getInternalHandle().draw(cell, states);
 	}
+	for (auto& cell : cells)
+	{
+		cell.draw(states);
+	}
 
 	GameWindow::getInternalHandle().draw(selection, states);
+}
+
+void InventoryPanel::Cell::fill(Inventory::Item & item, float cellSize)
+{
+	type = 0;
+	ItemManager::Item info = ItemManager::getItem(item.info.name);
+	if (info.type == "ammo")
+	{
+		type = 1;
+	}
+
+	Vec2f cellPos(item.pos.x*cellSize, item.pos.y*cellSize);
+	Vec2f cellSizeVec((item.size.x + 1)*cellSize, (item.size.y + 1)*cellSize);
+
+	shape.setTexture(TextureManager::get(info.texture));
+	shape.setPosition(cellPos.toSFMLVec());
+	shape.setSize(cellSizeVec.toSFMLVec());
+
+	if (type == 1)
+	{
+		text.setFont(Gui::getDefaultFont());
+		text.setString(std::to_string(item.info.ammo.count));
+		text.setCharacterSize(18u);
+		text.setPosition(cellPos.toSFMLVec()+sf::Vector2f(1.f,1.f));
+		text.setFillColor(sf::Color::White);
+		text.setOutlineColor(sf::Color::Black);
+		text.setOutlineThickness(1.0f);
+	}
+}
+
+void InventoryPanel::Cell::draw(sf::RenderStates& states)
+{
+	GameWindow::getInternalHandle().draw(shape, states);
+
+	if (type == 1)
+	{
+		GameWindow::getInternalHandle().draw(text, states);
+	}
 }

@@ -137,6 +137,8 @@
     <ClCompile Include="game\ai\HumanAiBrain.cpp" />
     <ClCompile Include="game\ui\ItemSlot.cpp" />
     <ClCompile Include="game\inventory\PlayerSlots.cpp" />
+    <ClCompile Include="game\ui\HealthBar.cpp" />
+    <ClCompile Include="game\ui\PlayerUi.cpp" />
     <ClCompile Include="util\Regulator.cpp" />
     <ClCompile Include="system\GlobalRandom.cpp" />
     <ClCompile Include="system\ContactListener.cpp" />
@@ -210,6 +212,8 @@
     <ClInclude Include="game\ai\HumanAiBrain.h" />
     <ClInclude Include="game\ui\ItemSlot.h" />
     <ClInclude Include="game\inventory\PlayerSlots.h" />
+    <ClInclude Include="game\ui\HealthBar.h" />
+    <ClInclude Include="game\ui\PlayerUi.h" />
     <ClInclude Include="util\Regulator.h" />
     <ClInclude Include="system\GlobalRandom.h" />
     <ClInclude Include="system\ContactListener.h" />

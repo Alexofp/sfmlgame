@@ -15,6 +15,14 @@ Player::Player(int nid):Person(nid)
 	inventory.setSize(Vec2i(10, 10));
 	inventory.addItem(Inventory::Item(Vec2i(0, 0), "test"));
 	inventory.addItem(Inventory::Item(Vec2i(0, 2), "ak74"));
+
+	Inventory::ItemInfo info;
+	info.name = "riffle_ammo";
+	info.ammo.count = 90;
+	inventory.addItemAnywhere(Inventory::Item(Vec2i(0, 0), info));
+
+	setWeapon("fists", false);
+	clip = 0;
 	updateInventorySlots();
 }
 
@@ -81,6 +89,37 @@ int Player::getClientId()
 	return clientId;
 }
 
+void Player::reload()
+{
+	if (weapon.info.ammoPerShot == 0)
+		return;
+
+	if (!isReload)
+	{
+		clip = inventory.removeAmmo(getRequiredAmmo(), weapon.info.clipSize);
+
+		if (clip > 0)
+		{
+			isReload = true;
+			reloadTimer = 1.f;
+		
+			Log::debug("I'm reloading");
+		}
+	}
+}
+
+void Player::unloadWeapon()
+{
+	if (clip > 0 && weapon.info.usesAmmo != "")
+	{
+		Inventory::ItemInfo info;
+		info.name = weapon.info.usesAmmo;
+		info.ammo.count = clip;
+		inventory.addItemAnywhere(Inventory::Item(Vec2i(0, 0), info));
+		clip = 0;
+	}
+}
+
 void Player::writeInformation(sf::Packet & packet)
 {
 	packet << getBodyPos();
@@ -139,22 +178,28 @@ PlayerSlots & Player::getInventorySlots()
 
 void Player::updateInventorySlots()
 {
-	Inventory::ItemInfo weapon = inventorySlots.getWeapon();
+	Inventory::ItemInfo weaponSlotInfo = inventorySlots.getWeapon();
 
-	if (weapon.name == "")
+	if (weaponSlotInfo.name == "")
 	{
+		unloadWeapon();
 		setWeapon("fists");
 	}
 	else
 	{
-		ItemManager::Item info = ItemManager::getItem(weapon.name);
+		ItemManager::Item info = ItemManager::getItem(weaponSlotInfo.name);
 		if (info.type != "weapon" || info.weaponType == "")
 		{
+			unloadWeapon();
 			setWeapon("fists");
 		}
 		else
 		{
-			setWeapon(info.weaponType);
+			if (getWeaponName() != info.weaponType)
+			{
+				unloadWeapon();
+				setWeapon(info.weaponType, false);
+			}
 		}
 	}
 

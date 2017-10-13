@@ -67,6 +67,7 @@ void Game::draw()
 
 void Game::drawUI()
 {
+	gameUi.draw();
 	inventoryScreen.draw();
 }
 
@@ -76,6 +77,7 @@ void Game::resizeGui()
 	guiView.setSize(size.toSFMLVec());
 	guiView.setCenter(sf::Vector2f(size.x / 2.f, size.y / 2.f));
 	inventoryScreen.resize();
+	gameUi.resize(guiView);
 }
 
 void Game::handleEvent(sf::Event event)
@@ -129,6 +131,7 @@ sf::Packet Game::getClientInfo()
 void Game::loadPlayer(Player * player)
 {
 	inventoryScreen.setPlayer(player);
+	gameUi.setPlayer(player);
 }
 
 void Game::applyGameInfo(sf::Packet& info)

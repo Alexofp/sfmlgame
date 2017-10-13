@@ -256,6 +256,12 @@
     <ClCompile Include="util\Regulator.cpp">
       <Filter>code\util</Filter>
     </ClCompile>
+    <ClCompile Include="game\ui\HealthBar.cpp">
+      <Filter>code\game\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ui\PlayerUi.cpp">
+      <Filter>code\game\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\Button.h">
@@ -467,6 +473,12 @@
     </ClInclude>
     <ClInclude Include="util\Regulator.h">
       <Filter>code\util</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ui\HealthBar.h">
+      <Filter>code\game\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ui\PlayerUi.h">
+      <Filter>code\game\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

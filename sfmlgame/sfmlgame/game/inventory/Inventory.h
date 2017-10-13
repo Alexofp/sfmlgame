@@ -6,9 +6,23 @@
 class Inventory
 {
 public:
+	struct AmmoInfo
+	{
+		int count;
+	};
+
 	struct ItemInfo
 	{
 		std::string name;
+		ItemManager::Item getInfo()
+		{
+			return ItemManager::getItem(name);
+		}
+
+		union
+		{
+			AmmoInfo ammo;
+		};
 	};
 
 	struct Item
@@ -43,6 +57,8 @@ public:
 	Vec2i getSize();
 	void setSize(Vec2i size);
 	std::vector<Item>& getItems();
+	int getAmmoCount(std::string ammoType);
+	int removeAmmo(std::string ammoType, int ammount);
 
 private:
 	int w;

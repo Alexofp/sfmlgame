@@ -45,6 +45,7 @@ void HumanAi::writeInformation(sf::Packet & packet)
 	packet << getBodySpeed();
 	packet << lookPosition;
 	packet << moveControl;
+	packet << getHealth();
 }
 
 void HumanAi::readInformation(sf::Packet & packet)
@@ -53,14 +54,16 @@ void HumanAi::readInformation(sf::Packet & packet)
 	Vec2f newspeed;
 	Vec2f look;
 	Vec2f control;
+	int newhp;
 
-	packet >> newpos >> newspeed >> look >> control;
+	packet >> newpos >> newspeed >> look >> control >> newhp;
 
 	setBodyPos(newpos);
 	speed = newspeed;
 	setBodySpeed(newspeed);
 	lookPosition = look;
 	moveControl = control;
+	health = newhp;
 }
 
 void HumanAi::writeSpawn(sf::Packet & packet)

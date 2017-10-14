@@ -11,6 +11,7 @@ void Settings::defaults()
 	setBool("window", "fullscreen", false);
 	setBool("render", "debug", true);
 	setBool("render", "debugServer", false);
+	setInt("server", "port", 27345);
 }
 
 Settings::Settings()

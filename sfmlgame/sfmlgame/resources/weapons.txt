@@ -9,7 +9,7 @@
 		"walkAnimation": "person_walk",
 		"baseDamage": 40,
 		"damagePerLevelPercent": 0,
-		"attackSpeed": 1,
+		"attackSpeed": 0.5,
 		"autoFire": true,
 		"usesAmmo": "",
 		"clipSize": 0,

@@ -4,9 +4,9 @@
 #include "HumanAi.h"
 #include "Settings.h"
 
-GameServer::GameServer()
+GameServer::GameServer(int port)
 {
-	Server::listen();
+	Server::listen(port);
 	Server::setGetInfo([&]() { return this->getGameInfo(); });
 	Server::setOnNewPlayer([&](ClientInformation& id) { this->serverPlayerConnected(id); });
 	Server::setOnPacket([&](ClientInformation& info, Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacketServer(info, type, packet); });

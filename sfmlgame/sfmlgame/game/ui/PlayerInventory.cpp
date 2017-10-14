@@ -66,6 +66,7 @@ void PlayerInventory::update(float dt)
 	{
 		updateTimer = 1.f;
 		panel.updatePanel();
+		weaponSlot.setItem(player->getInventorySlots().getWeapon());
 	}
 
 	if (button1.isClicked())

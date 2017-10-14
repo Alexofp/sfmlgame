@@ -16,7 +16,7 @@ class GameServer :
 	public State
 {
 public:
-	GameServer();
+	GameServer(int port);
 	~GameServer();
 
 	void update(float dt);

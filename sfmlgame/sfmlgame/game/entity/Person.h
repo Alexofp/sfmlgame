@@ -42,6 +42,8 @@ public:
 	int getClipSize();
 	std::string getRequiredAmmo();
 
+	virtual void onRevive();
+
 protected:
 	AnimatedSkeleton skeleton;
 	AnimatedSkeleton legsskeleton;
@@ -58,5 +60,6 @@ protected:
 	int clip;
 	bool isReload;
 	float reloadTimer;
+	float deathTimer;
 };
 

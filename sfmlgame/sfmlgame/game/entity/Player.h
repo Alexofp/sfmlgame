@@ -33,6 +33,8 @@ public:
 
 	PlayerSlots& getInventorySlots();
 	void updateInventorySlots();
+
+	void onRevive();
 private:
 	bool isRemote;
 	int clientId;

@@ -93,10 +93,10 @@ int Application::run()
 	return 0;
 }
 
-void Application::startServer()
+void Application::startServer(int port)
 {
 	isServer = true;
-	server.reset(new GameServer());
+	server.reset(new GameServer(port));
 }
 
 void Application::stopServer()

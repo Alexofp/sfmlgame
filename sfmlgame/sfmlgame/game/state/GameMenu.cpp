@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "AnimationEditor.h"
 #include "MapEditor.h"
+#include "Settings.h"
 
 GameMenu::GameMenu()
 {
@@ -94,9 +95,9 @@ void GameMenu::onConnectButton(Button * sender, MouseDownEvent event)
 	}, SimpleGuiWindow::Style::OkCancel);
 
 	window->OnOk([&](std::unordered_map<std::string, SimpleGuiWindow::Result>& results) {
-		std::string ip = Util::wStrToStr(results["load"].editBox.text);
+		std::string ip = Util::wStrToStr(results["ip"].editBox.text);
 
-		pushState(new Game(ip));
+		pushState(new Game(ip, Settings::getInt("server", "port", 27345)));
 		return true;
 	});
 	gui.add(window);
@@ -104,8 +105,8 @@ void GameMenu::onConnectButton(Button * sender, MouseDownEvent event)
 
 void GameMenu::onHostButton(Button * sender, MouseDownEvent event)
 {
-	app->startServer();
-	pushState(new Game());
+	app->startServer(Settings::getInt("server", "port", 27345));
+	pushState(new Game("127.0.0.1", Settings::getInt("server", "port", 27345)));
 }
 
 void GameMenu::onAnimButton(Button * sender, MouseDownEvent event)

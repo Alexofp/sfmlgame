@@ -53,6 +53,7 @@ public:
 	bool addItem(ItemInfo item);
 	Item* getItem(int index);
 	bool removeItem(int index);
+	void clear();
 
 	Vec2i getSize();
 	void setSize(Vec2i size);

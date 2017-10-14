@@ -22,7 +22,7 @@ class Game :
 	public State
 {
 public:
-	Game(std::string ip = "127.0.0.1");
+	Game(std::string ip = "127.0.0.1", int port = 27345);
 	~Game();
 
 	void update(float dt);

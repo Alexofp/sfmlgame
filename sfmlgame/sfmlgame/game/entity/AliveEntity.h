@@ -21,6 +21,9 @@ public:
 
 	virtual void handleEvent(int fromId, std::string type, sf::Packet& packet);
 	virtual void onDeath();
+	bool isAlive();
+	void revive();
+	virtual void onRevive();
 	void drawHealthBar();
 
 	int getHealth();
@@ -33,6 +36,7 @@ protected:
 	Vec2f targetSpeed;
 	int health;
 	int maxHealth;
+	bool alive;
 
 	HealthBar healthBar;
 };

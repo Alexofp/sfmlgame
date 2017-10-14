@@ -32,6 +32,8 @@ void PlayerUi::draw()
 {
 	if (player == 0)
 		return;
+	if (!player->isAlive())
+		return;
 
 	if (player->isReloading())
 	{

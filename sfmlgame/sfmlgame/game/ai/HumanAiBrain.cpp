@@ -25,7 +25,7 @@ void HumanAiBrain::update(float dt)
 	}
 	bot->moveTo(targetPos);
 
-	if (rand() % 100 > 98)
+	if (rand() % 100 > 60)
 		bot->attack();
 
 	bot->lookAt(targetPos);

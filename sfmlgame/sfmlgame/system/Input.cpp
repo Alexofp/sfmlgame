@@ -44,6 +44,10 @@ void Input::update()
 
 bool Input::getMouse(MouseButton b)
 {
+	if (!GameWindow::isFocused())
+	{
+		return false;
+	}
 	return sf::Mouse::isButtonPressed((sf::Mouse::Button)b);
 }
 

@@ -3,6 +3,9 @@
         "debug": false,
         "debugServer": true
     },
+    "server": {
+        "port": 25565
+    },
     "window": {
         "fullscreen": false,
         "size": [

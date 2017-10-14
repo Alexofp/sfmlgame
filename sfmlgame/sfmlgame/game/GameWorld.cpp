@@ -1,6 +1,6 @@
 #include "GameWorld.h"
-
-
+#include "TextureManager.h"
+#include "GameWindow.h"
 
 GameWorld::GameWorld():
 	objects(this)
@@ -44,6 +44,12 @@ void GameWorld::draw()
 {
 	terrain.draw();
 	objects.drawShadow();
+
+	for (auto& shape : tombstones)
+	{
+		GameWindow::getInternalHandle().draw(shape);
+	}
+
 	objects.draw();
 	for (auto& entity : entities)
 	{
@@ -133,4 +139,14 @@ void GameWorld::bulletsClearDestroyed()
 	});
 
 	bullets.erase(new_end, bullets.end());
+}
+
+void GameWorld::tombstone(Vec2f pos)
+{
+	sf::RectangleShape shape;
+	shape.setTexture(TextureManager::get("tex_tombstone"));
+	shape.setPosition(pos.toSFMLVec());
+	shape.setSize(sf::Vector2f(120.f, 120.f));
+	shape.setOrigin(shape.getSize() / 2.f);
+	tombstones.push_back(shape);
 }

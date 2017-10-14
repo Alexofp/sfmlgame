@@ -120,6 +120,11 @@ bool Inventory::removeItem(int index)
 	return true;
 }
 
+void Inventory::clear()
+{
+	items.clear();
+}
+
 Vec2i Inventory::getSize()
 {
 	return Vec2i(w,h);

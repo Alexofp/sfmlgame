@@ -10,11 +10,11 @@
 #include "HumanAi.h"
 #include "Application.h"
 
-Game::Game(std::string ip):State()
+Game::Game(std::string ip, int port):State()
 {
 	world.loadMap("map1");
 
-	Client::connect("127.0.0.1");
+	Client::connect(ip, port);
 	Client::setOnGameInfo([&](sf::Packet& packet) { this->applyGameInfo(packet); });
 	Client::setOnPacket([&](Server::MESSAGE_TYPE type, sf::Packet& packet) { return this->handlePacket(type, packet); });
 

@@ -49,6 +49,9 @@ void Person::init()
 
 void Person::draw()
 {
+	if (!isAlive())
+		return;
+
 	legsskeleton.draw();
 	skeleton.draw();
 	if (Settings::getBool("render", "debug", false))
@@ -59,6 +62,19 @@ void Person::draw()
 
 void Person::updateSkeleton(float dt)
 {
+	if (!isAlive())
+	{
+		deathTimer -= dt;
+		if (deathTimer <= 0.f)
+		{
+			revive();
+		}
+		else
+		{
+			return;
+		}
+	}
+
 	legsskeleton.update(dt);
 	legsskeleton.setPos(getPos());
 
@@ -134,6 +150,9 @@ void Person::updateSkeleton(float dt)
 
 void Person::setWeapon(std::string name, bool fullClip)
 {
+	if (name == "")
+		return;
+
 	WeaponData weapon;
 	weapon.name = name;
 	weapon.info = WeaponManager::getWeapon(name);
@@ -150,6 +169,14 @@ void Person::setWeapon(std::string name, bool fullClip)
 
 	if(fullClip)
 		clip = weapon.info.clipSize;
+
+	//doesnt work
+	/*if (broadcast)
+	{
+		NetEvent event(getNid(), getNid(), "setWeapon");
+		event.data << name;
+		sendEvent(event);
+	}*/
 }
 
 std::string Person::getWeaponName()
@@ -194,6 +221,8 @@ std::string Person::getCurrentAnimation()
 
 void Person::attack()
 {
+	if (!isAlive())
+		return;
 	if (attackTimer > 0.0)
 		return;
 	if (isReload)
@@ -308,11 +337,22 @@ void Person::handleEvent(int fromId, std::string type, sf::Packet & packet)
 			}
 		}
 	}
+
+	//doesnt work
+	/*if (type == "setWeapon" && fromId == getNid())
+	{
+		std::string weaponName;
+		packet >> weaponName;
+		setWeapon(weaponName, false, false);
+	}*/
 }
 
 void Person::onDeath()
 {
-	skeleton.setScale( 0.f );
+	//skeleton.setScale( 0.f );
+	world->tombstone(getPos());
+
+	deathTimer = 3.f;
 }
 
 bool Person::canShoot()
@@ -355,4 +395,8 @@ int Person::getClipSize()
 std::string Person::getRequiredAmmo()
 {
 	return weapon.info.usesAmmo;
+}
+
+void Person::onRevive()
+{
 }

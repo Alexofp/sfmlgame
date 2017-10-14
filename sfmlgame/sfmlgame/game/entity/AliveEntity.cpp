@@ -13,6 +13,7 @@ AliveEntity::AliveEntity(int nid) :PhysicsEntity(nid)
 	Vec2f targetSpeed = Vec2f();
 	health = 100;
 	maxHealth = 100;
+	alive = true;
 }
 
 
@@ -50,14 +51,31 @@ void AliveEntity::handleEvent(int fromId, std::string type, sf::Packet & packet)
 	if (type == "hurt")
 	{
 		health -= 34;
-		if (health <= 0)
+		if (health <= 0 && alive)
 		{
+			alive = false;
 			onDeath();
 		}
 	}
 }
 
 void AliveEntity::onDeath()
+{
+}
+
+bool AliveEntity::isAlive()
+{
+	return alive;
+}
+
+void AliveEntity::revive()
+{
+	alive = true;
+	health = maxHealth;
+	onRevive();
+}
+
+void AliveEntity::onRevive()
 {
 }
 

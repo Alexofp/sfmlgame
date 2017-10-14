@@ -5,6 +5,7 @@
 #include "GameWindow.h"
 #include "Settings.h"
 #include "AnimationManager.h"
+#include "Server.h"
 
 Player::Player(int nid):Person(nid)
 {
@@ -18,7 +19,7 @@ Player::Player(int nid):Person(nid)
 
 	Inventory::ItemInfo info;
 	info.name = "riffle_ammo";
-	info.ammo.count = 90;
+	info.ammo.count = 330;
 	inventory.addItemAnywhere(Inventory::Item(Vec2i(0, 0), info));
 
 	setWeapon("fists", false);
@@ -126,6 +127,8 @@ void Player::writeInformation(sf::Packet & packet)
 	packet << getBodySpeed();
 	packet << lookPosition;
 	packet << moveControl;
+	packet << getWeaponName();
+	packet << getHealth();
 }
 
 void Player::readInformation(sf::Packet & packet)
@@ -134,8 +137,10 @@ void Player::readInformation(sf::Packet & packet)
 	Vec2f newspeed;
 	Vec2f look;
 	Vec2f control;
+	std::string weaponName;
+	int newhp;
 
-	packet >> newpos >> newspeed >> look >> control;
+	packet >> newpos >> newspeed >> look >> control >> weaponName >> newhp;
 
 	if (isRemote)
 	{
@@ -144,6 +149,9 @@ void Player::readInformation(sf::Packet & packet)
 		setBodySpeed(newspeed);
 		lookPosition = look;
 		moveControl = control;
+		if (getWeaponName() != weaponName)
+			setWeapon(weaponName);
+		health = newhp;
 	}
 }
 
@@ -178,6 +186,9 @@ PlayerSlots & Player::getInventorySlots()
 
 void Player::updateInventorySlots()
 {
+	if (Server::isInServer())
+		return;
+
 	Inventory::ItemInfo weaponSlotInfo = inventorySlots.getWeapon();
 
 	if (weaponSlotInfo.name == "")
@@ -204,4 +215,25 @@ void Player::updateInventorySlots()
 	}
 
 
+}
+
+void Player::onRevive()
+{
+	inventory.clear();
+	inventorySlots.clearWeapon();
+
+	inventory.setSize(Vec2i(10, 10));
+	inventory.addItem(Inventory::Item(Vec2i(0, 0), "test"));
+
+	Inventory::ItemInfo info;
+	info.name = "riffle_ammo";
+	info.ammo.count = 300;
+	inventory.addItemAnywhere(Inventory::Item(Vec2i(0, 0), info));
+
+	Inventory::ItemInfo wep;
+	wep.name = "ak74";
+	inventorySlots.setWeapon(wep);
+
+	setWeapon("ak74", true);
+	updateInventorySlots();
 }

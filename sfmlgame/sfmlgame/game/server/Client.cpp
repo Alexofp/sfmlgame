@@ -15,7 +15,9 @@ Client::~Client()
 void Client::connect(std::string address, int port)
 {
 	Client& client = get();
+	Log::debug("[client] Connecting to " + address + ":" + std::to_string(port));
 	sf::Socket::Status status = client.socket.connect(address, port);
+	Log::debug("[client] Status code " + std::to_string(status));
 	if (status != sf::Socket::Done)
 	{
 		Log::err("[client] Error while connecting");
